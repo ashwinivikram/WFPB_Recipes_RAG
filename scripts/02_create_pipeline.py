@@ -4,10 +4,10 @@
 Builds and validates the WFPB Recipe RAG indexing pipeline.
 
 Pipeline stages:
-    1. Extract  — PDF pages → PNG images (PyMuPDF)
-    2. Transform — PNG images → structured JSON (Gemini Vision API)
-    3. Embed    — JSON text → vectors (BAAI/bge-large-en-v1.5 via FastEmbed)
-    4. Validate — Spot-check extraction and embedding quality
+    1. Extract   PDF pages  PNG images (PyMuPDF)
+    2. Transform  PNG images  structured JSON (Gemini Vision API)
+    3. Embed     JSON text  vectors (BAAI/bge-large-en-v1.5 via FastEmbed)
+    4. Validate  Spot-check extraction and embedding quality
 
 Run this BEFORE 03_run_indexing.py to confirm the pipeline works
 on a single document before processing all PDFs.
@@ -35,7 +35,7 @@ from google.genai import types as genai_types
 from fastembed import TextEmbedding # BAAI/bge-large-en-v1.5
 from dotenv import load_dotenv
 
-# ── Load environment variables ────────────────────────────────────────────────
+#  Load environment variables 
 load_dotenv()
 
 GOOGLE_API_KEY   = os.getenv("GOOGLE_API_KEY")
@@ -43,15 +43,15 @@ FASTEMBED_MODEL  = os.getenv("FASTEMBED_MODEL", "BAAI/bge-large-en-v1.5")
 EMBEDDING_DIM    = int(os.getenv("EMBEDDING_DIMENSION", "1024"))
 BATCH_SIZE       = int(os.getenv("FASTEMBED_BATCH_SIZE", "32"))
 
-# ── Paths ─────────────────────────────────────────────────────────────────────
+#  Paths 
 PROJECT_ROOT   = Path(__file__).parent.parent
 DATA_RAW       = PROJECT_ROOT / "data" / "raw"
 DATA_IMAGES    = PROJECT_ROOT / "data" / "raw" / "images"
 DATA_PROCESSED = PROJECT_ROOT / "data" / "processed"
-DPI            = 200  # Resolution for PDF → image conversion
+DPI            = 200  # Resolution for PDF  image conversion
 
 
-# ── Gemini Vision extraction prompt ───────────────────────────────────────────
+#  Gemini Vision extraction prompt 
 EXTRACTION_PROMPT = """
 You are extracting recipe information from a Whole Food Plant-Based (WFPB) recipe card image.
 The recipe card is from Thankful2Plants.com by Gurmeet Manku.
@@ -94,7 +94,7 @@ Important rules:
 """
 
 
-# ── Stage 1: PDF → Images ─────────────────────────────────────────────────────
+#  Stage 1: PDF  Images 
 def extract_images_from_pdf(pdf_path: Path, output_dir: Path, dpi: int = DPI) -> list[Path]:
     """
     Extract each page of a PDF as a PNG image.
@@ -111,7 +111,7 @@ def extract_images_from_pdf(pdf_path: Path, output_dir: Path, dpi: int = DPI) ->
     image_paths = []
 
     doc = fitz.open(pdf_path)
-    print(f"  [Extract] {pdf_path.name} — {len(doc)} pages")
+    print(f"  [Extract] {pdf_path.name}  {len(doc)} pages")
 
     for page_num in range(len(doc)):
         page = doc[page_num]
@@ -130,7 +130,7 @@ def extract_images_from_pdf(pdf_path: Path, output_dir: Path, dpi: int = DPI) ->
     return image_paths
 
 
-# ── Stage 2: Image → Structured JSON (Gemini Vision) ─────────────────────────
+#  Stage 2: Image  Structured JSON (Gemini Vision) 
 def extract_recipe_from_image(
     image_path: Path,
     model,
@@ -175,7 +175,7 @@ def extract_recipe_from_image(
 
     recipe_data = json.loads(raw_text)
 
-    # ── Enrich with metadata ──────────────────────────────────────────────────
+    #  Enrich with metadata 
     pdf_stem = Path(pdf_name).stem
     recipe_id = f"{pdf_stem}_page_{page_number:03d}"
 
@@ -187,8 +187,8 @@ def extract_recipe_from_image(
     recipe_data["extraction_date"] = datetime.now().strftime("%Y-%m-%d")
     recipe_data["image_path"]     = str(image_path)
 
-    # ── Build the text field used for embedding ───────────────────────────────
-    # This is what gets embedded — combine recipe name, creator,
+    #  Build the text field used for embedding 
+    # This is what gets embedded  combine recipe name, creator,
     # all ingredients, and instructions into one searchable text block
     recipe_data["text"] = build_embedding_text(recipe_data)
 
@@ -231,12 +231,12 @@ def build_embedding_text(recipe: dict) -> str:
     return "\n".join(parts)
 
 
-# ── Stage 3: Text → Embeddings (FastEmbed) ────────────────────────────────────
+#  Stage 3: Text  Embeddings (FastEmbed) 
 def create_embedding_model() -> TextEmbedding:
     """
     Initialize the FastEmbed embedding model.
     BAAI/bge-large-en-v1.5 produces 1024-dimensional vectors.
-    First run will download the model (~1.2GB) — subsequent runs use cache.
+    First run will download the model (~1.2GB)  subsequent runs use cache.
     """
     print(f"  [Embed] Loading model: {FASTEMBED_MODEL}")
     model = TextEmbedding(model_name=FASTEMBED_MODEL)
@@ -259,7 +259,7 @@ def embed_text(text: str, model: TextEmbedding) -> list[float]:
     return embeddings[0].tolist()
 
 
-# ── Save processed recipe ─────────────────────────────────────────────────────
+#  Save processed recipe 
 def save_processed_recipe(recipe: dict, output_dir: Path):
     """
     Save extracted and enriched recipe JSON to data/processed/.
@@ -274,7 +274,7 @@ def save_processed_recipe(recipe: dict, output_dir: Path):
     return output_path
 
 
-# ── Validation ────────────────────────────────────────────────────────────────
+#  Validation 
 def validate_extraction(recipe: dict) -> list[str]:
     """
     Check extracted recipe for common quality issues.
@@ -283,20 +283,20 @@ def validate_extraction(recipe: dict) -> list[str]:
     warnings = []
 
     if not recipe.get("recipe_name"):
-        warnings.append("Missing recipe_name — may be a non-recipe page (cover, TOC)")
+        warnings.append("Missing recipe_name  may be a non-recipe page (cover, TOC)")
 
     if not recipe.get("creator"):
         warnings.append("Missing creator name")
 
     if not recipe.get("all_ingredients_flat"):
-        warnings.append("No ingredients extracted — check image quality")
+        warnings.append("No ingredients extracted  check image quality")
 
     if not recipe.get("instructions"):
-        warnings.append("No instructions extracted — card may be image-only")
+        warnings.append("No instructions extracted  card may be image-only")
 
     text_len = len(recipe.get("text", ""))
     if text_len < 50:
-        warnings.append(f"Very short embedding text ({text_len} chars) — extraction may have failed")
+        warnings.append(f"Very short embedding text ({text_len} chars)  extraction may have failed")
 
     return warnings
 
@@ -309,12 +309,12 @@ def validate_embedding(embedding: list[float]) -> list[str]:
         warnings.append(f"Wrong embedding dimension: got {len(embedding)}, expected {EMBEDDING_DIM}")
 
     if all(v == 0.0 for v in embedding):
-        warnings.append("All-zero embedding — model may have failed silently")
+        warnings.append("All-zero embedding  model may have failed silently")
 
     return warnings
 
 
-# ── Pipeline: single page ─────────────────────────────────────────────────────
+#  Pipeline: single page 
 def run_pipeline_single_page(pdf_path: Path) -> dict:
     """
     Run the full pipeline on the FIRST page of a PDF.
@@ -322,7 +322,7 @@ def run_pipeline_single_page(pdf_path: Path) -> dict:
 
     Returns dict with 'recipe', 'embedding', 'warnings'
     """
-    print(f"\n── Running pipeline on: {pdf_path.name} (page 1 only) ──")
+    print(f"\n Running pipeline on: {pdf_path.name} (page 1 only) ")
 
     # Stage 1: Extract image
     pdf_stem   = pdf_path.stem
@@ -374,7 +374,7 @@ def run_pipeline_single_page(pdf_path: Path) -> dict:
         for w in embedding_warnings:
             print(f"  [WARN] {w}")
     else:
-        print(f"  [OK] Embedding generated — dimension: {len(embedding)}")
+        print(f"  [OK] Embedding generated  dimension: {len(embedding)}")
 
     # Save processed recipe
     processed_dir = DATA_PROCESSED / pdf_stem
@@ -388,16 +388,16 @@ def run_pipeline_single_page(pdf_path: Path) -> dict:
     }
 
 
-# ── Print validation report ───────────────────────────────────────────────────
+#  Print validation report 
 def print_validation_report(result: dict):
     """Display a human-readable summary of pipeline validation."""
     if not result:
-        print("\n[FAIL] Pipeline validation failed — see errors above.")
+        print("\n[FAIL] Pipeline validation failed  see errors above.")
         return
 
     recipe = result["recipe"]
 
-    print("\n── Validation Report ────────────────────────────────")
+    print("\n Validation Report ")
     print(f"  Recipe name : {recipe.get('recipe_name', 'NOT FOUND')}")
     print(f"  Creator     : {recipe.get('creator', 'NOT FOUND')}")
     print(f"  Category    : {recipe.get('category', 'NOT FOUND')}")
@@ -409,25 +409,25 @@ def print_validation_report(result: dict):
     if result["warnings"]:
         print("\n  Warnings:")
         for w in result["warnings"]:
-            print(f"    ⚠ {w}")
+            print(f"     {w}")
 
-    print("\n── Embedding text preview ───────────────────────────")
+    print("\n Embedding text preview ")
     preview = recipe.get("text", "")[:300]
     print(f"  {preview}...")
-    print("─────────────────────────────────────────────────────")
+    print("")
 
     if not result["warnings"]:
         print("\n[PASS] Pipeline validation successful.")
         print("       Ready to run: python 03_run_indexing.py --test")
     else:
-        print("\n[WARN] Pipeline ran with warnings — review before full indexing.")
+        print("\n[WARN] Pipeline ran with warnings  review before full indexing.")
 
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+#  Main 
 def main():
-    print("\n=== 02_create_pipeline.py — WFPB Recipe Pipeline Validation ===\n")
+    print("\n=== 02_create_pipeline.py  WFPB Recipe Pipeline Validation ===\n")
 
-    # ── Parse arguments ───────────────────────────────────────────────────────
+    #  Parse arguments 
     parser = argparse.ArgumentParser(description="Validate the WFPB RAG indexing pipeline")
     parser.add_argument(
         "--pdf",
@@ -437,13 +437,13 @@ def main():
     )
     args = parser.parse_args()
 
-    # ── Validate environment ──────────────────────────────────────────────────
+    #  Validate environment 
     if not GOOGLE_API_KEY:
         print("[ERROR] GOOGLE_API_KEY not set in .env")
         sys.exit(1)
     print("[OK] Environment variables loaded.")
 
-    # ── Locate PDF ────────────────────────────────────────────────────────────
+    #  Locate PDF 
     if args.pdf:
         pdf_path = DATA_RAW / args.pdf
         if not pdf_path.exists():
@@ -458,11 +458,11 @@ def main():
         pdf_path = sorted(pdfs)[0]
         print(f"[INFO] No --pdf specified. Using: {pdf_path.name}")
 
-    # ── Ensure output directories exist ──────────────────────────────────────
+    #  Ensure output directories exist 
     DATA_IMAGES.mkdir(parents=True, exist_ok=True)
     DATA_PROCESSED.mkdir(parents=True, exist_ok=True)
 
-    # ── Run pipeline on single page ───────────────────────────────────────────
+    #  Run pipeline on single page 
     result = run_pipeline_single_page(pdf_path)
     print_validation_report(result)
 

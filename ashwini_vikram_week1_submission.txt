@@ -1,7 +1,6 @@
 Directory structure:
 └── AshwiniVikramWeek1/
     ├── README.md
-    ├── context.md
     ├── pyproject.toml
     ├── submission.md
     ├── .gitingestignore
@@ -10,8 +9,7 @@ Directory structure:
     ├── data/
     │   └── README.md
     ├── docs/
-    │   ├── scoping.md
-    │   └── week1_submission_guidelines.md
+    │   └── scoping.md
     ├── scripts/
     │   ├── 01_setup_qdrant.py
     │   ├── 02_create_pipeline.py
@@ -123,12 +121,6 @@ GOOGLE_API_KEY              # Google AI Studio API key
 - **[docs/scoping.md](docs/scoping.md)** — Problem statement, design decisions, and Week 1 scope
 - **[analysis/data_quality_notes.md](analysis/data_quality_notes.md)** — Pre- and post-indexing data quality observations
 
-
-
-================================================
-FILE: context.md
-================================================
-[Binary file]
 
 
 ================================================
@@ -299,6 +291,8 @@ prequalify.py
 ashwini_vikram_week1_submission.txt
 .env
 .env.example
+docs/week1_submission_guidelines.md
+context.md
 
 
 
@@ -996,398 +990,159 @@ serve as the baseline against which Week 2 chunking experiments are compared.
 
 
 ================================================
-FILE: docs/week1_submission_guidelines.md
-================================================
-# Week 1 Capstone Submission Guidelines
-
-This document walks you through everything you need to submit for your Week 1 capstone deliverable. Follow it step by step.
-
----
-
-## Your Week 1 Directory Structure
-
-Your capstone repo should have a `week-1/` directory with this structure:
-
-```
-my-capstone/
-└── week-1/
-    ├── submission.md              # Required: your submission document
-    ├── docs/
-    │   └── scoping.md             # Required: problem scoping (IDENTIFY/QUALIFY/DEFINE/SCOPE)
-    ├── scripts/
-    │   ├── 01_setup_qdrant.py     # Required: your adapted scripts
-    │   ├── 02_create_pipeline.py
-    │   ├── 03_run_indexing.py
-    │   ├── 04_test_rag_system.py
-    │   └── 05_interactive_rag.py
-    ├── data/
-    │   ├── raw/                   # Your source data (excluded from submission)
-    │   ├── processed/             # Cleaned data (excluded from submission)
-    │   └── README.md              # Required: data sourcing documentation
-    ├── traces/
-    │   └── trace.md               # Required: at least 5 traced queries
-    ├── analysis/
-    │   └── data_quality_notes.md  # Required: corpus analysis findings
-    └── .gitingestignore        # Required: tells gitingest what to skip
-```
-
----
-
-## Step 1: Problem Scoping
-
-Create `week-1/docs/scoping.md` with the following sections. Each section is required.
-
-### IDENTIFY
-
-- What specific problem are you solving?
-- Who experiences this problem?
-- What capability level are you targeting? (L1: FAQ, L2: Document QA, L3: Task copilot, L4: Agentic)
-
-Write a problem statement in one sentence. Not "I want to build a chatbot." Something like: "Engineers on my team spend 30+ minutes searching for integration examples across 200+ pages of API docs."
-
-### QUALIFY
-
-Answer each of these:
-
-- Is the corpus too large for a single context window?
-- Does semantic search add value over keyword matching?
-- Does source attribution matter?
-- Is the content domain-specific or proprietary?
-
-If you answered yes to most, RAG is appropriate. If not, explain why you're still choosing RAG.
-
-### DEFINE
-
-Set initial success targets:
-
-- Accuracy: what percentage of answers should be correct?
-- Coverage: what percentage of expected questions should be answerable?
-- Latency: what response time is acceptable?
-
-For a Week 1 baseline, 60-70% accuracy and 50% coverage is reasonable. You will improve these in later weeks.
-
-### SCOPE
-
-- How many documents are you indexing?
-- What formats (markdown, HTML, PDF, code, etc.)?
-- How often does the data change?
-- What is the data quality like?
-- Who owns the data?
-
----
-
-## Step 2: Source and Document Your Data
-
-Create `week-1/data/README.md` documenting:
-
-1. **Where the data came from.** URLs, APIs, internal systems, manual collection.
-2. **How you extracted it.** Firecrawl, BeautifulSoup, gitingest, API calls, manual download.
-3. **What preprocessing you applied.** Noise removal, format normalization, filtering, metadata enrichment.
-4. **What you filtered out and why.** Lock files, configs, navigation elements, duplicates, low-quality pages.
-5. **Final corpus stats.** Number of documents, total size, format breakdown.
-
-Put your raw data in `week-1/data/raw/` and processed data in `week-1/data/processed/`. These directories are excluded from submission (too large), but the README documents what's in them.
-
----
-
-## Step 3: Analyze Your Data
-
-Create `week-1/analysis/data_quality_notes.md` with:
-
-### Quantitative
-
-- Total documents and total size
-- Document length distribution (shortest, longest, median)
-- Format breakdown
-- Duplicate count (if any)
-
-### Qualitative
-
-- What topics are well-covered?
-- What topics are missing or sparse?
-- Quality observations: well-structured vs messy content
-- Anything that might affect retrieval (very long docs, very short docs, mixed languages, etc.)
-
-You can use the `data_curation/` scripts from the course to automate parts of this analysis. Adapt `1_analyze_content_quality.py` for your corpus.
-
----
-
-## Step 4: Build Your Pipeline
-
-Adapt the course scripts for your data. Your `week-1/scripts/` should contain:
-
-| Script | What it does |
-|--------|-------------|
-| `01_setup_qdrant.py` | Creates your Qdrant collection with the right schema |
-| `02_create_pipeline.py` | Defines your indexing pipeline (embedder + writer) |
-| `03_run_indexing.py` | Indexes your documents into Qdrant |
-| `04_test_rag_system.py` | Runs a test query to verify the pipeline works |
-| `05_interactive_rag.py` | Interactive mode for exploring your system |
-
-You can rename or restructure these. The requirement is that your pipeline is functional: you can index documents and run queries against them.
-
-### What to change from the course scripts
-
-At minimum:
-- Collection name (your project, not `mcp_phase1_baseline`)
-- Data paths (your data, not the MCP docs)
-- System prompt (your domain, not MCP)
-- Test queries (relevant to your data)
-
----
-
-## Step 5: Generate Traces
-
-Traces are the most important part of your submission. They show you've actually run the system, observed its behavior, and thought about what's working.
-
-Create `week-1/traces/trace.md` with at least 5 queries. For each query, record:
-
-### Trace format
-
-```markdown
-## Query [number]: [your question]
-
-**Question:** [The exact question you asked]
-
-**Retrieved Chunks:**
-1. [source_file] (score: X.XXXX) - [first 80 chars of chunk content]
-2. [source_file] (score: X.XXXX) - [first 80 chars of chunk content]
-3. [source_file] (score: X.XXXX) - [first 80 chars of chunk content]
-...
-
-**Generated Answer:**
-[The full answer from the LLM]
-
-**Assessment:**
-- Retrieval quality: [Good/Partial/Poor] - [why]
-- Answer quality: [Good/Partial/Poor] - [why]
-- Was the right context retrieved? [yes/no/partially]
-- If not, what was missing?
-```
-
-### How to generate traces
-
-**Option A: Retrieve-only mode (recommended for inspecting chunks)**
-
-```bash
-python week-1/scripts/05_interactive_rag.py --retrieve-only
-```
-
-This shows you exactly what chunks the retriever returns without LLM generation. Run your queries, copy the output, and add your assessment.
-
-**Option B: Full RAG mode**
-
-```bash
-python week-1/scripts/05_interactive_rag.py
-```
-
-This runs the full pipeline. Copy the terminal output (query, retrieved chunks, generated answer) and add your assessment.
-
-### What makes good traces
-
-- Mix of query types: factual, conceptual, how-to, comparison
-- At least 1-2 queries where retrieval fails or partially fails
-- Honest assessments (not everything should be "Good")
-- Observations about patterns: what types of queries work, what types struggle
-
----
-
-## Step 6: Write Your Submission Document
-
-Create `week-1/submission.md` using the exact template below. This is what gets graded. Every section is required.
-
-```markdown
-# Week 1 Capstone Submission
-
-## Student Name(s)
-[Full name of each team member, one per line]
-
-## Project Title
-[One-line project title]
-
-## Problem Statement
-[Your one-sentence problem statement from scoping.md]
-
-## Data Overview
-- **Corpus size:** [X documents, Y total size]
-- **Data sources:** [Where you got the data]
-- **Formats:** [markdown, HTML, PDF, etc.]
-- **Domain:** [What the data covers]
-
-## Data Curation Summary
-- **Extraction method:** [How you got the data out of its source]
-- **Preprocessing steps:** [What you cleaned, normalized, filtered]
-- **Key decisions:** [What you chose to include/exclude and why]
-
-## Pipeline Configuration
-- **Vector database:** Qdrant
-- **Collection name:** [your collection name]
-- **Embedding model:** [model name and dimension]
-- **Chunk strategy:** [how documents are chunked — for Week 1 this is likely the default splitter]
-- **LLM:** [model name]
-- **Documents indexed:** [count]
-
-## Trace Summary
-[Summarize your 5+ traces. What worked, what didn't, what patterns you noticed.]
-
-| Query | Retrieval | Answer | Notes |
-|-------|-----------|--------|-------|
-| [query 1 short] | Good/Partial/Poor | Good/Partial/Poor | [brief note] |
-| [query 2 short] | Good/Partial/Poor | Good/Partial/Poor | [brief note] |
-| ... | ... | ... | ... |
-
-## Observations
-- **What types of queries work well?**
-  [Your observations]
-- **What types of queries struggle?**
-  [Your observations]
-- **Is the issue retrieval or generation?**
-  [Your analysis]
-- **What would you improve first?**
-  [Your thinking on what to tackle in Week 2]
-
-## Self-Assessment
-Rate yourself honestly on each:
-
-| Criteria | Score (1-5) | Notes |
-|----------|-------------|-------|
-| Problem scoping clarity | | |
-| Data sourcing and curation | | |
-| Pipeline is functional | | |
-| Trace quality and depth | | |
-| Observations and analysis | | |
-```
-
----
-
-## Step 7: Prepare Your Gitingest Ignore File
-
-Create a `.gitingestignore` file **inside your `week-1/` directory** (not at the repo root). When you run gitingest on a subdirectory, it only reads ignore files from inside that directory.
-
-This uses the same format as `.gitignore`. Gitingest already ignores common patterns by default (`.env`, `__pycache__`, `*.pyc`, `.venv`, `node_modules`, `.git`, `*.pkl`, build artifacts, images, etc.). You only need to add project-specific exclusions:
-
-```
-# week-1/.gitingestignore
-data/raw/
-data/processed/
-*.parquet
-*.csv
-*.npy
-*.bin
-```
-
-This ensures your gitingest output contains only code, documentation, traces, and analysis — the parts that matter for grading.
-
----
-
-## Step 8: Install Gitingest and Generate Your Submission
-
-Gitingest packages your code, docs, and traces into a single text file for submission.
-
-### Install
-
-From your capstone repo root:
-
-```bash
-uv add gitingest
-```
-
-### Generate your submission file
-
-Run this from your capstone repo root (the directory that contains `week-1/`).
-
-**Naming convention:** `firstname_lastname_week1_submission.txt`
-
-Solo:
-```bash
-uv run gitingest week-1/ -o shivani_virdi_week1_submission.txt
-```
-
-Group (use first names of each member separated by underscores):
-```bash
-uv run gitingest week-1/ -o alice_bob_week1_submission.txt
-```
-
-This produces a `.txt` file in your repo root containing your directory tree followed by every included file's contents. Check the terminal output for file count and token estimate.
-
----
-
-## Step 9: Run the Pre-Submission Check
-
-Copy the prequalify script from the course repo into your capstone's `week-1/` directory:
-
-```bash
-cp /path/to/rag-accelerator-code/capstone/week1_prequalify.py week-1/prequalify.py
-```
-
-Then run it from your capstone repo root:
-
-```bash
-uv run python week-1/prequalify.py
-```
-
-This checks:
-- All required files exist
-- `submission.md` has all required sections and full student names
-- `traces/trace.md` has at least 5 queries
-- `.gitingestignore` is present
-- Submission .txt follows naming convention and is between 5KB and 1MB
-- No raw data files leaked into the submission
-- No API keys, tokens, or passwords in the output
-- No binary content or oversized files
-
-Fix any issues it flags before submitting.
-
----
-
-## Step 10: Submit
-
-1. Go to the **#capstone** channel on Discord.
-
-2. Upload your `week-1-submission.txt` file and tag **@Nocto**:
-
-```
-@Nocto Week 1 submission
-```
-
-3. Nocto will review your submission against the rubric and provide initial feedback. An instructor will review and finalize your grade.
-
----
-
-## Grading Rubric
-
-Your Week 1 submission is graded on:
-
-| Criteria | Weight | What we look for |
-|----------|--------|-----------------|
-| **Problem Scoping** | 20% | Specific problem statement, clear IDENTIFY/QUALIFY/DEFINE/SCOPE, appropriate scope for this course |
-| **Data Sourcing and Curation** | 20% | Data is sourced and documented, preprocessing steps are clear, decisions are justified |
-| **Data Analysis** | 15% | Corpus is analyzed quantitatively and qualitatively, findings are documented |
-| **Working Pipeline** | 20% | Pipeline runs, documents are indexed, queries return results |
-| **Traces and Observations** | 25% | At least 5 traced queries with honest assessments, patterns identified, retrieval vs generation issues distinguished |
-
-This is not about perfection. It's about demonstrating that you can scope a problem, source and prepare data, build a working baseline, and critically observe its behavior. The baseline is supposed to have issues — that's what Weeks 2-6 are for.
-
----
-
-## Checklist Before Submitting
-
-- [ ] `week-1/submission.md` is complete (all sections filled)
-- [ ] `week-1/docs/scoping.md` has IDENTIFY, QUALIFY, DEFINE, SCOPE
-- [ ] `week-1/data/README.md` documents sources, extraction, preprocessing
-- [ ] `week-1/analysis/data_quality_notes.md` has quantitative and qualitative findings
-- [ ] `week-1/scripts/` contains your adapted pipeline scripts
-- [ ] `week-1/traces/trace.md` has at least 5 traced queries with assessments
-- [ ] Pipeline is functional (you can run a query and get results)
-- [ ] `.gitingestignore` file exists inside `week-1/` with data exclusions
-- [ ] `gitingest week-1/ -o week-1-submission.txt` produces a clean output under 1MB
-
-
-
-================================================
 FILE: scripts/01_setup_qdrant.py
 ================================================
-[Binary file]
+"""
+01_setup_qdrant.py
+------------------
+Creates the Qdrant collection for the WFPB Recipe RAG system.
+Run this ONCE before any indexing.
+
+Usage:
+    python 01_setup_qdrant.py
+
+Author: Ashwini Vikram
+Project: WFPB Recipe RAG System
+Data Source: Thankful2Plants.com (CC BY-NC-ND 4.0)
+"""
+
+import os
+import sys
+from dotenv import load_dotenv
+from qdrant_client import QdrantClient
+from qdrant_client.models import (
+    Distance,
+    VectorParams,
+    PayloadSchemaType,
+)
+
+#  Load environment variables 
+load_dotenv()
+
+QDRANT_URL        = os.getenv("QDRANT_URL")
+QDRANT_API_KEY    = os.getenv("QDRANT_API_KEY")
+COLLECTION_NAME   = os.getenv("QDRANT_COLLECTION_PHASE1", "WFPB recipes")
+EMBEDDING_DIM     = int(os.getenv("EMBEDDING_DIMENSION", "1024"))
+
+#  Validate environment 
+def validate_env():
+    missing = []
+    if not QDRANT_URL:
+        missing.append("QDRANT_URL")
+    if not QDRANT_API_KEY:
+        missing.append("QDRANT_API_KEY")
+    if missing:
+        print(f"[ERROR] Missing environment variables: {', '.join(missing)}")
+        print("        Copy .env.example to .env and fill in your values.")
+        sys.exit(1)
+    print("[OK] Environment variables loaded.")
+
+
+#  Connect to Qdrant 
+def get_client() -> QdrantClient:
+    client = QdrantClient(
+        url=QDRANT_URL,
+        api_key=QDRANT_API_KEY,
+    )
+    # Verify connection
+    client.get_collections()
+    print(f"[OK] Connected to Qdrant at {QDRANT_URL}")
+    return client
+
+
+#  Check if collection already exists 
+def collection_exists(client: QdrantClient, name: str) -> bool:
+    existing = [c.name for c in client.get_collections().collections]
+    return name in existing
+
+
+#  Create collection 
+def create_collection(client: QdrantClient):
+    """
+    Creates the WFPB recipes collection with:
+    - Vector config: BAAI/bge-large-en-v1.5 embeddings (1024 dimensions, cosine similarity)
+    - Payload indexes: for fast metadata filtering on creator, category, source_pdf
+    """
+
+    if collection_exists(client, COLLECTION_NAME):
+        print(f"[INFO] Collection '{COLLECTION_NAME}' already exists  skipping creation.")
+        print("       To recreate, delete the collection in Qdrant Cloud console first.")
+        return
+
+    #  Create the collection with vector config 
+    client.create_collection(
+        collection_name=COLLECTION_NAME,
+        vectors_config=VectorParams(
+            size=EMBEDDING_DIM,       # 1024 for BAAI/bge-large-en-v1.5
+            distance=Distance.COSINE, # Cosine similarity for semantic search
+        ),
+    )
+    print(f"[OK] Collection '{COLLECTION_NAME}' created.")
+    print(f"     Vector size: {EMBEDDING_DIM} | Distance: COSINE")
+
+    #  Create payload indexes for fast metadata filtering 
+    # These allow queries like:
+    #   "filter by creator = 'Kumar Natarajan'"
+    #   "filter by category = 'Sandwich'"
+    # Without indexes, Qdrant scans all payloads  slow at 2000+ recipes.
+
+    indexes = [
+        ("creator",    PayloadSchemaType.KEYWORD),
+        ("category",   PayloadSchemaType.KEYWORD),
+        ("subcategory",PayloadSchemaType.KEYWORD),
+        ("source_pdf", PayloadSchemaType.KEYWORD),
+    ]
+
+    for field_name, field_type in indexes:
+        client.create_payload_index(
+            collection_name=COLLECTION_NAME,
+            field_name=field_name,
+            field_schema=field_type,
+        )
+        print(f"[OK] Payload index created: '{field_name}' ({field_type.value})")
+
+
+#  Verify collection 
+def verify_collection(client: QdrantClient):
+    """Fetch and display collection info to confirm setup."""
+    info = client.get_collection(COLLECTION_NAME)
+    print("\n Collection Info ")
+    print(f"  Name       : {COLLECTION_NAME}")
+    print(f"  Status     : {info.status}")
+    print(f"  Vector size: {info.config.params.vectors.size}")
+    print(f"  Distance   : {info.config.params.vectors.distance}")
+    print(f"  Points     : {info.points_count}")
+    print("")
+
+
+#  Main 
+def main():
+    print("\n=== 01_setup_qdrant.py  WFPB Recipe RAG Setup ===\n")
+
+    validate_env()
+
+    try:
+        client = get_client()
+    except Exception as e:
+        print(f"[ERROR] Could not connect to Qdrant: {e}")
+        print("        Check your QDRANT_URL and QDRANT_API_KEY in .env")
+        sys.exit(1)
+
+    try:
+        create_collection(client)
+        verify_collection(client)
+    except Exception as e:
+        print(f"[ERROR] Collection setup failed: {e}")
+        sys.exit(1)
+
+    print("\n[DONE] Qdrant setup complete.")
+    print(f"       Collection '{COLLECTION_NAME}' is ready for indexing.")
+    print("       Next step: python 02_create_pipeline.py\n")
+
+
+if __name__ == "__main__":
+    main()
+
 
 
 ================================================
@@ -1399,10 +1154,10 @@ FILE: scripts/02_create_pipeline.py
 Builds and validates the WFPB Recipe RAG indexing pipeline.
 
 Pipeline stages:
-    1. Extract  — PDF pages → PNG images (PyMuPDF)
-    2. Transform — PNG images → structured JSON (Gemini Vision API)
-    3. Embed    — JSON text → vectors (BAAI/bge-large-en-v1.5 via FastEmbed)
-    4. Validate — Spot-check extraction and embedding quality
+    1. Extract   PDF pages  PNG images (PyMuPDF)
+    2. Transform  PNG images  structured JSON (Gemini Vision API)
+    3. Embed     JSON text  vectors (BAAI/bge-large-en-v1.5 via FastEmbed)
+    4. Validate  Spot-check extraction and embedding quality
 
 Run this BEFORE 03_run_indexing.py to confirm the pipeline works
 on a single document before processing all PDFs.
@@ -1430,7 +1185,7 @@ from google.genai import types as genai_types
 from fastembed import TextEmbedding # BAAI/bge-large-en-v1.5
 from dotenv import load_dotenv
 
-# ── Load environment variables ────────────────────────────────────────────────
+#  Load environment variables 
 load_dotenv()
 
 GOOGLE_API_KEY   = os.getenv("GOOGLE_API_KEY")
@@ -1438,15 +1193,15 @@ FASTEMBED_MODEL  = os.getenv("FASTEMBED_MODEL", "BAAI/bge-large-en-v1.5")
 EMBEDDING_DIM    = int(os.getenv("EMBEDDING_DIMENSION", "1024"))
 BATCH_SIZE       = int(os.getenv("FASTEMBED_BATCH_SIZE", "32"))
 
-# ── Paths ─────────────────────────────────────────────────────────────────────
+#  Paths 
 PROJECT_ROOT   = Path(__file__).parent.parent
 DATA_RAW       = PROJECT_ROOT / "data" / "raw"
 DATA_IMAGES    = PROJECT_ROOT / "data" / "raw" / "images"
 DATA_PROCESSED = PROJECT_ROOT / "data" / "processed"
-DPI            = 200  # Resolution for PDF → image conversion
+DPI            = 200  # Resolution for PDF  image conversion
 
 
-# ── Gemini Vision extraction prompt ───────────────────────────────────────────
+#  Gemini Vision extraction prompt 
 EXTRACTION_PROMPT = """
 You are extracting recipe information from a Whole Food Plant-Based (WFPB) recipe card image.
 The recipe card is from Thankful2Plants.com by Gurmeet Manku.
@@ -1489,7 +1244,7 @@ Important rules:
 """
 
 
-# ── Stage 1: PDF → Images ─────────────────────────────────────────────────────
+#  Stage 1: PDF  Images 
 def extract_images_from_pdf(pdf_path: Path, output_dir: Path, dpi: int = DPI) -> list[Path]:
     """
     Extract each page of a PDF as a PNG image.
@@ -1506,7 +1261,7 @@ def extract_images_from_pdf(pdf_path: Path, output_dir: Path, dpi: int = DPI) ->
     image_paths = []
 
     doc = fitz.open(pdf_path)
-    print(f"  [Extract] {pdf_path.name} — {len(doc)} pages")
+    print(f"  [Extract] {pdf_path.name}  {len(doc)} pages")
 
     for page_num in range(len(doc)):
         page = doc[page_num]
@@ -1525,7 +1280,7 @@ def extract_images_from_pdf(pdf_path: Path, output_dir: Path, dpi: int = DPI) ->
     return image_paths
 
 
-# ── Stage 2: Image → Structured JSON (Gemini Vision) ─────────────────────────
+#  Stage 2: Image  Structured JSON (Gemini Vision) 
 def extract_recipe_from_image(
     image_path: Path,
     model,
@@ -1570,7 +1325,7 @@ def extract_recipe_from_image(
 
     recipe_data = json.loads(raw_text)
 
-    # ── Enrich with metadata ──────────────────────────────────────────────────
+    #  Enrich with metadata 
     pdf_stem = Path(pdf_name).stem
     recipe_id = f"{pdf_stem}_page_{page_number:03d}"
 
@@ -1582,8 +1337,8 @@ def extract_recipe_from_image(
     recipe_data["extraction_date"] = datetime.now().strftime("%Y-%m-%d")
     recipe_data["image_path"]     = str(image_path)
 
-    # ── Build the text field used for embedding ───────────────────────────────
-    # This is what gets embedded — combine recipe name, creator,
+    #  Build the text field used for embedding 
+    # This is what gets embedded  combine recipe name, creator,
     # all ingredients, and instructions into one searchable text block
     recipe_data["text"] = build_embedding_text(recipe_data)
 
@@ -1626,12 +1381,12 @@ def build_embedding_text(recipe: dict) -> str:
     return "\n".join(parts)
 
 
-# ── Stage 3: Text → Embeddings (FastEmbed) ────────────────────────────────────
+#  Stage 3: Text  Embeddings (FastEmbed) 
 def create_embedding_model() -> TextEmbedding:
     """
     Initialize the FastEmbed embedding model.
     BAAI/bge-large-en-v1.5 produces 1024-dimensional vectors.
-    First run will download the model (~1.2GB) — subsequent runs use cache.
+    First run will download the model (~1.2GB)  subsequent runs use cache.
     """
     print(f"  [Embed] Loading model: {FASTEMBED_MODEL}")
     model = TextEmbedding(model_name=FASTEMBED_MODEL)
@@ -1654,7 +1409,7 @@ def embed_text(text: str, model: TextEmbedding) -> list[float]:
     return embeddings[0].tolist()
 
 
-# ── Save processed recipe ─────────────────────────────────────────────────────
+#  Save processed recipe 
 def save_processed_recipe(recipe: dict, output_dir: Path):
     """
     Save extracted and enriched recipe JSON to data/processed/.
@@ -1669,7 +1424,7 @@ def save_processed_recipe(recipe: dict, output_dir: Path):
     return output_path
 
 
-# ── Validation ────────────────────────────────────────────────────────────────
+#  Validation 
 def validate_extraction(recipe: dict) -> list[str]:
     """
     Check extracted recipe for common quality issues.
@@ -1678,20 +1433,20 @@ def validate_extraction(recipe: dict) -> list[str]:
     warnings = []
 
     if not recipe.get("recipe_name"):
-        warnings.append("Missing recipe_name — may be a non-recipe page (cover, TOC)")
+        warnings.append("Missing recipe_name  may be a non-recipe page (cover, TOC)")
 
     if not recipe.get("creator"):
         warnings.append("Missing creator name")
 
     if not recipe.get("all_ingredients_flat"):
-        warnings.append("No ingredients extracted — check image quality")
+        warnings.append("No ingredients extracted  check image quality")
 
     if not recipe.get("instructions"):
-        warnings.append("No instructions extracted — card may be image-only")
+        warnings.append("No instructions extracted  card may be image-only")
 
     text_len = len(recipe.get("text", ""))
     if text_len < 50:
-        warnings.append(f"Very short embedding text ({text_len} chars) — extraction may have failed")
+        warnings.append(f"Very short embedding text ({text_len} chars)  extraction may have failed")
 
     return warnings
 
@@ -1704,12 +1459,12 @@ def validate_embedding(embedding: list[float]) -> list[str]:
         warnings.append(f"Wrong embedding dimension: got {len(embedding)}, expected {EMBEDDING_DIM}")
 
     if all(v == 0.0 for v in embedding):
-        warnings.append("All-zero embedding — model may have failed silently")
+        warnings.append("All-zero embedding  model may have failed silently")
 
     return warnings
 
 
-# ── Pipeline: single page ─────────────────────────────────────────────────────
+#  Pipeline: single page 
 def run_pipeline_single_page(pdf_path: Path) -> dict:
     """
     Run the full pipeline on the FIRST page of a PDF.
@@ -1717,7 +1472,7 @@ def run_pipeline_single_page(pdf_path: Path) -> dict:
 
     Returns dict with 'recipe', 'embedding', 'warnings'
     """
-    print(f"\n── Running pipeline on: {pdf_path.name} (page 1 only) ──")
+    print(f"\n Running pipeline on: {pdf_path.name} (page 1 only) ")
 
     # Stage 1: Extract image
     pdf_stem   = pdf_path.stem
@@ -1769,7 +1524,7 @@ def run_pipeline_single_page(pdf_path: Path) -> dict:
         for w in embedding_warnings:
             print(f"  [WARN] {w}")
     else:
-        print(f"  [OK] Embedding generated — dimension: {len(embedding)}")
+        print(f"  [OK] Embedding generated  dimension: {len(embedding)}")
 
     # Save processed recipe
     processed_dir = DATA_PROCESSED / pdf_stem
@@ -1783,16 +1538,16 @@ def run_pipeline_single_page(pdf_path: Path) -> dict:
     }
 
 
-# ── Print validation report ───────────────────────────────────────────────────
+#  Print validation report 
 def print_validation_report(result: dict):
     """Display a human-readable summary of pipeline validation."""
     if not result:
-        print("\n[FAIL] Pipeline validation failed — see errors above.")
+        print("\n[FAIL] Pipeline validation failed  see errors above.")
         return
 
     recipe = result["recipe"]
 
-    print("\n── Validation Report ────────────────────────────────")
+    print("\n Validation Report ")
     print(f"  Recipe name : {recipe.get('recipe_name', 'NOT FOUND')}")
     print(f"  Creator     : {recipe.get('creator', 'NOT FOUND')}")
     print(f"  Category    : {recipe.get('category', 'NOT FOUND')}")
@@ -1804,25 +1559,25 @@ def print_validation_report(result: dict):
     if result["warnings"]:
         print("\n  Warnings:")
         for w in result["warnings"]:
-            print(f"    ⚠ {w}")
+            print(f"     {w}")
 
-    print("\n── Embedding text preview ───────────────────────────")
+    print("\n Embedding text preview ")
     preview = recipe.get("text", "")[:300]
     print(f"  {preview}...")
-    print("─────────────────────────────────────────────────────")
+    print("")
 
     if not result["warnings"]:
         print("\n[PASS] Pipeline validation successful.")
         print("       Ready to run: python 03_run_indexing.py --test")
     else:
-        print("\n[WARN] Pipeline ran with warnings — review before full indexing.")
+        print("\n[WARN] Pipeline ran with warnings  review before full indexing.")
 
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+#  Main 
 def main():
-    print("\n=== 02_create_pipeline.py — WFPB Recipe Pipeline Validation ===\n")
+    print("\n=== 02_create_pipeline.py  WFPB Recipe Pipeline Validation ===\n")
 
-    # ── Parse arguments ───────────────────────────────────────────────────────
+    #  Parse arguments 
     parser = argparse.ArgumentParser(description="Validate the WFPB RAG indexing pipeline")
     parser.add_argument(
         "--pdf",
@@ -1832,13 +1587,13 @@ def main():
     )
     args = parser.parse_args()
 
-    # ── Validate environment ──────────────────────────────────────────────────
+    #  Validate environment 
     if not GOOGLE_API_KEY:
         print("[ERROR] GOOGLE_API_KEY not set in .env")
         sys.exit(1)
     print("[OK] Environment variables loaded.")
 
-    # ── Locate PDF ────────────────────────────────────────────────────────────
+    #  Locate PDF 
     if args.pdf:
         pdf_path = DATA_RAW / args.pdf
         if not pdf_path.exists():
@@ -1853,11 +1608,11 @@ def main():
         pdf_path = sorted(pdfs)[0]
         print(f"[INFO] No --pdf specified. Using: {pdf_path.name}")
 
-    # ── Ensure output directories exist ──────────────────────────────────────
+    #  Ensure output directories exist 
     DATA_IMAGES.mkdir(parents=True, exist_ok=True)
     DATA_PROCESSED.mkdir(parents=True, exist_ok=True)
 
-    # ── Run pipeline on single page ───────────────────────────────────────────
+    #  Run pipeline on single page 
     result = run_pipeline_single_page(pdf_path)
     print_validation_report(result)
 

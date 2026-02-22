@@ -22,7 +22,7 @@ from qdrant_client.models import (
     PayloadSchemaType,
 )
 
-# ── Load environment variables ────────────────────────────────────────────────
+#  Load environment variables 
 load_dotenv()
 
 QDRANT_URL        = os.getenv("QDRANT_URL")
@@ -30,7 +30,7 @@ QDRANT_API_KEY    = os.getenv("QDRANT_API_KEY")
 COLLECTION_NAME   = os.getenv("QDRANT_COLLECTION_PHASE1", "WFPB recipes")
 EMBEDDING_DIM     = int(os.getenv("EMBEDDING_DIMENSION", "1024"))
 
-# ── Validate environment ──────────────────────────────────────────────────────
+#  Validate environment 
 def validate_env():
     missing = []
     if not QDRANT_URL:
@@ -44,7 +44,7 @@ def validate_env():
     print("[OK] Environment variables loaded.")
 
 
-# ── Connect to Qdrant ─────────────────────────────────────────────────────────
+#  Connect to Qdrant 
 def get_client() -> QdrantClient:
     client = QdrantClient(
         url=QDRANT_URL,
@@ -56,13 +56,13 @@ def get_client() -> QdrantClient:
     return client
 
 
-# ── Check if collection already exists ───────────────────────────────────────
+#  Check if collection already exists 
 def collection_exists(client: QdrantClient, name: str) -> bool:
     existing = [c.name for c in client.get_collections().collections]
     return name in existing
 
 
-# ── Create collection ─────────────────────────────────────────────────────────
+#  Create collection 
 def create_collection(client: QdrantClient):
     """
     Creates the WFPB recipes collection with:
@@ -71,11 +71,11 @@ def create_collection(client: QdrantClient):
     """
 
     if collection_exists(client, COLLECTION_NAME):
-        print(f"[INFO] Collection '{COLLECTION_NAME}' already exists — skipping creation.")
+        print(f"[INFO] Collection '{COLLECTION_NAME}' already exists  skipping creation.")
         print("       To recreate, delete the collection in Qdrant Cloud console first.")
         return
 
-    # ── Create the collection with vector config ──────────────────────────────
+    #  Create the collection with vector config 
     client.create_collection(
         collection_name=COLLECTION_NAME,
         vectors_config=VectorParams(
@@ -86,11 +86,11 @@ def create_collection(client: QdrantClient):
     print(f"[OK] Collection '{COLLECTION_NAME}' created.")
     print(f"     Vector size: {EMBEDDING_DIM} | Distance: COSINE")
 
-    # ── Create payload indexes for fast metadata filtering ────────────────────
+    #  Create payload indexes for fast metadata filtering 
     # These allow queries like:
     #   "filter by creator = 'Kumar Natarajan'"
     #   "filter by category = 'Sandwich'"
-    # Without indexes, Qdrant scans all payloads — slow at 2000+ recipes.
+    # Without indexes, Qdrant scans all payloads  slow at 2000+ recipes.
 
     indexes = [
         ("creator",    PayloadSchemaType.KEYWORD),
@@ -108,22 +108,22 @@ def create_collection(client: QdrantClient):
         print(f"[OK] Payload index created: '{field_name}' ({field_type.value})")
 
 
-# ── Verify collection ─────────────────────────────────────────────────────────
+#  Verify collection 
 def verify_collection(client: QdrantClient):
     """Fetch and display collection info to confirm setup."""
     info = client.get_collection(COLLECTION_NAME)
-    print("\n── Collection Info ──────────────────────────────────")
+    print("\n Collection Info ")
     print(f"  Name       : {COLLECTION_NAME}")
     print(f"  Status     : {info.status}")
     print(f"  Vector size: {info.config.params.vectors.size}")
     print(f"  Distance   : {info.config.params.vectors.distance}")
     print(f"  Points     : {info.points_count}")
-    print("─────────────────────────────────────────────────────")
+    print("")
 
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+#  Main 
 def main():
-    print("\n=== 01_setup_qdrant.py — WFPB Recipe RAG Setup ===\n")
+    print("\n=== 01_setup_qdrant.py  WFPB Recipe RAG Setup ===\n")
 
     validate_env()
 
