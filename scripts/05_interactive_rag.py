@@ -41,6 +41,12 @@ import textwrap
 from pathlib import Path
 from datetime import datetime
 
+# Force UTF-8 for standard output/error (fixes 'ascii' codec errors in some terminals)
+if sys.stdout.encoding.lower() != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
+if sys.stderr.encoding.lower() != 'utf-8':
+    sys.stderr.reconfigure(encoding='utf-8')
+
 from google import genai
 from fastembed import TextEmbedding
 from qdrant_client import QdrantClient
@@ -486,7 +492,9 @@ def main():
             )
 
         except Exception as e:
+            import traceback
             print(f"\n  [ERROR] Query failed: {e}\n")
+            traceback.print_exc()
             continue
 
     # ── Save trace on exit ────────────────────────────────────────────────────
