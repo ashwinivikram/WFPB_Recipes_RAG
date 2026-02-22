@@ -1,0 +1,4 @@
+.env
+data/raw/images/ # large extracted images
+__pycache__/
+*.pyc

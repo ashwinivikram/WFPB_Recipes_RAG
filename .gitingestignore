@@ -1,0 +1,44 @@
+# .gitingestignore — Siridhanya RAG Week 1
+# Excludes large files, raw data, and processed artifacts from git ingest
+
+# Raw source documents (PDFs and text files)
+data/raw/
+
+# Processed intermediate files (chunked JSONL, embeddings)
+data/processed/
+
+# Evaluation results (generated at runtime)
+results/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Environment variables (secrets)
+.env
+
+# FastEmbed model cache (downloaded at runtime)
+.fastembed_cache/
+models/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Jupyter notebooks (if any)
+.ipynb_checkpoints/
+
+# Other exclusions
+uv.lock
+prequalify.py
+ashwini_vikram_week1_submission.txt
+.env
+.env.example
