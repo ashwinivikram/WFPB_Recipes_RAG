@@ -1,0 +1,28 @@
+# WhatsApp Chats Ingestion Walkthrough
+
+## 1. Goal
+Add the contents of `WFPB Chats.txt`—a massive 11,540-line log of WhatsApp conversations about Whole Food Plant-Based cooking—to the existing RAG vector database. 
+
+## 2. Approach: Structured Extraction via Gemini 
+Instead of blindly chunking raw chat messages (which lacks the structured metadata the system expects), I wrote a new preprocessing pipeline ([scripts/06_ingest_whatsapp_chats.py](file:///Users/ashwinivikram/AshwiniVikramWeek1/scripts/06_ingest_whatsapp_chats.py)) that acts identically to the PDF processing flow:
+
+1. **Chunking**: The chat log was logically split into overlapping blocks.
+2. **LLM Extraction**: Each block was sent through `gemini-2.5-flash` with a strict JSON schema prompt:
+   - Identify discrete recipes, cooking tips, or major discussions.
+   - Synthesize them across scattered messages.
+   - Output structured metadata matching the PDF schema: `recipe_name`, [creator](file:///Users/ashwinivikram/AshwiniVikramWeek1/scripts/06_ingest_whatsapp_chats.py#48-59), `category`, and detailed [text](file:///Users/ashwinivikram/AshwiniVikramWeek1/scripts/02_create_pipeline.py#247-260).
+3. **Storage**: The script processed all 11k lines, saving individual JSON files to `data/processed/chats/`.
+
+3. **Privacy & PII Protection**: To ensure the safety of group members, the pipeline includes an automatic sanitization layer. Any creator identified as a phone number (e.g., `+1...`) is automatically renamed to `WFPB member` before being stored in the database or reflected in search results.
+
+## 4. Results
+- **Quality**: The LLM successfully consolidated fragmented chats into highly structured recipe cards (e.g., combining a back-and-forth about makhana into a "Tips for Roasting Makhana" entry).
+- **Scale**: Extracted **429** discrete recipes, tips, and technique discussions.
+- **Ingestion**: All 429 points were embedded locally via `BAAI/bge-large-en-v1.5` and successfully upserted into your Qdrant `WFPB recipes` collection.
+
+## 4. How to Test
+You can immediately query these new recipes using your existing interactive scripts. Try querying discussions you remember from the chats!
+```bash
+python scripts/05_interactive_rag.py --retrieve-only
+```
+*(e.g., Ask: "How do I make spices stick to roasted makhana no oil?")*

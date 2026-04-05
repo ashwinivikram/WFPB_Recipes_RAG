@@ -15,7 +15,7 @@
       "carrot",
       "radish",
       "cucumber",
-      "jalapeños"
+      "jalape\u00f1os"
     ],
     "mushrooms": [],
     "nuts_seeds_avocados": [
@@ -35,23 +35,23 @@
       "date sugar"
     ]
   },
-  "all_ingredients_flat": "firm tofu, low sodium soy sauce, carrot, radish, cucumber, rice vinegar, date sugar, Ezekiel 4:9 bread, Cashew Cheese, Sriracha Sauce, jalapeños",
-  "instructions": "1. Press out the liquid in 1 packet firm tofu.\n2. Slice and marinate tofu overnight in low sodium soy sauce.\n3. Bake tofu at 350 for 20-30 mins.\n4. Pickled veggies: marinate carrot, radish and cucumber in rice vinegar with a little date sugar.\n5. Toast a slice of Ezekiel 4:9 bread. Spread Cashew Cheese mixed with Sriracha Sauce. Add baked tofu slices and pickled veggies. Optionally add jalapeños too.",
+  "all_ingredients_flat": "firm tofu, low sodium soy sauce, carrot, radish, cucumber, rice vinegar, date sugar, Ezekiel 4:9 bread, Cashew Cheese, Sriracha Sauce, jalape\u00f1os",
+  "instructions": "1. Press out the liquid in 1 packet firm tofu.\n2. Slice and marinate tofu overnight in low sodium soy sauce.\n3. Bake tofu at 350 for 20-30 mins.\n4. Pickled veggies: marinate carrot, radish and cucumber in rice vinegar with a little date sugar.\n5. Toast a slice of Ezekiel 4:9 bread. Spread Cashew Cheese mixed with Sriracha Sauce. Add baked tofu slices and pickled veggies. Optionally add jalape\u00f1os too.",
   "cooking_methods": [
     "bake",
     "toast",
     "no-cook"
   ],
   "serving_suggestion": "",
-  "notes": "Optionally add jalapeños too.",
-  "id": "Sandwiches & Pita Pockets — Whole Food Plant-Based_page_011",
-  "source_pdf": "Sandwiches & Pita Pockets — Whole Food Plant-Based.pdf",
+  "notes": "Optionally add jalape\u00f1os too.",
+  "id": "Sandwiches & Pita Pockets \u2014 Whole Food Plant-Based_page_011",
+  "source_pdf": "Sandwiches & Pita Pockets \u2014 Whole Food Plant-Based.pdf",
   "page_number": 11,
   "source_url": "https://thankful2plants.com",
   "attribution": "Thankful2Plants.com by Gurmeet Manku (CC BY-NC-ND 4.0)",
-  "extraction_date": "2026-02-21",
-  "image_path": "/Users/ashwinivikram/AshwiniVikramWeek1/data/raw/images/Sandwiches & Pita Pockets — Whole Food Plant-Based/page_011.png",
-  "text": "Recipe: Tofu Banh Mi\nCreator: Leena Menon\nCategory: Sandwich\nIngredients: firm tofu, low sodium soy sauce, carrot, radish, cucumber, rice vinegar, date sugar, Ezekiel 4:9 bread, Cashew Cheese, Sriracha Sauce, jalapeños\nCooking methods: bake, toast, no-cook\nInstructions: 1. Press out the liquid in 1 packet firm tofu.\n2. Slice and marinate tofu overnight in low sodium soy sauce.\n3. Bake tofu at 350 for 20-30 mins.\n4. Pickled veggies: marinate carrot, radish and cucumber in rice vinegar with a little date sugar.\n5. Toast a slice of Ezekiel 4:9 bread. Spread Cashew Cheese mixed with Sriracha Sauce. Add baked tofu slices and pickled veggies. Optionally add jalapeños too.\nNotes: Optionally add jalapeños too.",
+  "extraction_date": "WFPB member",
+  "image_path": "/Users/ashwinivikram/AshwiniVikramWeek1/data/raw/images/Sandwiches & Pita Pockets \u2014 Whole Food Plant-Based/page_011.png",
+  "text": "Recipe: Tofu Banh Mi\nCreator: Leena Menon\nCategory: Sandwich\nIngredients: firm tofu, low sodium soy sauce, carrot, radish, cucumber, rice vinegar, date sugar, Ezekiel 4:9 bread, Cashew Cheese, Sriracha Sauce, jalape\u00f1os\nCooking methods: bake, toast, no-cook\nInstructions: 1. Press out the liquid in 1 packet firm tofu.\n2. Slice and marinate tofu overnight in low sodium soy sauce.\n3. Bake tofu at 350 for 20-30 mins.\n4. Pickled veggies: marinate carrot, radish and cucumber in rice vinegar with a little date sugar.\n5. Toast a slice of Ezekiel 4:9 bread. Spread Cashew Cheese mixed with Sriracha Sauce. Add baked tofu slices and pickled veggies. Optionally add jalape\u00f1os too.\nNotes: Optionally add jalape\u00f1os too.",
   "embedding": [
     -0.028969625011086464,
     0.0304358322173357,

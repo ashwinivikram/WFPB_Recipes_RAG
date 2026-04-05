@@ -1,5 +1,5 @@
 {
-  "recipe_name": "Korean Veggie Pancakes — Yachaejeon",
+  "recipe_name": "Korean Veggie Pancakes \u2014 Yachaejeon",
   "creator": "Frank Lee",
   "category": "Pancakes",
   "subcategory": "",
@@ -14,7 +14,7 @@
     ],
     "rainbow_veggies": [
       "zucchini",
-      "jalapeños",
+      "jalape\u00f1os",
       "onion"
     ],
     "mushrooms": [
@@ -37,22 +37,22 @@
     "lime_lemon_vinegar": [],
     "sweeteners": []
   },
-  "all_ingredients_flat": "whole meal flour, water, leeks, zucchini, sweet potatoes, jalapeños, spring onion, onion, mushroom, nutritional yeast, mushroom powder, black salt, pepper, sesame seeds",
-  "instructions": "Finely julienne these veggies: leeks, zucchini, sweet potatoes, jalapeños, spring onion, onion & mushroom — about 3 cups total. Add 1 cup whole meal flour & 1 cup water. Mix well. Add seasonings like nutritional yeast, mushroom powder, black salt & pepper to taste. Roast both sides in non-stick pan on high heat till brown. Sprinkle sesame seeds & serve.",
+  "all_ingredients_flat": "whole meal flour, water, leeks, zucchini, sweet potatoes, jalape\u00f1os, spring onion, onion, mushroom, nutritional yeast, mushroom powder, black salt, pepper, sesame seeds",
+  "instructions": "Finely julienne these veggies: leeks, zucchini, sweet potatoes, jalape\u00f1os, spring onion, onion & mushroom \u2014 about 3 cups total. Add 1 cup whole meal flour & 1 cup water. Mix well. Add seasonings like nutritional yeast, mushroom powder, black salt & pepper to taste. Roast both sides in non-stick pan on high heat till brown. Sprinkle sesame seeds & serve.",
   "cooking_methods": [
     "roast",
     "no-cook"
   ],
   "serving_suggestion": "Sprinkle sesame seeds & serve.",
   "notes": "SAVORY WAFFLES",
-  "id": "Savory Pancakes & Waffles — Whole Food Plant-Based_page_044",
-  "source_pdf": "Savory Pancakes & Waffles — Whole Food Plant-Based.pdf",
+  "id": "Savory Pancakes & Waffles \u2014 Whole Food Plant-Based_page_044",
+  "source_pdf": "Savory Pancakes & Waffles \u2014 Whole Food Plant-Based.pdf",
   "page_number": 44,
   "source_url": "https://thankful2plants.com",
   "attribution": "Thankful2Plants.com by Gurmeet Manku (CC BY-NC-ND 4.0)",
-  "extraction_date": "2026-02-21",
-  "image_path": "/Users/ashwinivikram/AshwiniVikramWeek1/data/raw/images/Savory Pancakes & Waffles — Whole Food Plant-Based/page_044.png",
-  "text": "Recipe: Korean Veggie Pancakes — Yachaejeon\nCreator: Frank Lee\nCategory: Pancakes\nIngredients: whole meal flour, water, leeks, zucchini, sweet potatoes, jalapeños, spring onion, onion, mushroom, nutritional yeast, mushroom powder, black salt, pepper, sesame seeds\nCooking methods: roast, no-cook\nInstructions: Finely julienne these veggies: leeks, zucchini, sweet potatoes, jalapeños, spring onion, onion & mushroom — about 3 cups total. Add 1 cup whole meal flour & 1 cup water. Mix well. Add seasonings like nutritional yeast, mushroom powder, black salt & pepper to taste. Roast both sides in non-stick pan on high heat till brown. Sprinkle sesame seeds & serve.\nNotes: SAVORY WAFFLES",
+  "extraction_date": "WFPB member",
+  "image_path": "/Users/ashwinivikram/AshwiniVikramWeek1/data/raw/images/Savory Pancakes & Waffles \u2014 Whole Food Plant-Based/page_044.png",
+  "text": "Recipe: Korean Veggie Pancakes \u2014 Yachaejeon\nCreator: Frank Lee\nCategory: Pancakes\nIngredients: whole meal flour, water, leeks, zucchini, sweet potatoes, jalape\u00f1os, spring onion, onion, mushroom, nutritional yeast, mushroom powder, black salt, pepper, sesame seeds\nCooking methods: roast, no-cook\nInstructions: Finely julienne these veggies: leeks, zucchini, sweet potatoes, jalape\u00f1os, spring onion, onion & mushroom \u2014 about 3 cups total. Add 1 cup whole meal flour & 1 cup water. Mix well. Add seasonings like nutritional yeast, mushroom powder, black salt & pepper to taste. Roast both sides in non-stick pan on high heat till brown. Sprinkle sesame seeds & serve.\nNotes: SAVORY WAFFLES",
   "embedding": [
     -0.014533130452036858,
     -0.008798147551715374,

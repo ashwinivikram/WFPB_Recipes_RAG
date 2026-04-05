@@ -1,0 +1,132 @@
+{
+  "id": "q09",
+  "question": "What recipes did Kumar Natarajan create?",
+  "type": "creator-query",
+  "hypothesis": "Week 2 returns more Kumar Natarajan results if component chunk correctly preserves creator metadata",
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Potato Pumpkin Bhakri",
+        "chunk_type": "",
+        "creator": "Kiran Sharma",
+        "score": 0.6524
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Uttapam Waffles",
+        "chunk_type": "",
+        "creator": "Shachi Thakkar",
+        "score": 0.6357
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Moong Dal Pesarattu",
+        "chunk_type": "",
+        "creator": "Kiran Sharma",
+        "score": 0.633
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Sweet Potato Chaat",
+        "chunk_type": "",
+        "creator": "Sharmila Vedam",
+        "score": 0.6327
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Fruity Shakarkandi Chaat",
+        "chunk_type": "",
+        "creator": "Mrs N K Manku",
+        "score": 0.6318
+      }
+    ],
+    "judge": {
+      "signal_pct": 0,
+      "usefulness": 1,
+      "reasoning": "No relevant chunks naming Kumar Natarajan as the creator were retrieved in this set."
+    }
+  },
+  "week3": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "chunk_type": "assembly",
+        "creator": "Kumar Natarajan",
+        "score": 0.8047
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Ezekiel Cranberry Relish",
+        "chunk_type": "",
+        "creator": "Kumar Natarajan",
+        "score": 0.8008
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Walnut Mushroom Pate",
+        "chunk_type": "component",
+        "creator": "Kumar Natarajan",
+        "score": 0.7969
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Crumbled Tofu",
+        "chunk_type": "component",
+        "creator": "Kumar Natarajan",
+        "score": 0.793
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Ezekiel Kathi Roll",
+        "chunk_type": "",
+        "creator": "Kumar Natarajan",
+        "score": 0.7852
+      },
+      {
+        "rank": 6,
+        "recipe_name": "Tofu Bhurji on Ezekiel",
+        "chunk_type": "assembly",
+        "creator": "Kumar Natarajan",
+        "score": 0.7852
+      },
+      {
+        "rank": 7,
+        "recipe_name": "Adai",
+        "chunk_type": "",
+        "creator": "Kumar Natarajan",
+        "score": 0.7773
+      },
+      {
+        "rank": 8,
+        "recipe_name": "Arugula Hummus Sandwich",
+        "chunk_type": "assembly",
+        "creator": "Meghna Natraj",
+        "score": 0.4434
+      },
+      {
+        "rank": 9,
+        "recipe_name": "Tempeh and Peas Stirfry / Methi Aloo",
+        "chunk_type": "",
+        "creator": "Gunjan Sahni WFPB",
+        "score": 0.4395
+      },
+      {
+        "rank": 10,
+        "recipe_name": "Peanut Curd Kadi with Spinach and Curry Leaves & Air Fryer Onion Spinach Pakodas",
+        "chunk_type": "",
+        "creator": "Gunjan Sahni WFPB",
+        "score": 0.3672
+      }
+    ],
+    "judge": {
+      "signal_pct": 70,
+      "usefulness": 5,
+      "reasoning": "This system retrieved several recipes explicitly created by Kumar Natarajan, providing a complete and direct answer."
+    }
+  },
+  "winner": "week3",
+  "winner_reasoning": "System B (Week 3) is the clear winner as it successfully retrieved multiple recipes by the specified creator, while System A (Week 2) returned no relevant results.",
+  "timestamp": "2026-03-07T22:41:29.706734"
+}

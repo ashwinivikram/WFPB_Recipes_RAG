@@ -1,0 +1,132 @@
+{
+  "id": "q10",
+  "question": "How do I make Aloo Tikki for chaat?",
+  "type": "sub-recipe-factoid",
+  "hypothesis": "Week 2 should score higher — dedicated Aloo Tikki chunk with focused tikki preparation vector",
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Aloo Tikki Chaat",
+        "chunk_type": "assembly",
+        "creator": "Shalini Priyadarshini",
+        "score": 0.8697
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Aloo Tikki",
+        "chunk_type": "component",
+        "creator": "Shalini Priyadarshini",
+        "score": 0.8415
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Aloo Tikki Chaat",
+        "chunk_type": "",
+        "creator": "Padma Subramanian",
+        "score": 0.813
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Aloo Pyaaz Tikki",
+        "chunk_type": "",
+        "creator": "Venkat Bellamkonda",
+        "score": 0.7869
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Matra Chaat",
+        "chunk_type": "",
+        "creator": "Manisha Bansal",
+        "score": 0.7727
+      }
+    ],
+    "judge": {
+      "signal_pct": 80,
+      "usefulness": 3,
+      "reasoning": "While four of the five chunks are related to Aloo Tikki or Aloo Tikki Chaat, the crucial method steps for making the Aloo Tikki component are missing from the retrieved previews."
+    }
+  },
+  "week3": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Aloo Tikki Chaat",
+        "chunk_type": "assembly",
+        "creator": "Shalini Priyadarshini",
+        "score": 0.918
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Aloo Tikki",
+        "chunk_type": "component",
+        "creator": "Shalini Priyadarshini",
+        "score": 0.918
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Aloo Tikki Chaat",
+        "chunk_type": "",
+        "creator": "Padma Subramanian",
+        "score": 0.8984
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Air-fried Sweet Potato Tikki",
+        "chunk_type": "",
+        "creator": "WFPB member",
+        "score": 0.8906
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Tikki",
+        "chunk_type": "component",
+        "creator": "Frank Lee",
+        "score": 0.832
+      },
+      {
+        "rank": 6,
+        "recipe_name": "Sweet Potato Tikki with Green Chutney",
+        "chunk_type": "assembly",
+        "creator": "Frank Lee",
+        "score": 0.8086
+      },
+      {
+        "rank": 7,
+        "recipe_name": "Potato Dapati / Hashbrowns (WFPB)",
+        "chunk_type": "",
+        "creator": "Prathima WFPB",
+        "score": 0.7891
+      },
+      {
+        "rank": 8,
+        "recipe_name": "Aloo Carrot Peas Tikki",
+        "chunk_type": "",
+        "creator": "Vandana Bachani",
+        "score": 0.7812
+      },
+      {
+        "rank": 9,
+        "recipe_name": "Aloo Pyaaz Tikki",
+        "chunk_type": "",
+        "creator": "Venkat Bellamkonda",
+        "score": 0.7656
+      },
+      {
+        "rank": 10,
+        "recipe_name": "WFPB Samosa Replacement",
+        "chunk_type": "",
+        "creator": "Shruti Mirashi Joshi",
+        "score": 0.7539
+      }
+    ],
+    "judge": {
+      "signal_pct": 40,
+      "usefulness": 3,
+      "reasoning": "Only four of the ten chunks are relevant to Aloo Tikki or its variations, and similar to system A, the critical method for preparing Aloo Tikki is not included in the previews."
+    }
+  },
+  "winner": "week2",
+  "winner_reasoning": "Week 2 is superior because it retrieves a higher percentage of relevant chunks, keeping the focus on Aloo Tikki, whereas Week 3 introduces many irrelevant sweet potato tikki variations and other potato-based dishes.",
+  "timestamp": "2026-03-07T22:41:52.054930"
+}

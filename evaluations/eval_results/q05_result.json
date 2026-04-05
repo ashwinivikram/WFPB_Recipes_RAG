@@ -1,0 +1,108 @@
+{
+  "id": "q05",
+  "question": "How do I make Kathi Rolls?",
+  "type": "main-recipe-factoid",
+  "hypothesis": "Both should score similarly — Week 2 assembly chunk still contains full Kathi Roll instructions",
+  "top_k": 5,
+  "week1": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Kathi Rolls",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Sharmila Vedam",
+        "score": 0.8223
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Ezekiel Kathi Roll",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Kumar Natarajan",
+        "score": 0.7582
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Lavash Hummus Pinwheels",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.7135
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Baked Bread Rolls",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Kiran Sharma",
+        "score": 0.6841
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Gujarati Muthia",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Sharmila Vedam",
+        "score": 0.6709
+      }
+    ],
+    "judge": {
+      "signal_pct": 40,
+      "usefulness": 3,
+      "reasoning": "Only two out of five chunks are relevant, and the primary Kathi Roll recipe provided only lists ingredients, lacking the method for preparation."
+    }
+  },
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Kathi Rolls",
+        "chunk_type": "assembly",
+        "parent": "Kathi Rolls",
+        "creator": "Sharmila Vedam",
+        "score": 0.8377
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Ezekiel Kathi Roll",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Kumar Natarajan",
+        "score": 0.7582
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Lavash Hummus Pinwheels",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.7135
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Sweet Potato Paratha",
+        "chunk_type": "component",
+        "parent": "Kathi Rolls",
+        "creator": "Sharmila Vedam",
+        "score": 0.6895
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Jowar Roti (Sorghum Flatbread)",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "WFPB member",
+        "score": 0.686
+      }
+    ],
+    "judge": {
+      "signal_pct": 60,
+      "usefulness": 3,
+      "reasoning": "Three out of five chunks are relevant, and while the main Kathi Roll recipe is better organized with sub-components, the previews still only display ingredients, omitting the method for preparation."
+    }
+  },
+  "winner": "week2",
+  "winner_reasoning": "System B retrieved a higher percentage of relevant chunks and demonstrated better chunking logic by explicitly including a component recipe crucial for making Kathi Rolls.",
+  "timestamp": "2026-02-28T14:56:40.490708"
+}

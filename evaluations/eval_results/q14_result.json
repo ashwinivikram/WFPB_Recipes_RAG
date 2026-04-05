@@ -1,0 +1,108 @@
+{
+  "id": "q14",
+  "question": "What savory waffles or pancakes can I make for breakfast?",
+  "type": "thematic-analytical",
+  "hypothesis": "Similar performance; tests if chunking strategy affected this category (fewer splits)",
+  "top_k": 5,
+  "week1": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Savory Pancakes & Waffles — Whole Food Plant-Based",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7839
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Moong Dal Savory Pancakes (Dosa)",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Ashwini Vikram",
+        "score": 0.6831
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Oats Chickpea Waffles",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Sharmila Vedam",
+        "score": 0.6732
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Savory Hot Breakfast Ideas for Cold",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Group Members",
+        "score": 0.6683
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Lentil Waffles",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Vandana Gupta",
+        "score": 0.6648
+      }
+    ],
+    "judge": {
+      "signal_pct": 80,
+      "usefulness": 4,
+      "reasoning": "Most chunks are highly relevant, providing specific savory pancake and waffle recipes with ingredients, but one chunk is a general discussion rather than a recipe."
+    }
+  },
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Savory Pancakes & Waffles — Whole Food Plant-Based",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7839
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Oats Chickpea Waffles",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Sharmila Vedam",
+        "score": 0.6732
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Lentil Waffles",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Vandana Gupta",
+        "score": 0.6648
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Spicy Waffles",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Priya Rao",
+        "score": 0.6629
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Cauliflower Potato Waffles",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.6613
+      }
+    ],
+    "judge": {
+      "signal_pct": 100,
+      "usefulness": 5,
+      "reasoning": "All retrieved chunks are highly relevant, providing specific savory pancake and waffle recipes with ingredient previews, directly answering the user's question."
+    }
+  },
+  "winner": "week2",
+  "winner_reasoning": "System B provided more directly relevant recipe chunks, offering a greater number of specific savory waffle and pancake ideas without any off-topic content.",
+  "timestamp": "2026-02-28T14:58:09.157266"
+}

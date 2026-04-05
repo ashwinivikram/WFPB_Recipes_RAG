@@ -1,46 +1,64 @@
-# .gitingestignore — Siridhanya RAG Week 1
-# Excludes large files, raw data, and processed artifacts from git ingest
+# .gitingestignore — WFPB Recipe RAG Week 4
+# Excludes large files, raw data, and processed artifacts to keep submission small
 
-# Raw source documents (PDFs and text files)
+# Ignore data folders to save massive space
 data/raw/
-
-# Processed intermediate files (chunked JSONL, embeddings)
 data/processed/
+Week2/
+Week2Activities/
+Week4/
 
-# Evaluation results (generated at runtime)
-results/
+# Ignore non-essential traces
+traces/session*.md
 
-# Python cache
+# Ignore older evaluation results
+evaluations/eval_results/
+evaluations/eval_results_week3/
+evaluations/test_questions.json
+
+# Ignore week 1-3 scripts
+scripts/01*.py
+scripts/02*.py
+scripts/03*.py
+scripts/04*.py
+scripts/05*.py
+scripts/06*.py
+scripts/07*.py
+scripts/08*.py
+scripts/09*.py
+scripts/10*.py
+scripts/11*.py
+scripts/12*.py
+scripts/13*.py
+scripts/14*.py
+scripts/99*.py
+scripts/create*.py
+scripts/utils.py
+
+# Binaries, images, logs
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.db
+*.sqlite
+*.sqlite3
+*submission.txt
+*submission_guidelines*
+uv.lock
+
+# Environment and caches
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
-.Python
-
-# Virtual environment
+.venv/
 venv/
 env/
-.venv/
-
-# Environment variables (secrets)
-.env
-
-# FastEmbed model cache (downloaded at runtime)
-.fastembed_cache/
-models/
-
-# OS artifacts
+.env*
 .DS_Store
-Thumbs.db
+.claude/
 
-# Jupyter notebooks (if any)
-.ipynb_checkpoints/
+# prequalify files
+*prequalify.py
 
-# Other exclusions
-uv.lock
-prequalify.py
-ashwini_vikram_week1_submission.txt
-.env
-.env.example
-docs/week1_submission_guidelines.md
-context.md
+# Walkthrough and artifacts
+*.resolved

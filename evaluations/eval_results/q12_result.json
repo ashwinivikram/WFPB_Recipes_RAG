@@ -1,0 +1,108 @@
+{
+  "id": "q12",
+  "question": "How do I make Ragda for Ragda Patties?",
+  "type": "sub-recipe-factoid",
+  "hypothesis": "Week 2 should score higher — dedicated Ragda component chunk vs buried in full Ragda Patties recipe",
+  "top_k": 5,
+  "week1": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Ragda Patties",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Sharmila Vedam",
+        "score": 0.8281
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Ragda Pattice",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Manisha Deora",
+        "score": 0.8254
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Air Fried Ragda Pattice",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Leena Menon",
+        "score": 0.7972
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Air Fried Patties",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Mrs N K Manku",
+        "score": 0.778
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Potato & Broccoli Patties",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Kusum Dhairgawan",
+        "score": 0.7546
+      }
+    ],
+    "judge": {
+      "signal_pct": 0,
+      "usefulness": 1,
+      "reasoning": "None of the retrieved chunks provide specific instructions on how to make the 'Ragda' component; they only list ingredients for the overall Ragda Patties dish or other irrelevant recipes."
+    }
+  },
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Ragda Pattice",
+        "chunk_type": "assembly",
+        "parent": "Ragda Pattice",
+        "creator": "Manisha Deora",
+        "score": 0.8367
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Air Fried Ragda Pattice",
+        "chunk_type": "assembly",
+        "parent": "Air Fried Ragda Pattice",
+        "creator": "Leena Menon",
+        "score": 0.8154
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Ragda Patties",
+        "chunk_type": "assembly",
+        "parent": "Ragda Patties",
+        "creator": "Sharmila Vedam",
+        "score": 0.8118
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Ragda",
+        "chunk_type": "component",
+        "parent": "Ragda Patties",
+        "creator": "Sharmila Vedam",
+        "score": 0.7922
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Air Fried Patties",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Mrs N K Manku",
+        "score": 0.778
+      }
+    ],
+    "judge": {
+      "signal_pct": 20,
+      "usefulness": 4,
+      "reasoning": "Chunk 4 specifically identifies the 'Ragda [component]' recipe, directly addressing the user's question, even if the preview only shows ingredients."
+    }
+  },
+  "winner": "week2",
+  "winner_reasoning": "System B is the winner because it successfully retrieved the specific sub-recipe for 'Ragda' that the user was asking for, unlike System A which only provided assembly recipes.",
+  "timestamp": "2026-02-28T14:57:53.628955"
+}

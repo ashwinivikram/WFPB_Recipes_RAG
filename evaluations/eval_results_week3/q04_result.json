@@ -1,0 +1,132 @@
+{
+  "id": "q04",
+  "question": "Give me a homemade hummus recipe",
+  "type": "sub-recipe-factoid",
+  "hypothesis": "Week 2 should score higher — dedicated hummus chunk with focused hummus embedding",
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Hummus",
+        "chunk_type": "component",
+        "creator": "Meghna Natraj",
+        "score": 0.8005
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Grilled Tofu Hummus Sandwich",
+        "chunk_type": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.7551
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Arugula Hummus Sandwich",
+        "chunk_type": "assembly",
+        "creator": "Meghna Natraj",
+        "score": 0.7537
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Lavash Hummus Pinwheels",
+        "chunk_type": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.7417
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Lavash Hummus Wraps",
+        "chunk_type": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.74
+      }
+    ],
+    "judge": {
+      "signal_pct": 40,
+      "usefulness": 3,
+      "reasoning": "The system retrieved two chunks containing hummus ingredients, but the method or instructions for making the hummus are missing from all chunks."
+    }
+  },
+  "week3": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Hummus",
+        "chunk_type": "component",
+        "creator": "Meghna Natraj",
+        "score": 0.8047
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Mutabal (Eggplant Dip)",
+        "chunk_type": "",
+        "creator": "Leena Menon WFPB",
+        "score": 0.7578
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Peanut Sauce for Noodles",
+        "chunk_type": "",
+        "creator": "Shalini Other Lady WFPB",
+        "score": 0.7344
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Root Vegetable Salad with Tahini Dressing",
+        "chunk_type": "",
+        "creator": "Shalini Other Lady WFPB",
+        "score": 0.6758
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Ezekiel Wrap & Salad",
+        "chunk_type": "",
+        "creator": "Kiran Sharma",
+        "score": 0.6562
+      },
+      {
+        "rank": 6,
+        "recipe_name": "Uses for Jackfruit Seeds",
+        "chunk_type": "",
+        "creator": "Multiple Group Members",
+        "score": 0.6094
+      },
+      {
+        "rank": 7,
+        "recipe_name": "Ezekiel Kathi Roll",
+        "chunk_type": "",
+        "creator": "Kumar Natarajan",
+        "score": 0.582
+      },
+      {
+        "rank": 8,
+        "recipe_name": "Air-fried Falafel",
+        "chunk_type": "",
+        "creator": "Shalini Other Lady WFPB",
+        "score": 0.582
+      },
+      {
+        "rank": 9,
+        "recipe_name": "Arugula Hummus Sandwich",
+        "chunk_type": "assembly",
+        "creator": "Meghna Natraj",
+        "score": 0.5781
+      },
+      {
+        "rank": 10,
+        "recipe_name": "Pita Pockets with Tzatziki Sauce",
+        "chunk_type": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.5391
+      }
+    ],
+    "judge": {
+      "signal_pct": 20,
+      "usefulness": 3,
+      "reasoning": "The system retrieved two chunks containing hummus ingredients, but the method or instructions for making the hummus are missing from all chunks."
+    }
+  },
+  "winner": "week2",
+  "winner_reasoning": "Both systems provided partial information (ingredients only), but System A had a higher percentage of relevant chunks among its top results, making it less noisy.",
+  "timestamp": "2026-03-07T22:40:39.353363"
+}

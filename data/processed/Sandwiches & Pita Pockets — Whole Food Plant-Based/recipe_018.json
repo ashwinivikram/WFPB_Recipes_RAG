@@ -17,7 +17,7 @@
     ],
     "rainbow_veggies": [
       "tomato",
-      "pickled jalapeños"
+      "pickled jalape\u00f1os"
     ],
     "mushrooms": [
       "mushrooms"
@@ -32,22 +32,22 @@
     "lime_lemon_vinegar": [],
     "sweeteners": []
   },
-  "all_ingredients_flat": "Ezekiel 4:9 bread, tofu, hummus, arugula, tomato, pickled jalapeños, mushrooms, various herbs and spices",
+  "all_ingredients_flat": "Ezekiel 4:9 bread, tofu, hummus, arugula, tomato, pickled jalape\u00f1os, mushrooms, various herbs and spices",
   "instructions": "Assemble the sandwich with hummus, mushrooms, tomato, arugula, and marinated, air-fried tofu on Ezekiel 4:9 bread.",
   "cooking_methods": [
     "air-fry",
     "no-cook"
   ],
-  "serving_suggestion": "Pickled jalapeños tastes delicious in this sandwich!",
+  "serving_suggestion": "Pickled jalape\u00f1os tastes delicious in this sandwich!",
   "notes": "",
-  "id": "Sandwiches & Pita Pockets — Whole Food Plant-Based_page_018",
-  "source_pdf": "Sandwiches & Pita Pockets — Whole Food Plant-Based.pdf",
+  "id": "Sandwiches & Pita Pockets \u2014 Whole Food Plant-Based_page_018",
+  "source_pdf": "Sandwiches & Pita Pockets \u2014 Whole Food Plant-Based.pdf",
   "page_number": 18,
   "source_url": "https://thankful2plants.com",
   "attribution": "Thankful2Plants.com by Gurmeet Manku (CC BY-NC-ND 4.0)",
-  "extraction_date": "2026-02-21",
-  "image_path": "/Users/ashwinivikram/AshwiniVikramWeek1/data/raw/images/Sandwiches & Pita Pockets — Whole Food Plant-Based/page_018.png",
-  "text": "Recipe: Hummus Mushroom Tofu Sandwich\nCreator: Dr Sirisha Potluri\nCategory: Sandwich\nIngredients: Ezekiel 4:9 bread, tofu, hummus, arugula, tomato, pickled jalapeños, mushrooms, various herbs and spices\nCooking methods: air-fry, no-cook\nInstructions: Assemble the sandwich with hummus, mushrooms, tomato, arugula, and marinated, air-fried tofu on Ezekiel 4:9 bread.",
+  "extraction_date": "WFPB member",
+  "image_path": "/Users/ashwinivikram/AshwiniVikramWeek1/data/raw/images/Sandwiches & Pita Pockets \u2014 Whole Food Plant-Based/page_018.png",
+  "text": "Recipe: Hummus Mushroom Tofu Sandwich\nCreator: Dr Sirisha Potluri\nCategory: Sandwich\nIngredients: Ezekiel 4:9 bread, tofu, hummus, arugula, tomato, pickled jalape\u00f1os, mushrooms, various herbs and spices\nCooking methods: air-fry, no-cook\nInstructions: Assemble the sandwich with hummus, mushrooms, tomato, arugula, and marinated, air-fried tofu on Ezekiel 4:9 bread.",
   "embedding": [
     -0.02227778546512127,
     -0.01448528841137886,

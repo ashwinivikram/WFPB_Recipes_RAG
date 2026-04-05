@@ -1,0 +1,132 @@
+{
+  "id": "q05",
+  "question": "How do I make Kathi Rolls?",
+  "type": "main-recipe-factoid",
+  "hypothesis": "Both should score similarly — Week 2 assembly chunk still contains full Kathi Roll instructions",
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Kathi Rolls",
+        "chunk_type": "assembly",
+        "creator": "Sharmila Vedam",
+        "score": 0.8377
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Ezekiel Kathi Roll",
+        "chunk_type": "",
+        "creator": "Kumar Natarajan",
+        "score": 0.7582
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Lavash Hummus Pinwheels",
+        "chunk_type": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.7135
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Sweet Potato Paratha",
+        "chunk_type": "component",
+        "creator": "Sharmila Vedam",
+        "score": 0.6895
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Jowar Roti (Sorghum Flatbread)",
+        "chunk_type": "",
+        "creator": "WFPB member",
+        "score": 0.686
+      }
+    ],
+    "judge": {
+      "signal_pct": 60,
+      "usefulness": 5,
+      "reasoning": "The retrieved chunks include two distinct Kathi Roll recipes and a specific component recipe, providing comprehensive information to answer how to make them."
+    }
+  },
+  "week3": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Kathi Rolls",
+        "chunk_type": "assembly",
+        "creator": "Sharmila Vedam",
+        "score": 0.8867
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Ezekiel Kathi Roll",
+        "chunk_type": "",
+        "creator": "Kumar Natarajan",
+        "score": 0.8086
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Lavash Hummus Pinwheels",
+        "chunk_type": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.7695
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Sweet Potato Paratha",
+        "chunk_type": "component",
+        "creator": "Sharmila Vedam",
+        "score": 0.7539
+      },
+      {
+        "rank": 5,
+        "recipe_name": "SANDWICH",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.6992
+      },
+      {
+        "rank": 6,
+        "recipe_name": "WFPB Cabbage Steak",
+        "chunk_type": "",
+        "creator": "Shalini Other Lady WFPB",
+        "score": 0.6641
+      },
+      {
+        "rank": 7,
+        "recipe_name": "Potato Dapati / Hashbrowns (WFPB)",
+        "chunk_type": "",
+        "creator": "Prathima WFPB",
+        "score": 0.6602
+      },
+      {
+        "rank": 8,
+        "recipe_name": "Air-fried Rice Paper Pani Puri",
+        "chunk_type": "",
+        "creator": "Gurmeet",
+        "score": 0.6406
+      },
+      {
+        "rank": 9,
+        "recipe_name": "Gatta Curry (WFPB)",
+        "chunk_type": "",
+        "creator": "Group Member",
+        "score": 0.6328
+      },
+      {
+        "rank": 10,
+        "recipe_name": "Vegan Oil-Free Dilpasand / Dilkhush (Sweet Puffs/Pies)",
+        "chunk_type": "",
+        "creator": "Prathima WFPB",
+        "score": 0.6211
+      }
+    ],
+    "judge": {
+      "signal_pct": 30,
+      "usefulness": 5,
+      "reasoning": "The retrieved chunks include two distinct Kathi Roll recipes and a specific component recipe, providing comprehensive information to answer how to make them."
+    }
+  },
+  "winner": "week2",
+  "winner_reasoning": "System A is better because it retrieved a significantly higher percentage of relevant chunks (60% vs 30%) within its smaller set, leading to more focused and efficient results.",
+  "timestamp": "2026-03-07T22:40:54.609445"
+}

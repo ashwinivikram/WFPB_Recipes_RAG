@@ -1,0 +1,108 @@
+{
+  "id": "q11",
+  "question": "What are some Indian street food recipes I can make at home?",
+  "type": "thematic-analytical",
+  "hypothesis": "Both should retrieve similar results; Week 2 may surface more distinct sub-components (pattice, vada, tikki)",
+  "top_k": 5,
+  "week1": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Potato Pumpkin Bhakri",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Kiran Sharma",
+        "score": 0.6782
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Grilled Pizza Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Padma Subramanian",
+        "score": 0.6688
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Kathi Rolls",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Sharmila Vedam",
+        "score": 0.6667
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Air Fried Ragi Pakodas",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Mrs N K Manku",
+        "score": 0.6659
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Chutney Sandwich with Lentil Wrap",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Kusum Dhairyawan",
+        "score": 0.6649
+      }
+    ],
+    "judge": {
+      "signal_pct": 60,
+      "usefulness": 3,
+      "reasoning": "The system retrieved three relevant Indian street food recipes (Kathi Rolls, Air Fried Ragi Pakodas, Chutney Sandwich with Lentil Wrap), providing a good start but including two irrelevant chunks diluted the overall usefulness."
+    }
+  },
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Potato Pumpkin Bhakri",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Kiran Sharma",
+        "score": 0.6782
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Grilled Pizza Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Padma Subramanian",
+        "score": 0.6688
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Aloo Tikki Chaat",
+        "chunk_type": "assembly",
+        "parent": "Aloo Tikki Chaat",
+        "creator": "Shalini Priyadarshini",
+        "score": 0.6672
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Air Fried Ragi Pakodas",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Mrs N K Manku",
+        "score": 0.6659
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Chutney Sandwich with Lentil Wrap",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Kusum Dhairyawan",
+        "score": 0.6649
+      }
+    ],
+    "judge": {
+      "signal_pct": 60,
+      "usefulness": 4,
+      "reasoning": "The system retrieved three clear and distinct Indian street food recipes (Aloo Tikki Chaat, Air Fried Ragi Pakodas, Chutney Sandwich with Lentil Wrap), with Aloo Tikki Chaat being a particularly strong and relevant hit, providing a solid answer to the user's question despite two irrelevant chunks."
+    }
+  },
+  "winner": "week2",
+  "winner_reasoning": "System B's inclusion of 'Aloo Tikki Chaat' as a distinct and highly relevant Indian street food recipe, likely facilitated by its sub-recipe splitting, made its set of useful chunks slightly stronger and more directly answered the user's query compared to System A.",
+  "timestamp": "2026-02-28T14:57:45.257864"
+}

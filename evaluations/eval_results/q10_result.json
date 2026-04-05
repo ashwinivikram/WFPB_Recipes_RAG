@@ -1,0 +1,108 @@
+{
+  "id": "q10",
+  "question": "How do I make Aloo Tikki for chaat?",
+  "type": "sub-recipe-factoid",
+  "hypothesis": "Week 2 should score higher — dedicated Aloo Tikki chunk with focused tikki preparation vector",
+  "top_k": 5,
+  "week1": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Aloo Tikki Chaat",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Shalini Priyadarshini",
+        "score": 0.8647
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Aloo Tikki Chaat",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Padma Subramanian",
+        "score": 0.813
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Aloo Pyaaz Tikki",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Venkat Bellamkonda",
+        "score": 0.7869
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Matra Chaat",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Manisha Bansal",
+        "score": 0.7727
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Yellow Mung Dal Idli Chaat",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Mrs N K Manku",
+        "score": 0.7609
+      }
+    ],
+    "judge": {
+      "signal_pct": 60,
+      "usefulness": 3,
+      "reasoning": "While three chunks mention 'Aloo Tikki' or a variation, none provide isolated instructions for making only the Aloo Tikki component, which the user explicitly requested."
+    }
+  },
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Aloo Tikki Chaat",
+        "chunk_type": "assembly",
+        "parent": "Aloo Tikki Chaat",
+        "creator": "Shalini Priyadarshini",
+        "score": 0.8697
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Aloo Tikki",
+        "chunk_type": "component",
+        "parent": "Aloo Tikki Chaat",
+        "creator": "Shalini Priyadarshini",
+        "score": 0.8415
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Aloo Tikki Chaat",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Padma Subramanian",
+        "score": 0.813
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Aloo Pyaaz Tikki",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Venkat Bellamkonda",
+        "score": 0.7869
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Matra Chaat",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Manisha Bansal",
+        "score": 0.7727
+      }
+    ],
+    "judge": {
+      "signal_pct": 80,
+      "usefulness": 5,
+      "reasoning": "One chunk precisely and directly provides the recipe for the 'Aloo Tikki [component]', fully answering the user's specific question."
+    }
+  },
+  "winner": "week2",
+  "winner_reasoning": "System B directly answers the user's request for 'Aloo Tikki' instructions as a component, while System A only provides full chaat recipes or variations.",
+  "timestamp": "2026-02-28T14:57:26.996762"
+}

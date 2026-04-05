@@ -1,0 +1,132 @@
+{
+  "id": "q13",
+  "question": "Give me a recipe for mushroom sauce",
+  "type": "sub-recipe-factoid",
+  "hypothesis": "Week 2 should score higher — dedicated mushroom sauce chunk",
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Mushroom Sauce",
+        "chunk_type": "component",
+        "creator": "Frank Lee",
+        "score": 0.7993
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Chinese Gnocchi in Mushroom Sauce",
+        "chunk_type": "assembly",
+        "creator": "Frank Lee",
+        "score": 0.7506
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Walnut Mushroom Pate",
+        "chunk_type": "component",
+        "creator": "Kumar Natarajan",
+        "score": 0.725
+      },
+      {
+        "rank": 4,
+        "recipe_name": "WFPB Mushroom Sandwich with Aioli",
+        "chunk_type": "",
+        "creator": "Leena Menon WFPB",
+        "score": 0.7155
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "chunk_type": "assembly",
+        "creator": "Kumar Natarajan",
+        "score": 0.6935
+      }
+    ],
+    "judge": {
+      "signal_pct": 20,
+      "usefulness": 5,
+      "reasoning": "One chunk directly provides a complete recipe for mushroom sauce, making it fully useful despite other chunks being irrelevant."
+    }
+  },
+  "week3": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Mushroom Sauce",
+        "chunk_type": "component",
+        "creator": "Frank Lee",
+        "score": 0.8555
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Pea Pasta with Veggies",
+        "chunk_type": "",
+        "creator": "Gurmeet",
+        "score": 0.6523
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Chinese Gnocchi in Mushroom Sauce",
+        "chunk_type": "assembly",
+        "creator": "Frank Lee",
+        "score": 0.6211
+      },
+      {
+        "rank": 4,
+        "recipe_name": "WFPB Mushroom Sandwich with Aioli",
+        "chunk_type": "",
+        "creator": "Leena Menon WFPB",
+        "score": 0.5742
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Korean Pancake",
+        "chunk_type": "",
+        "creator": "Divya Srikanth",
+        "score": 0.4668
+      },
+      {
+        "rank": 6,
+        "recipe_name": "Oats and Sprouts Khichdi",
+        "chunk_type": "",
+        "creator": "Kusum WFPB",
+        "score": 0.4629
+      },
+      {
+        "rank": 7,
+        "recipe_name": "Yum Cha",
+        "chunk_type": "",
+        "creator": "Frank Lee",
+        "score": 0.4531
+      },
+      {
+        "rank": 8,
+        "recipe_name": "Walnut Mushroom Pate",
+        "chunk_type": "component",
+        "creator": "Kumar Natarajan",
+        "score": 0.4316
+      },
+      {
+        "rank": 9,
+        "recipe_name": "Millet, Chana, Peas, Corn, Mushroom Soup",
+        "chunk_type": "",
+        "creator": "WFPB member",
+        "score": 0.4277
+      },
+      {
+        "rank": 10,
+        "recipe_name": "Veggie Curry (WFPB, with coconut milk)",
+        "chunk_type": "",
+        "creator": "Divya CMU",
+        "score": 0.4102
+      }
+    ],
+    "judge": {
+      "signal_pct": 10,
+      "usefulness": 5,
+      "reasoning": "One chunk directly provides a complete recipe for mushroom sauce, making it fully useful despite a large number of irrelevant chunks."
+    }
+  },
+  "winner": "week2",
+  "winner_reasoning": "Both systems retrieved the exact same relevant chunk that fully answers the question, but System A had a higher percentage of relevant chunks, indicating less noise.",
+  "timestamp": "2026-03-07T22:42:22.993605"
+}

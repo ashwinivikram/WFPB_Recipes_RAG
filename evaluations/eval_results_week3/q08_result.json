@@ -1,0 +1,132 @@
+{
+  "id": "q08",
+  "question": "Give me a quick no-cook sandwich recipe",
+  "type": "strategy-query",
+  "hypothesis": "Similar performance — no-cook recipes are in both indexes; this tests embedding quality for strategy queries",
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Grilled Sandwich without Cheese (Tips)",
+        "chunk_type": "",
+        "creator": "Group Member",
+        "score": 0.686
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Sweet Potato Sandwich",
+        "chunk_type": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.6794
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Ezekiel Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.6782
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Tempeh Ezekiel Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.677
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Ezekiel Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.6749
+      }
+    ],
+    "judge": {
+      "signal_pct": 20,
+      "usefulness": 3,
+      "reasoning": "Only one chunk explicitly states 'no-cook' as a cooking method, providing a single relevant recipe idea."
+    }
+  },
+  "week3": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Vietnamese Banh Mi",
+        "chunk_type": "",
+        "creator": "Frank Lee",
+        "score": 0.8086
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Sandwich Head",
+        "chunk_type": "",
+        "creator": "Frank Lee",
+        "score": 0.8047
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Airport Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.793
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Ezekiel Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7812
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Ezekiel Salad Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7734
+      },
+      {
+        "rank": 6,
+        "recipe_name": "Ezekiel Salad Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7734
+      },
+      {
+        "rank": 7,
+        "recipe_name": "Tofu Tomato Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7695
+      },
+      {
+        "rank": 8,
+        "recipe_name": "Ezekiel Salad Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7695
+      },
+      {
+        "rank": 9,
+        "recipe_name": "Tempeh Ezekiel Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7617
+      },
+      {
+        "rank": 10,
+        "recipe_name": "Ezekiel Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7578
+      }
+    ],
+    "judge": {
+      "signal_pct": 60,
+      "usefulness": 5,
+      "reasoning": "Multiple chunks explicitly mention 'no-cook' or list only no-cook ingredients, offering several complete recipe options for the user."
+    }
+  },
+  "winner": "week3",
+  "winner_reasoning": "System B provided significantly more relevant chunks that directly addressed the 'no-cook' requirement, offering several complete recipe ideas compared to System A's single direct hit.",
+  "timestamp": "2026-03-07T22:41:24.818775"
+}

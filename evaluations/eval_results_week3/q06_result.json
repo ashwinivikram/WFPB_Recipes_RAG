@@ -1,0 +1,132 @@
+{
+  "id": "q06",
+  "question": "What is in the Ezekiel Sandwich with Walnut Mushroom Pate?",
+  "type": "main-recipe-factoid",
+  "hypothesis": "Both should retrieve the correct recipe; Week 2 assembly chunk is a bit shorter (sub-recipe split out)",
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "chunk_type": "assembly",
+        "creator": "Kumar Natarajan",
+        "score": 0.9158
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Walnut Mushroom Pate",
+        "chunk_type": "component",
+        "creator": "Kumar Natarajan",
+        "score": 0.7579
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Ezekiel Salad Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7574
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Ezekiel Tofu Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7551
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Ezekiel Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7538
+      }
+    ],
+    "judge": {
+      "signal_pct": 40,
+      "usefulness": 4,
+      "reasoning": "Two out of five chunks are highly relevant, providing key ingredients for both the full sandwich and its pate component, though the full ingredient lists are truncated."
+    }
+  },
+  "week3": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "chunk_type": "assembly",
+        "creator": "Kumar Natarajan",
+        "score": 0.9414
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Walnut Mushroom Pate",
+        "chunk_type": "component",
+        "creator": "Kumar Natarajan",
+        "score": 0.9062
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Healthy Sandwich",
+        "chunk_type": "",
+        "creator": "Koushik Reddy, MD",
+        "score": 0.7539
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Ezekiel Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7188
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Ezekiel Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.707
+      },
+      {
+        "rank": 6,
+        "recipe_name": "Ezekiel Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7031
+      },
+      {
+        "rank": 7,
+        "recipe_name": "Ezekiel Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.6602
+      },
+      {
+        "rank": 8,
+        "recipe_name": "Hummus Mushroom Tofu Sandwich",
+        "chunk_type": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.6562
+      },
+      {
+        "rank": 9,
+        "recipe_name": "Tempeh Ezekiel Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.6289
+      },
+      {
+        "rank": 10,
+        "recipe_name": "Ezekiel Salad Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.6289
+      }
+    ],
+    "judge": {
+      "signal_pct": 20,
+      "usefulness": 4,
+      "reasoning": "Two out of ten chunks are highly relevant, identifying the main ingredients for the specific sandwich and its pate, despite truncated ingredient lists."
+    }
+  },
+  "winner": "week2",
+  "winner_reasoning": "Both systems provided the same crucial relevant chunks, but System A achieved this with a much higher percentage of relevant chunks within its smaller top-5 set, indicating less irrelevant information.",
+  "timestamp": "2026-03-07T22:41:04.209001"
+}

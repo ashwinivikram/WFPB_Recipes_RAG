@@ -1,0 +1,1514 @@
+[
+  {
+    "id": "q01",
+    "question": "How do I make walnut mushroom pate?",
+    "type": "sub-recipe-factoid",
+    "hypothesis": "Week 2 should score higher — dedicated component chunk with focused vector vs diluted sandwich+pate embedding in Week 1",
+    "top_k": 5,
+    "week1": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Kumar Natarajan",
+          "score": 0.8061
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Chinese Gnocchi in Mushroom Sauce",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Frank Lee",
+          "score": 0.7027
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Banana Walnut Bread (WFPB)",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Group Member",
+          "score": 0.6914
+        },
+        {
+          "rank": 4,
+          "recipe_name": "WFPB Mushroom Sandwich with Aioli",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Leena Menon WFPB",
+          "score": 0.6825
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Stuffed Paratha Pockets",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Dr Sirisha Potluri",
+          "score": 0.6758
+        }
+      ],
+      "judge": {
+        "signal_pct": 20,
+        "usefulness": 3,
+        "reasoning": "Only one chunk is relevant, but it contains the walnut mushroom pate recipe embedded within a larger sandwich recipe, making it less direct for the specific question."
+      }
+    },
+    "week2": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Walnut Mushroom Pate",
+          "chunk_type": "component",
+          "parent": "Ezekiel Sandwich with Walnut Mushroom Pate",
+          "creator": "Kumar Natarajan",
+          "score": 0.8828
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+          "chunk_type": "assembly",
+          "parent": "Ezekiel Sandwich with Walnut Mushroom Pate",
+          "creator": "Kumar Natarajan",
+          "score": 0.7794
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Mushroom Sauce",
+          "chunk_type": "component",
+          "parent": "Chinese Gnocchi in Mushroom Sauce",
+          "creator": "Frank Lee",
+          "score": 0.7094
+        },
+        {
+          "rank": 4,
+          "recipe_name": "WFPB Mushroom Sandwich with Aioli",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Leena Menon WFPB",
+          "score": 0.7057
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Ragi Banana Cake",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Shalini Other Lady WFPB",
+          "score": 0.7032
+        }
+      ],
+      "judge": {
+        "signal_pct": 20,
+        "usefulness": 5,
+        "reasoning": "The first chunk directly and completely answers how to make walnut mushroom pate, even explicitly labeled as a component."
+      }
+    },
+    "winner": "week2",
+    "winner_reasoning": "System B provided a chunk specifically for the walnut mushroom pate component, directly and completely answering the user's question, unlike System A which embedded it within a larger recipe.",
+    "timestamp": "2026-02-28T14:55:42.888352"
+  },
+  {
+    "id": "q02",
+    "question": "What is the recipe for sweet potato paratha?",
+    "type": "sub-recipe-factoid",
+    "hypothesis": "Week 2 should score higher — dedicated paratha chunk vs buried inside Kathi Rolls chunk in Week 1",
+    "top_k": 5,
+    "week1": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Sweet Potato Paratha",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Ashwini Vikram",
+          "score": 0.8789
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Kathi Rolls",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Sharmila Vedam",
+          "score": 0.798
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Sweet Potato Chaat",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Kiran Sharma",
+          "score": 0.798
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Sweet Potato Chaat",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Sharmila Vedam",
+          "score": 0.7978
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Amaranth Thalipeeth",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Group Member",
+          "score": 0.7752
+        }
+      ],
+      "judge": {
+        "signal_pct": 20,
+        "usefulness": 5,
+        "reasoning": "The first chunk directly provides the complete recipe for sweet potato paratha, fully answering the user's question, though the other chunks are irrelevant."
+      }
+    },
+    "week2": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Sweet Potato Paratha",
+          "chunk_type": "component",
+          "parent": "Kathi Rolls",
+          "creator": "Sharmila Vedam",
+          "score": 0.8823
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Sweet Potato Paratha",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Ashwini Vikram",
+          "score": 0.853
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Sweet Potato Chaat",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Kiran Sharma",
+          "score": 0.798
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Sweet Potato Chaat",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Sharmila Vedam",
+          "score": 0.7978
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Amaranth Thalipeeth",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Group Member",
+          "score": 0.7935
+        }
+      ],
+      "judge": {
+        "signal_pct": 20,
+        "usefulness": 4,
+        "reasoning": "The full sweet potato paratha recipe is available in the second chunk, but the top chunk is a sub-recipe component that does not fully answer the question."
+      }
+    },
+    "winner": "week1",
+    "winner_reasoning": "System A is better because its top retrieved chunk immediately provides the complete recipe, whereas System B's top chunk is a less direct component recipe.",
+    "timestamp": "2026-02-28T14:55:56.406025"
+  },
+  {
+    "id": "q03",
+    "question": "How do I make a zucchini chutney?",
+    "type": "sub-recipe-factoid",
+    "hypothesis": "Week 2 should score higher — dedicated chutney chunk vs buried inside Moong Dosa Wrap in Week 1",
+    "top_k": 5,
+    "week1": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Moong Dosa Wrap",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Usha Gandhasri",
+          "score": 0.7679
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Baked Zucchini Handvo/Pancake",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Shalini Other Lady WFPB",
+          "score": 0.7528
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Zucchini Potato Cutlets",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Dr Sirisha Potluri",
+          "score": 0.7353
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Nuchinunde",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Sharmila Vedam",
+          "score": 0.7343
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Uthapam & Almond Chutney",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Meera Arun",
+          "score": 0.7309
+        }
+      ],
+      "judge": {
+        "signal_pct": 0,
+        "usefulness": 1,
+        "reasoning": "None of the retrieved chunks provide a recipe or instructions for making a zucchini chutney; they are about other zucchini dishes or general chutneys."
+      }
+    },
+    "week2": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Zucchini Chutney",
+          "chunk_type": "component",
+          "parent": "Moong Dosa Wrap",
+          "creator": "Usha Gandhasri",
+          "score": 0.8557
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Baked Zucchini Handvo/Pancake",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Shalini Other Lady WFPB",
+          "score": 0.8037
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Amaranth Thalipeeth",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Group Member",
+          "score": 0.7623
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Cilantro-Mint Chutney (Customizable)",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Ankit Dangi WFPB",
+          "score": 0.753
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Simple Veggie Pickle/Chutney",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Group Member (WFPB member)",
+          "score": 0.7404
+        }
+      ],
+      "judge": {
+        "signal_pct": 20,
+        "usefulness": 3,
+        "reasoning": "One chunk explicitly mentions a 'Zucchini Chutney' recipe, which is highly relevant, but the preview only shows ingredients and lacks the method for preparation."
+      }
+    },
+    "winner": "week2",
+    "winner_reasoning": "System B is the clear winner because it successfully retrieved a chunk for 'Zucchini Chutney,' directly addressing the user's specific query, while System A failed to retrieve any relevant chunks.",
+    "timestamp": "2026-02-28T14:56:07.154448"
+  },
+  {
+    "id": "q04",
+    "question": "Give me a homemade hummus recipe",
+    "type": "sub-recipe-factoid",
+    "hypothesis": "Week 2 should score higher — dedicated hummus chunk with focused hummus embedding",
+    "top_k": 5,
+    "week1": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Arugula Hummus Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Meghna Natraj",
+          "score": 0.7633
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Grilled Tofu Hummus Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Dr Sirisha Potluri",
+          "score": 0.7551
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Lavash Hummus Pinwheels",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Dr Sirisha Potluri",
+          "score": 0.7417
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Lavash Hummus Wraps",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Dr Sirisha Potluri",
+          "score": 0.74
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Hummus Mushroom Tofu Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Dr Sirisha Potluri",
+          "score": 0.7332
+        }
+      ],
+      "judge": {
+        "signal_pct": 0,
+        "usefulness": 1,
+        "reasoning": "No chunk provides a standalone homemade hummus recipe; all chunks either use hummus as an ingredient or list general sandwich ingredients."
+      }
+    },
+    "week2": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Hummus",
+          "chunk_type": "component",
+          "parent": "Arugula Hummus Sandwich",
+          "creator": "Meghna Natraj",
+          "score": 0.8005
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Grilled Tofu Hummus Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Dr Sirisha Potluri",
+          "score": 0.7551
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Arugula Hummus Sandwich",
+          "chunk_type": "assembly",
+          "parent": "Arugula Hummus Sandwich",
+          "creator": "Meghna Natraj",
+          "score": 0.7537
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Lavash Hummus Pinwheels",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Dr Sirisha Potluri",
+          "score": 0.7417
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Lavash Hummus Wraps",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Dr Sirisha Potluri",
+          "score": 0.74
+        }
+      ],
+      "judge": {
+        "signal_pct": 20,
+        "usefulness": 5,
+        "reasoning": "One chunk explicitly provides a standalone homemade hummus recipe, directly fulfilling the user's request."
+      }
+    },
+    "winner": "week2",
+    "winner_reasoning": "System B successfully extracted a dedicated 'Hummus' sub-recipe that directly answers the user's question, while System A failed to provide any direct hummus recipe.",
+    "timestamp": "2026-02-28T14:56:24.064403"
+  },
+  {
+    "id": "q05",
+    "question": "How do I make Kathi Rolls?",
+    "type": "main-recipe-factoid",
+    "hypothesis": "Both should score similarly — Week 2 assembly chunk still contains full Kathi Roll instructions",
+    "top_k": 5,
+    "week1": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Kathi Rolls",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Sharmila Vedam",
+          "score": 0.8223
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Ezekiel Kathi Roll",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Kumar Natarajan",
+          "score": 0.7582
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Lavash Hummus Pinwheels",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Dr Sirisha Potluri",
+          "score": 0.7135
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Baked Bread Rolls",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Kiran Sharma",
+          "score": 0.6841
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Gujarati Muthia",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Sharmila Vedam",
+          "score": 0.6709
+        }
+      ],
+      "judge": {
+        "signal_pct": 40,
+        "usefulness": 3,
+        "reasoning": "Only two out of five chunks are relevant, and the primary Kathi Roll recipe provided only lists ingredients, lacking the method for preparation."
+      }
+    },
+    "week2": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Kathi Rolls",
+          "chunk_type": "assembly",
+          "parent": "Kathi Rolls",
+          "creator": "Sharmila Vedam",
+          "score": 0.8377
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Ezekiel Kathi Roll",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Kumar Natarajan",
+          "score": 0.7582
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Lavash Hummus Pinwheels",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Dr Sirisha Potluri",
+          "score": 0.7135
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Sweet Potato Paratha",
+          "chunk_type": "component",
+          "parent": "Kathi Rolls",
+          "creator": "Sharmila Vedam",
+          "score": 0.6895
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Jowar Roti (Sorghum Flatbread)",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "WFPB member",
+          "score": 0.686
+        }
+      ],
+      "judge": {
+        "signal_pct": 60,
+        "usefulness": 3,
+        "reasoning": "Three out of five chunks are relevant, and while the main Kathi Roll recipe is better organized with sub-components, the previews still only display ingredients, omitting the method for preparation."
+      }
+    },
+    "winner": "week2",
+    "winner_reasoning": "System B retrieved a higher percentage of relevant chunks and demonstrated better chunking logic by explicitly including a component recipe crucial for making Kathi Rolls.",
+    "timestamp": "2026-02-28T14:56:40.490708"
+  },
+  {
+    "id": "q06",
+    "question": "What is in the Ezekiel Sandwich with Walnut Mushroom Pate?",
+    "type": "main-recipe-factoid",
+    "hypothesis": "Both should retrieve the correct recipe; Week 2 assembly chunk is a bit shorter (sub-recipe split out)",
+    "top_k": 5,
+    "week1": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Kumar Natarajan",
+          "score": 0.9123
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Ezekiel Salad Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Gurmeet Manku",
+          "score": 0.7574
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Ezekiel Tofu Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Gurmeet Manku",
+          "score": 0.7551
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Ezekiel Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Gurmeet Manku",
+          "score": 0.7538
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Ezekiel Tofu Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Gurmeet Manku",
+          "score": 0.7528
+        }
+      ],
+      "judge": {
+        "signal_pct": 20,
+        "usefulness": 3,
+        "reasoning": "Only one relevant chunk was retrieved, and while it contains the full ingredient list for the sandwich, the specific components of the 'Walnut Mushroom Pate' are not distinctly separated within that list."
+      }
+    },
+    "week2": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+          "chunk_type": "assembly",
+          "parent": "Ezekiel Sandwich with Walnut Mushroom Pate",
+          "creator": "Kumar Natarajan",
+          "score": 0.9158
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Walnut Mushroom Pate",
+          "chunk_type": "component",
+          "parent": "Ezekiel Sandwich with Walnut Mushroom Pate",
+          "creator": "Kumar Natarajan",
+          "score": 0.7579
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Ezekiel Salad Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Gurmeet Manku",
+          "score": 0.7574
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Ezekiel Tofu Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Gurmeet Manku",
+          "score": 0.7551
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Ezekiel Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Gurmeet Manku",
+          "score": 0.7538
+        }
+      ],
+      "judge": {
+        "signal_pct": 40,
+        "usefulness": 5,
+        "reasoning": "Two highly relevant chunks were retrieved, with one chunk explicitly detailing the ingredients of the 'Walnut Mushroom Pate' component and the other providing the overall sandwich ingredients."
+      }
+    },
+    "winner": "week2",
+    "winner_reasoning": "Week 2 is superior because it retrieved two relevant chunks, one providing the overall sandwich ingredients and another explicitly detailing the ingredients for the 'Walnut Mushroom Pate' component, offering a more complete and structured answer.",
+    "timestamp": "2026-02-28T14:56:52.463446"
+  },
+  {
+    "id": "q07",
+    "question": "What recipes use sweet potato?",
+    "type": "ingredient-query",
+    "hypothesis": "Week 2 may retrieve more distinct sweet potato recipes including the Sweet Potato Paratha component chunk",
+    "top_k": 5,
+    "week1": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Air-fried Sweet Potato with Basic Spices",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "WFPB member",
+          "score": 0.7653
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Sweet Potato Chaat",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Sharmila Vedam",
+          "score": 0.7625
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Simple Shakarkandi",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Gurmeet Manku",
+          "score": 0.7563
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Sweet Potato Brownie",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "WFPB member",
+          "score": 0.7493
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Sweet Potato Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Dr Sirisha Potluri",
+          "score": 0.745
+        }
+      ],
+      "judge": {
+        "signal_pct": 100,
+        "usefulness": 5,
+        "reasoning": "All five retrieved chunks are distinct recipes that explicitly use sweet potato, providing a complete answer to the user's question."
+      }
+    },
+    "week2": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Sweet Potato Brownie",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "WFPB member",
+          "score": 0.7646
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Sweet Potato Chaat",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Sharmila Vedam",
+          "score": 0.7625
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Simple Shakarkandi",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Gurmeet Manku",
+          "score": 0.7563
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Sweet Potato Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Dr Sirisha Potluri",
+          "score": 0.745
+        },
+        {
+          "rank": 5,
+          "recipe_name": "WFPB Dessert Recommendations (Chocolate Silk Pie, Sweet Potato Brownie)",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Shruti Mirashi Joshi",
+          "score": 0.7281
+        }
+      ],
+      "judge": {
+        "signal_pct": 100,
+        "usefulness": 4,
+        "reasoning": "While all chunks are relevant, one chunk is a duplicate reference to a recipe already listed, meaning fewer distinct recipes are presented in the top results compared to System A."
+      }
+    },
+    "winner": "week1",
+    "winner_reasoning": "System A provided five distinct recipes that use sweet potato, while System B provided only four distinct recipes within its top five retrieved chunks due to a duplicate mention.",
+    "timestamp": "2026-02-28T14:57:01.260150"
+  },
+  {
+    "id": "q08",
+    "question": "Give me a quick no-cook sandwich recipe",
+    "type": "strategy-query",
+    "hypothesis": "Similar performance — no-cook recipes are in both indexes; this tests embedding quality for strategy queries",
+    "top_k": 5,
+    "week1": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Grilled Sandwich without Cheese (Tips)",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Group Member",
+          "score": 0.6913
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Sweet Potato Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Dr Sirisha Potluri",
+          "score": 0.6794
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Ezekiel Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Gurmeet Manku",
+          "score": 0.6782
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Tempeh Ezekiel Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Gurmeet Manku",
+          "score": 0.677
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Ezekiel Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Gurmeet Manku",
+          "score": 0.6749
+        }
+      ],
+      "judge": {
+        "signal_pct": 40,
+        "usefulness": 4,
+        "reasoning": "Two relevant no-cook sandwich recipes with ingredients were retrieved, offering sufficient information to answer the question, though detailed assembly instructions are not provided."
+      }
+    },
+    "week2": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Grilled Sandwich without Cheese (Tips)",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Group Member",
+          "score": 0.686
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Sweet Potato Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Dr Sirisha Potluri",
+          "score": 0.6794
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Ezekiel Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Gurmeet Manku",
+          "score": 0.6782
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Tempeh Ezekiel Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Gurmeet Manku",
+          "score": 0.677
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Ezekiel Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Gurmeet Manku",
+          "score": 0.6749
+        }
+      ],
+      "judge": {
+        "signal_pct": 40,
+        "usefulness": 4,
+        "reasoning": "Two relevant no-cook sandwich recipes with ingredients were retrieved, offering sufficient information to answer the question, though detailed assembly instructions are not provided."
+      }
+    },
+    "winner": "tie",
+    "winner_reasoning": "Both systems retrieved identical chunks, resulting in the same signal percentage and usefulness score for this query.",
+    "timestamp": "2026-02-28T14:57:11.260869"
+  },
+  {
+    "id": "q09",
+    "question": "What recipes did Kumar Natarajan create?",
+    "type": "creator-query",
+    "hypothesis": "Week 2 returns more Kumar Natarajan results if component chunk correctly preserves creator metadata",
+    "top_k": 5,
+    "week1": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Potato Pumpkin Bhakri",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Kiran Sharma",
+          "score": 0.6524
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Kathi Rolls",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Sharmila Vedam",
+          "score": 0.6389
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Uttapam Waffles",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Shachi Thakkar",
+          "score": 0.6357
+        },
+        {
+          "rank": 4,
+          "recipe_name": "WFPB Samosa Replacement",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Shruti Mirashi Joshi",
+          "score": 0.635
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Moong Dal Pesarattu",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Kiran Sharma",
+          "score": 0.633
+        }
+      ],
+      "judge": {
+        "signal_pct": 0,
+        "usefulness": 1,
+        "reasoning": "None of the retrieved chunks mention \"Kumar Natarajan\" as a creator, making them completely irrelevant to the user's question."
+      }
+    },
+    "week2": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Potato Pumpkin Bhakri",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Kiran Sharma",
+          "score": 0.6524
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Uttapam Waffles",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Shachi Thakkar",
+          "score": 0.6357
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Moong Dal Pesarattu",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Kiran Sharma",
+          "score": 0.633
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Sweet Potato Chaat",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Sharmila Vedam",
+          "score": 0.6327
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Fruity Shakarkandi Chaat",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Mrs N K Manku",
+          "score": 0.6318
+        }
+      ],
+      "judge": {
+        "signal_pct": 0,
+        "usefulness": 1,
+        "reasoning": "None of the retrieved chunks mention \"Kumar Natarajan\" as a creator, making them completely irrelevant to the user's question."
+      }
+    },
+    "winner": "tie",
+    "winner_reasoning": "Both systems returned zero relevant chunks for the user's specific query about Kumar Natarajan, indicating a complete failure in retrieving the requested information.",
+    "timestamp": "2026-02-28T14:57:15.902941"
+  },
+  {
+    "id": "q10",
+    "question": "How do I make Aloo Tikki for chaat?",
+    "type": "sub-recipe-factoid",
+    "hypothesis": "Week 2 should score higher — dedicated Aloo Tikki chunk with focused tikki preparation vector",
+    "top_k": 5,
+    "week1": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Aloo Tikki Chaat",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Shalini Priyadarshini",
+          "score": 0.8647
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Aloo Tikki Chaat",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Padma Subramanian",
+          "score": 0.813
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Aloo Pyaaz Tikki",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Venkat Bellamkonda",
+          "score": 0.7869
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Matra Chaat",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Manisha Bansal",
+          "score": 0.7727
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Yellow Mung Dal Idli Chaat",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Mrs N K Manku",
+          "score": 0.7609
+        }
+      ],
+      "judge": {
+        "signal_pct": 60,
+        "usefulness": 3,
+        "reasoning": "While three chunks mention 'Aloo Tikki' or a variation, none provide isolated instructions for making only the Aloo Tikki component, which the user explicitly requested."
+      }
+    },
+    "week2": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Aloo Tikki Chaat",
+          "chunk_type": "assembly",
+          "parent": "Aloo Tikki Chaat",
+          "creator": "Shalini Priyadarshini",
+          "score": 0.8697
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Aloo Tikki",
+          "chunk_type": "component",
+          "parent": "Aloo Tikki Chaat",
+          "creator": "Shalini Priyadarshini",
+          "score": 0.8415
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Aloo Tikki Chaat",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Padma Subramanian",
+          "score": 0.813
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Aloo Pyaaz Tikki",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Venkat Bellamkonda",
+          "score": 0.7869
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Matra Chaat",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Manisha Bansal",
+          "score": 0.7727
+        }
+      ],
+      "judge": {
+        "signal_pct": 80,
+        "usefulness": 5,
+        "reasoning": "One chunk precisely and directly provides the recipe for the 'Aloo Tikki [component]', fully answering the user's specific question."
+      }
+    },
+    "winner": "week2",
+    "winner_reasoning": "System B directly answers the user's request for 'Aloo Tikki' instructions as a component, while System A only provides full chaat recipes or variations.",
+    "timestamp": "2026-02-28T14:57:26.996762"
+  },
+  {
+    "id": "q11",
+    "question": "What are some Indian street food recipes I can make at home?",
+    "type": "thematic-analytical",
+    "hypothesis": "Both should retrieve similar results; Week 2 may surface more distinct sub-components (pattice, vada, tikki)",
+    "top_k": 5,
+    "week1": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Potato Pumpkin Bhakri",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Kiran Sharma",
+          "score": 0.6782
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Grilled Pizza Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Padma Subramanian",
+          "score": 0.6688
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Kathi Rolls",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Sharmila Vedam",
+          "score": 0.6667
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Air Fried Ragi Pakodas",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Mrs N K Manku",
+          "score": 0.6659
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Chutney Sandwich with Lentil Wrap",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Kusum Dhairyawan",
+          "score": 0.6649
+        }
+      ],
+      "judge": {
+        "signal_pct": 60,
+        "usefulness": 3,
+        "reasoning": "The system retrieved three relevant Indian street food recipes (Kathi Rolls, Air Fried Ragi Pakodas, Chutney Sandwich with Lentil Wrap), providing a good start but including two irrelevant chunks diluted the overall usefulness."
+      }
+    },
+    "week2": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Potato Pumpkin Bhakri",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Kiran Sharma",
+          "score": 0.6782
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Grilled Pizza Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Padma Subramanian",
+          "score": 0.6688
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Aloo Tikki Chaat",
+          "chunk_type": "assembly",
+          "parent": "Aloo Tikki Chaat",
+          "creator": "Shalini Priyadarshini",
+          "score": 0.6672
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Air Fried Ragi Pakodas",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Mrs N K Manku",
+          "score": 0.6659
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Chutney Sandwich with Lentil Wrap",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Kusum Dhairyawan",
+          "score": 0.6649
+        }
+      ],
+      "judge": {
+        "signal_pct": 60,
+        "usefulness": 4,
+        "reasoning": "The system retrieved three clear and distinct Indian street food recipes (Aloo Tikki Chaat, Air Fried Ragi Pakodas, Chutney Sandwich with Lentil Wrap), with Aloo Tikki Chaat being a particularly strong and relevant hit, providing a solid answer to the user's question despite two irrelevant chunks."
+      }
+    },
+    "winner": "week2",
+    "winner_reasoning": "System B's inclusion of 'Aloo Tikki Chaat' as a distinct and highly relevant Indian street food recipe, likely facilitated by its sub-recipe splitting, made its set of useful chunks slightly stronger and more directly answered the user's query compared to System A.",
+    "timestamp": "2026-02-28T14:57:45.257864"
+  },
+  {
+    "id": "q12",
+    "question": "How do I make Ragda for Ragda Patties?",
+    "type": "sub-recipe-factoid",
+    "hypothesis": "Week 2 should score higher — dedicated Ragda component chunk vs buried in full Ragda Patties recipe",
+    "top_k": 5,
+    "week1": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Ragda Patties",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Sharmila Vedam",
+          "score": 0.8281
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Ragda Pattice",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Manisha Deora",
+          "score": 0.8254
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Air Fried Ragda Pattice",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Leena Menon",
+          "score": 0.7972
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Air Fried Patties",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Mrs N K Manku",
+          "score": 0.778
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Potato & Broccoli Patties",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Kusum Dhairgawan",
+          "score": 0.7546
+        }
+      ],
+      "judge": {
+        "signal_pct": 0,
+        "usefulness": 1,
+        "reasoning": "None of the retrieved chunks provide specific instructions on how to make the 'Ragda' component; they only list ingredients for the overall Ragda Patties dish or other irrelevant recipes."
+      }
+    },
+    "week2": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Ragda Pattice",
+          "chunk_type": "assembly",
+          "parent": "Ragda Pattice",
+          "creator": "Manisha Deora",
+          "score": 0.8367
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Air Fried Ragda Pattice",
+          "chunk_type": "assembly",
+          "parent": "Air Fried Ragda Pattice",
+          "creator": "Leena Menon",
+          "score": 0.8154
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Ragda Patties",
+          "chunk_type": "assembly",
+          "parent": "Ragda Patties",
+          "creator": "Sharmila Vedam",
+          "score": 0.8118
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Ragda",
+          "chunk_type": "component",
+          "parent": "Ragda Patties",
+          "creator": "Sharmila Vedam",
+          "score": 0.7922
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Air Fried Patties",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Mrs N K Manku",
+          "score": 0.778
+        }
+      ],
+      "judge": {
+        "signal_pct": 20,
+        "usefulness": 4,
+        "reasoning": "Chunk 4 specifically identifies the 'Ragda [component]' recipe, directly addressing the user's question, even if the preview only shows ingredients."
+      }
+    },
+    "winner": "week2",
+    "winner_reasoning": "System B is the winner because it successfully retrieved the specific sub-recipe for 'Ragda' that the user was asking for, unlike System A which only provided assembly recipes.",
+    "timestamp": "2026-02-28T14:57:53.628955"
+  },
+  {
+    "id": "q13",
+    "question": "Give me a recipe for mushroom sauce",
+    "type": "sub-recipe-factoid",
+    "hypothesis": "Week 2 should score higher — dedicated mushroom sauce chunk",
+    "top_k": 5,
+    "week1": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Chinese Gnocchi in Mushroom Sauce",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Frank Lee",
+          "score": 0.765
+        },
+        {
+          "rank": 2,
+          "recipe_name": "WFPB Mushroom Sandwich with Aioli",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Leena Menon WFPB",
+          "score": 0.7141
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Kumar Natarajan",
+          "score": 0.7013
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Yum Cha",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Frank Lee",
+          "score": 0.6857
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Hummus Mushroom Tofu Sandwich",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Dr Sirisha Potluri",
+          "score": 0.6683
+        }
+      ],
+      "judge": {
+        "signal_pct": 0,
+        "usefulness": 1,
+        "reasoning": "None of the retrieved chunks provide a standalone recipe for mushroom sauce; the closest mention is embedded within a larger gnocchi recipe."
+      }
+    },
+    "week2": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Mushroom Sauce",
+          "chunk_type": "component",
+          "parent": "Chinese Gnocchi in Mushroom Sauce",
+          "creator": "Frank Lee",
+          "score": 0.7993
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Chinese Gnocchi in Mushroom Sauce",
+          "chunk_type": "assembly",
+          "parent": "Chinese Gnocchi in Mushroom Sauce",
+          "creator": "Frank Lee",
+          "score": 0.7506
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Walnut Mushroom Pate",
+          "chunk_type": "component",
+          "parent": "Ezekiel Sandwich with Walnut Mushroom Pate",
+          "creator": "Kumar Natarajan",
+          "score": 0.725
+        },
+        {
+          "rank": 4,
+          "recipe_name": "WFPB Mushroom Sandwich with Aioli",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Leena Menon WFPB",
+          "score": 0.7155
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+          "chunk_type": "assembly",
+          "parent": "Ezekiel Sandwich with Walnut Mushroom Pate",
+          "creator": "Kumar Natarajan",
+          "score": 0.6935
+        }
+      ],
+      "judge": {
+        "signal_pct": 40,
+        "usefulness": 5,
+        "reasoning": "Chunk 1 directly provides a standalone recipe for mushroom sauce, allowing the user to fully answer their question."
+      }
+    },
+    "winner": "week2",
+    "winner_reasoning": "System B clearly wins because its top chunk specifically retrieves a standalone mushroom sauce recipe, which directly answers the user's question, unlike System A which offered no direct recipes.",
+    "timestamp": "2026-02-28T14:58:01.273747"
+  },
+  {
+    "id": "q14",
+    "question": "What savory waffles or pancakes can I make for breakfast?",
+    "type": "thematic-analytical",
+    "hypothesis": "Similar performance; tests if chunking strategy affected this category (fewer splits)",
+    "top_k": 5,
+    "week1": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Savory Pancakes & Waffles — Whole Food Plant-Based",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Gurmeet Manku",
+          "score": 0.7839
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Moong Dal Savory Pancakes (Dosa)",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Ashwini Vikram",
+          "score": 0.6831
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Oats Chickpea Waffles",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Sharmila Vedam",
+          "score": 0.6732
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Savory Hot Breakfast Ideas for Cold",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Group Members",
+          "score": 0.6683
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Lentil Waffles",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Vandana Gupta",
+          "score": 0.6648
+        }
+      ],
+      "judge": {
+        "signal_pct": 80,
+        "usefulness": 4,
+        "reasoning": "Most chunks are highly relevant, providing specific savory pancake and waffle recipes with ingredients, but one chunk is a general discussion rather than a recipe."
+      }
+    },
+    "week2": {
+      "chunks": [
+        {
+          "rank": 1,
+          "recipe_name": "Savory Pancakes & Waffles — Whole Food Plant-Based",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Gurmeet Manku",
+          "score": 0.7839
+        },
+        {
+          "rank": 2,
+          "recipe_name": "Oats Chickpea Waffles",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Sharmila Vedam",
+          "score": 0.6732
+        },
+        {
+          "rank": 3,
+          "recipe_name": "Lentil Waffles",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Vandana Gupta",
+          "score": 0.6648
+        },
+        {
+          "rank": 4,
+          "recipe_name": "Spicy Waffles",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Priya Rao",
+          "score": 0.6629
+        },
+        {
+          "rank": 5,
+          "recipe_name": "Cauliflower Potato Waffles",
+          "chunk_type": "",
+          "parent": "",
+          "creator": "Dr Sirisha Potluri",
+          "score": 0.6613
+        }
+      ],
+      "judge": {
+        "signal_pct": 100,
+        "usefulness": 5,
+        "reasoning": "All retrieved chunks are highly relevant, providing specific savory pancake and waffle recipes with ingredient previews, directly answering the user's question."
+      }
+    },
+    "winner": "week2",
+    "winner_reasoning": "System B provided more directly relevant recipe chunks, offering a greater number of specific savory waffle and pancake ideas without any off-topic content.",
+    "timestamp": "2026-02-28T14:58:09.157266"
+  }
+]

@@ -47,6 +47,14 @@ if sys.stdout.encoding.lower() != 'utf-8':
 if sys.stderr.encoding.lower() != 'utf-8':
     sys.stderr.reconfigure(encoding='utf-8')
 
+from rich.console import Console
+from rich.markdown import Markdown
+from rich.panel import Panel
+from rich.text import Text
+from rich import print as rprint
+
+console = Console()
+
 from google import genai
 from fastembed import TextEmbedding
 from qdrant_client import QdrantClient
@@ -151,18 +159,12 @@ def search_qdrant(
 def display_chunks(results: list, query: str):
     """
     Display retrieved chunks clearly without LLM generation.
-
-    This is the core diagnostic tool. When your system gives a wrong answer,
-    run --retrieve-only to see exactly what was retrieved. If the right recipe
-    IS in the chunks but the answer is wrong → generation problem.
-    If the right recipe is NOT in the chunks → retrieval problem.
     """
-    print(f"\n{'─' * 60}")
-    print(f"  Retrieved {len(results)} chunks for: \"{query}\"")
-    print(f"{'─' * 60}")
+    console.print(f"\n[bold blue]Retrieved {len(results)} chunks for:[/bold blue] [italic]\"{query}\"[/italic]")
+    console.print("─" * 60)
 
     if not results:
-        print("  No results found.")
+        console.print("[yellow]  No results found.[/yellow]")
         return []
 
     chunk_data = []
@@ -175,12 +177,14 @@ def display_chunks(results: list, query: str):
         score   = result.score
         text    = payload.get("text", "")
 
-        print(f"\n  [{i}] {name}")
-        print(f"       Creator  : {creator}")
-        print(f"       Category : {cat}")
-        print(f"       Source   : {pdf}")
-        print(f"       Score    : {score:.4f}")
-        print(f"       Preview  : {text[:150].replace(chr(10), ' ')}...")
+        chunk_text = f"[bold green]Name    :[/bold green] {name}\n" \
+                     f"[bold green]Creator :[/bold green] {creator}\n" \
+                     f"[bold green]Category:[/bold green] {cat}\n" \
+                     f"[bold green]Source  :[/bold green] {pdf}\n" \
+                     f"[bold green]Score   :[/bold green] {score:.4f}\n\n" \
+                     f"[italic]{text[:150].replace(chr(10), ' ')}...[/italic]"
+        
+        console.print(Panel(chunk_text, title=f"Result [{i}]", border_style="cyan", expand=False))
 
         chunk_data.append({
             "rank":        i,
@@ -191,11 +195,9 @@ def display_chunks(results: list, query: str):
             "source_pdf":  pdf,
         })
 
-    print(f"\n{'─' * 60}")
-    print("  Diagnostic tip: Is the recipe you expected in this list?")
-    print("  YES → generation problem (LLM not using the context well)")
-    print("  NO  → retrieval problem (embedding similarity not matching)")
-    print(f"{'─' * 60}\n")
+    console.print("[dim]Diagnostic tip: Is the recipe you expected in this list?[/dim]")
+    console.print("[dim]YES → generation problem (LLM not using the context well)[/dim]")
+    console.print("[dim]NO  → retrieval problem (embedding similarity not matching)[/dim]\n")
 
     return chunk_data
 
@@ -232,15 +234,8 @@ def generate_answer(query: str, results: list, gemini) -> str:
 
 # ── Print answer ──────────────────────────────────────────────────────────────
 def print_answer(answer: str):
-    print(f"\n{'─' * 60}")
-    wrapped = textwrap.fill(
-        answer,
-        width=68,
-        initial_indent="  ",
-        subsequent_indent="  ",
-    )
-    print(wrapped)
-    print(f"{'─' * 60}\n")
+    md = Markdown(answer)
+    console.print(Panel(md, title="[bold magenta]Assistant's Answer[/bold magenta]", border_style="magenta", expand=False))
 
 
 # ── Handle session commands ───────────────────────────────────────────────────
@@ -367,18 +362,14 @@ def save_trace(session: Session) -> Path:
 # ── Print session header ──────────────────────────────────────────────────────
 def print_header(session: Session, points_count: int):
     mode = "RETRIEVE-ONLY" if session.retrieve_only else "FULL RAG"
-    print(f"""
-╔══════════════════════════════════════════════════════════════╗
-║       WFPB Recipe RAG — Thankful2Plants.com                  ║
-║       Ashwini Vikram | Capstone Week 1                       ║
-╠══════════════════════════════════════════════════════════════╣
-║  Mode       : {mode:<46} ║
-║  Collection : {COLLECTION_NAME:<46} ║
-║  Recipes    : {str(points_count):<46} ║
-║  Top-k      : {str(session.top_k):<46} ║
-╚══════════════════════════════════════════════════════════════╝
-  Type your question or /help for commands. /quit to exit.
-""")
+    
+    header_text = f"[bold green]Mode       :[/bold green] {mode}\n" \
+                  f"[bold green]Collection :[/bold green] {COLLECTION_NAME}\n" \
+                  f"[bold green]Recipes    :[/bold green] {points_count}\n" \
+                  f"[bold green]Top-k      :[/bold green] {session.top_k}"
+                  
+    console.print(Panel(header_text, title="[bold cyan]WFPB Recipe RAG — Thankful2Plants.com[/bold cyan]", border_style="cyan", subtitle="[italic]Ashwini Vikram | Capstone Week 1[/italic]", expand=False))
+    console.print("[yellow]Type your question or /help for commands. /quit to exit.[/yellow]\n")
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────

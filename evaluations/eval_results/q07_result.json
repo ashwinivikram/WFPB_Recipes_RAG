@@ -1,0 +1,108 @@
+{
+  "id": "q07",
+  "question": "What recipes use sweet potato?",
+  "type": "ingredient-query",
+  "hypothesis": "Week 2 may retrieve more distinct sweet potato recipes including the Sweet Potato Paratha component chunk",
+  "top_k": 5,
+  "week1": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Air-fried Sweet Potato with Basic Spices",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "WFPB member",
+        "score": 0.7653
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Sweet Potato Chaat",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Sharmila Vedam",
+        "score": 0.7625
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Simple Shakarkandi",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7563
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Sweet Potato Brownie",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "WFPB member",
+        "score": 0.7493
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Sweet Potato Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.745
+      }
+    ],
+    "judge": {
+      "signal_pct": 100,
+      "usefulness": 5,
+      "reasoning": "All five retrieved chunks are distinct recipes that explicitly use sweet potato, providing a complete answer to the user's question."
+    }
+  },
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Sweet Potato Brownie",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "WFPB member",
+        "score": 0.7646
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Sweet Potato Chaat",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Sharmila Vedam",
+        "score": 0.7625
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Simple Shakarkandi",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7563
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Sweet Potato Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.745
+      },
+      {
+        "rank": 5,
+        "recipe_name": "WFPB Dessert Recommendations (Chocolate Silk Pie, Sweet Potato Brownie)",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Shruti Mirashi Joshi",
+        "score": 0.7281
+      }
+    ],
+    "judge": {
+      "signal_pct": 100,
+      "usefulness": 4,
+      "reasoning": "While all chunks are relevant, one chunk is a duplicate reference to a recipe already listed, meaning fewer distinct recipes are presented in the top results compared to System A."
+    }
+  },
+  "winner": "week1",
+  "winner_reasoning": "System A provided five distinct recipes that use sweet potato, while System B provided only four distinct recipes within its top five retrieved chunks due to a duplicate mention.",
+  "timestamp": "2026-02-28T14:57:01.260150"
+}

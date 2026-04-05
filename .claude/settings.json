@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.venv/bin/python scripts/10_evaluate_week3.py)",
+      "Bash(git pull origin main)",
+      "Bash(.venv/bin/python week3_prequalify.py)"
+    ]
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "id": "q02",
+  "question": "What is the recipe for sweet potato paratha?",
+  "type": "sub-recipe-factoid",
+  "hypothesis": "Week 2 should score higher — dedicated paratha chunk vs buried inside Kathi Rolls chunk in Week 1",
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Sweet Potato Paratha",
+        "chunk_type": "component",
+        "creator": "Sharmila Vedam",
+        "score": 0.8823
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Sweet Potato Paratha",
+        "chunk_type": "",
+        "creator": "Ashwini Vikram",
+        "score": 0.853
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Sweet Potato Chaat",
+        "chunk_type": "",
+        "creator": "Kiran Sharma",
+        "score": 0.798
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Sweet Potato Chaat",
+        "chunk_type": "",
+        "creator": "Sharmila Vedam",
+        "score": 0.7978
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Amaranth Thalipeeth",
+        "chunk_type": "",
+        "creator": "Group Member",
+        "score": 0.7935
+      }
+    ],
+    "judge": {
+      "signal_pct": 40,
+      "usefulness": 4,
+      "reasoning": "Two out of five chunks are highly relevant, providing good ingredient and method information for sweet potato paratha, though previews are cut off."
+    }
+  },
+  "week3": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Sweet Potato Paratha",
+        "chunk_type": "component",
+        "creator": "Sharmila Vedam",
+        "score": 0.9102
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Sweet Potato Paratha",
+        "chunk_type": "",
+        "creator": "Ashwini Vikram",
+        "score": 0.8867
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Amaranth Thalipeeth",
+        "chunk_type": "",
+        "creator": "Group Member",
+        "score": 0.8086
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Kathi Rolls",
+        "chunk_type": "assembly",
+        "creator": "Sharmila Vedam",
+        "score": 0.7734
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Air-fried Sweet Potato Tikki",
+        "chunk_type": "",
+        "creator": "WFPB member",
+        "score": 0.7539
+      },
+      {
+        "rank": 6,
+        "recipe_name": "Potato Dapati / Hashbrowns (WFPB)",
+        "chunk_type": "",
+        "creator": "Prathima WFPB",
+        "score": 0.7031
+      },
+      {
+        "rank": 7,
+        "recipe_name": "Tikki",
+        "chunk_type": "component",
+        "creator": "Frank Lee",
+        "score": 0.6562
+      },
+      {
+        "rank": 8,
+        "recipe_name": "Sweet Potato Brownie",
+        "chunk_type": "",
+        "creator": "Gurmeet",
+        "score": 0.6406
+      },
+      {
+        "rank": 9,
+        "recipe_name": "Pattice",
+        "chunk_type": "component",
+        "creator": "Manisha Deora",
+        "score": 0.6289
+      },
+      {
+        "rank": 10,
+        "recipe_name": "Sweet Potato Flat Bun",
+        "chunk_type": "",
+        "creator": "Frank Lee",
+        "score": 0.6172
+      }
+    ],
+    "judge": {
+      "signal_pct": 20,
+      "usefulness": 4,
+      "reasoning": "Two out of ten chunks are highly relevant, offering the same core ingredient and method information as System A, despite many irrelevant chunks."
+    }
+  },
+  "winner": "week2",
+  "winner_reasoning": "Week 2 is the winner because it retrieved the exact same relevant information as Week 3 with a significantly higher signal percentage (40% vs 20%) within its top results.",
+  "timestamp": "2026-03-07T22:40:13.575106"
+}

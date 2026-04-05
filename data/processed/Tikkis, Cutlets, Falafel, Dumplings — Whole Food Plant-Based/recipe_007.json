@@ -33,21 +33,21 @@
     "sweeteners": []
   },
   "all_ingredients_flat": "butternut beans, potato, bread crumbs, onion, garlic-ginger paste, cumin powder, chili powder, green chili, coriander",
-  "instructions": "Sauté onion and garlic ginger paste for 1 min. Add all other ingredients, mix well to form patties. Cook on non-stick pan for 2 mins each side.",
+  "instructions": "Saut\u00e9 onion and garlic ginger paste for 1 min. Add all other ingredients, mix well to form patties. Cook on non-stick pan for 2 mins each side.",
   "cooking_methods": [
     "saute",
     "pan-fry"
   ],
   "serving_suggestion": "",
   "notes": "",
-  "id": "Tikkis, Cutlets, Falafel, Dumplings — Whole Food Plant-Based_page_007",
-  "source_pdf": "Tikkis, Cutlets, Falafel, Dumplings — Whole Food Plant-Based.pdf",
+  "id": "Tikkis, Cutlets, Falafel, Dumplings \u2014 Whole Food Plant-Based_page_007",
+  "source_pdf": "Tikkis, Cutlets, Falafel, Dumplings \u2014 Whole Food Plant-Based.pdf",
   "page_number": 7,
   "source_url": "https://thankful2plants.com",
   "attribution": "Thankful2Plants.com by Gurmeet Manku (CC BY-NC-ND 4.0)",
-  "extraction_date": "2026-02-21",
-  "image_path": "/Users/ashwinivikram/AshwiniVikramWeek1/data/raw/images/Tikkis, Cutlets, Falafel, Dumplings — Whole Food Plant-Based/page_007.png",
-  "text": "Recipe: Butternut Beans Tikki\nCreator: Frank Lee\nCategory: Patty\nIngredients: butternut beans, potato, bread crumbs, onion, garlic-ginger paste, cumin powder, chili powder, green chili, coriander\nCooking methods: saute, pan-fry\nInstructions: Sauté onion and garlic ginger paste for 1 min. Add all other ingredients, mix well to form patties. Cook on non-stick pan for 2 mins each side.",
+  "extraction_date": "WFPB member",
+  "image_path": "/Users/ashwinivikram/AshwiniVikramWeek1/data/raw/images/Tikkis, Cutlets, Falafel, Dumplings \u2014 Whole Food Plant-Based/page_007.png",
+  "text": "Recipe: Butternut Beans Tikki\nCreator: Frank Lee\nCategory: Patty\nIngredients: butternut beans, potato, bread crumbs, onion, garlic-ginger paste, cumin powder, chili powder, green chili, coriander\nCooking methods: saute, pan-fry\nInstructions: Saut\u00e9 onion and garlic ginger paste for 1 min. Add all other ingredients, mix well to form patties. Cook on non-stick pan for 2 mins each side.",
   "embedding": [
     -0.020948803052306175,
     -0.019344057887792587,

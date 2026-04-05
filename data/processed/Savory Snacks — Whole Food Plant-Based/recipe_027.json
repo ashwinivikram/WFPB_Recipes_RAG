@@ -15,7 +15,7 @@
     "rainbow_veggies": [
       "green chillies",
       "tomato",
-      "jalapeño",
+      "jalape\u00f1o",
       "dried red chillies",
       "red bell pepper",
       "yellow bell pepper"
@@ -41,8 +41,8 @@
     ],
     "sweeteners": []
   },
-  "all_ingredients_flat": "coriander leaves, mint leaves, green chillies, lemon juice, vinegar, garlic cloves, tomato, jalapeño, dried red chillies, red bell pepper, yellow bell pepper, walnuts, garbanzo beans (chickpeas), Yukon potatoes, turmeric, cinnamon stick, Himalayan salt",
-  "instructions": "For Green Chutney: Grind coriander leaves, mint leaves, green chillies, lemon juice, vinegar, and garlic cloves to make a coarse chutney. For Red Sauce: Grind tomato, green chilli, jalapeño, dried red chillies, red bell pepper, yellow bell pepper, coriander leaves, lemon juice, vinegar, and walnuts to make a coarse chutney. For Shor Nakhod: Pressure cook 1 cup garbanzo beans (chickpeas; soaked overnight) with turmeric, 1 inch cinnamon stick & Himalayan salt. Open the pressure cooker 20 minutes after the first whistle on low heat. Optionally mash some of the chickpeas to make them thicker (less watery). Cut Yukon potatoes into 1 inch pieces. Add them to boiling water with turmeric powder & some mint leaves. Cook at low flame for 5-7 minutes. Assembly: Serve a few Tbsp of garbanzo beans to a bowl. Add some cooked potatoes. Then garnish with Green Chutney & Red Chutney.",
+  "all_ingredients_flat": "coriander leaves, mint leaves, green chillies, lemon juice, vinegar, garlic cloves, tomato, jalape\u00f1o, dried red chillies, red bell pepper, yellow bell pepper, walnuts, garbanzo beans (chickpeas), Yukon potatoes, turmeric, cinnamon stick, Himalayan salt",
+  "instructions": "For Green Chutney: Grind coriander leaves, mint leaves, green chillies, lemon juice, vinegar, and garlic cloves to make a coarse chutney. For Red Sauce: Grind tomato, green chilli, jalape\u00f1o, dried red chillies, red bell pepper, yellow bell pepper, coriander leaves, lemon juice, vinegar, and walnuts to make a coarse chutney. For Shor Nakhod: Pressure cook 1 cup garbanzo beans (chickpeas; soaked overnight) with turmeric, 1 inch cinnamon stick & Himalayan salt. Open the pressure cooker 20 minutes after the first whistle on low heat. Optionally mash some of the chickpeas to make them thicker (less watery). Cut Yukon potatoes into 1 inch pieces. Add them to boiling water with turmeric powder & some mint leaves. Cook at low flame for 5-7 minutes. Assembly: Serve a few Tbsp of garbanzo beans to a bowl. Add some cooked potatoes. Then garnish with Green Chutney & Red Chutney.",
   "cooking_methods": [
     "pressure cook",
     "blend",
@@ -50,15 +50,15 @@
     "no-cook"
   ],
   "serving_suggestion": "Serve a few Tbsp of garbanzo beans to a bowl. Add some cooked potatoes. Then garnish with Green Chutney & Red Chutney.",
-  "notes": "A recipe with TUBERS (Yukon potatoes), BEANS (garbanzo beans | chickpeas), RAINBOW VEGGIES (tomato, red & yellow bell peppers, jalapeño), LIME-LEMON-VINEGAR (lemon juice, vinegar), HERBS & SPICES (various).",
-  "id": "Savory Snacks — Whole Food Plant-Based_page_027",
-  "source_pdf": "Savory Snacks — Whole Food Plant-Based.pdf",
+  "notes": "A recipe with TUBERS (Yukon potatoes), BEANS (garbanzo beans | chickpeas), RAINBOW VEGGIES (tomato, red & yellow bell peppers, jalape\u00f1o), LIME-LEMON-VINEGAR (lemon juice, vinegar), HERBS & SPICES (various).",
+  "id": "Savory Snacks \u2014 Whole Food Plant-Based_page_027",
+  "source_pdf": "Savory Snacks \u2014 Whole Food Plant-Based.pdf",
   "page_number": 27,
   "source_url": "https://thankful2plants.com",
   "attribution": "Thankful2Plants.com by Gurmeet Manku (CC BY-NC-ND 4.0)",
-  "extraction_date": "2026-02-21",
-  "image_path": "/Users/ashwinivikram/AshwiniVikramWeek1/data/raw/images/Savory Snacks — Whole Food Plant-Based/page_027.png",
-  "text": "Recipe: Shor Nakhod\nCreator: Kiran Sharma\nCategory: Snack\nIngredients: coriander leaves, mint leaves, green chillies, lemon juice, vinegar, garlic cloves, tomato, jalapeño, dried red chillies, red bell pepper, yellow bell pepper, walnuts, garbanzo beans (chickpeas), Yukon potatoes, turmeric, cinnamon stick, Himalayan salt\nCooking methods: pressure cook, blend, boil, no-cook\nInstructions: For Green Chutney: Grind coriander leaves, mint leaves, green chillies, lemon juice, vinegar, and garlic cloves to make a coarse chutney. For Red Sauce: Grind tomato, green chilli, jalapeño, dried red chillies, red bell pepper, yellow bell pepper, coriander leaves, lemon juice, vinegar, and walnuts to make a coarse chutney. For Shor Nakhod: Pressure cook 1 cup garbanzo beans (chickpeas; soaked overnight) with turmeric, 1 inch cinnamon stick & Himalayan salt. Open the pressure cooker 20 minutes after the first whistle on low heat. Optionally mash some of the chickpeas to make them thicker (less watery). Cut Yukon potatoes into 1 inch pieces. Add them to boiling water with turmeric powder & some mint leaves. Cook at low flame for 5-7 minutes. Assembly: Serve a few Tbsp of garbanzo beans to a bowl. Add some cooked potatoes. Then garnish with Green Chutney & Red Chutney.\nNotes: A recipe with TUBERS (Yukon potatoes), BEANS (garbanzo beans | chickpeas), RAINBOW VEGGIES (tomato, red & yellow bell peppers, jalapeño), LIME-LEMON-VINEGAR (lemon juice, vinegar), HERBS & SPICES (various).",
+  "extraction_date": "WFPB member",
+  "image_path": "/Users/ashwinivikram/AshwiniVikramWeek1/data/raw/images/Savory Snacks \u2014 Whole Food Plant-Based/page_027.png",
+  "text": "Recipe: Shor Nakhod\nCreator: Kiran Sharma\nCategory: Snack\nIngredients: coriander leaves, mint leaves, green chillies, lemon juice, vinegar, garlic cloves, tomato, jalape\u00f1o, dried red chillies, red bell pepper, yellow bell pepper, walnuts, garbanzo beans (chickpeas), Yukon potatoes, turmeric, cinnamon stick, Himalayan salt\nCooking methods: pressure cook, blend, boil, no-cook\nInstructions: For Green Chutney: Grind coriander leaves, mint leaves, green chillies, lemon juice, vinegar, and garlic cloves to make a coarse chutney. For Red Sauce: Grind tomato, green chilli, jalape\u00f1o, dried red chillies, red bell pepper, yellow bell pepper, coriander leaves, lemon juice, vinegar, and walnuts to make a coarse chutney. For Shor Nakhod: Pressure cook 1 cup garbanzo beans (chickpeas; soaked overnight) with turmeric, 1 inch cinnamon stick & Himalayan salt. Open the pressure cooker 20 minutes after the first whistle on low heat. Optionally mash some of the chickpeas to make them thicker (less watery). Cut Yukon potatoes into 1 inch pieces. Add them to boiling water with turmeric powder & some mint leaves. Cook at low flame for 5-7 minutes. Assembly: Serve a few Tbsp of garbanzo beans to a bowl. Add some cooked potatoes. Then garnish with Green Chutney & Red Chutney.\nNotes: A recipe with TUBERS (Yukon potatoes), BEANS (garbanzo beans | chickpeas), RAINBOW VEGGIES (tomato, red & yellow bell peppers, jalape\u00f1o), LIME-LEMON-VINEGAR (lemon juice, vinegar), HERBS & SPICES (various).",
   "embedding": [
     -0.025512412190437317,
     -0.01850733533501625,

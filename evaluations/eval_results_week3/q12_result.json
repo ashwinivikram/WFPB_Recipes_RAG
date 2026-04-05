@@ -1,0 +1,132 @@
+{
+  "id": "q12",
+  "question": "How do I make Ragda for Ragda Patties?",
+  "type": "sub-recipe-factoid",
+  "hypothesis": "Week 2 should score higher — dedicated Ragda component chunk vs buried in full Ragda Patties recipe",
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Ragda Pattice",
+        "chunk_type": "assembly",
+        "creator": "Manisha Deora",
+        "score": 0.8367
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Air Fried Ragda Pattice",
+        "chunk_type": "assembly",
+        "creator": "Leena Menon",
+        "score": 0.8154
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Ragda Patties",
+        "chunk_type": "assembly",
+        "creator": "Sharmila Vedam",
+        "score": 0.8118
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Ragda",
+        "chunk_type": "component",
+        "creator": "Sharmila Vedam",
+        "score": 0.7922
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Air Fried Patties",
+        "chunk_type": "",
+        "creator": "Mrs N K Manku",
+        "score": 0.778
+      }
+    ],
+    "judge": {
+      "signal_pct": 20,
+      "usefulness": 3,
+      "reasoning": "One relevant chunk was retrieved, but the preview only shows ingredients, missing the crucial method for 'how to make' Ragda."
+    }
+  },
+  "week3": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Ragda",
+        "chunk_type": "component",
+        "creator": "Sharmila Vedam",
+        "score": 0.8867
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Ragda Pattice",
+        "chunk_type": "assembly",
+        "creator": "Manisha Deora",
+        "score": 0.8672
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Ragda Patties",
+        "chunk_type": "assembly",
+        "creator": "Sharmila Vedam",
+        "score": 0.8633
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Air Fried Ragda Pattice",
+        "chunk_type": "assembly",
+        "creator": "Leena Menon",
+        "score": 0.8008
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Pattice",
+        "chunk_type": "component",
+        "creator": "Manisha Deora",
+        "score": 0.7266
+      },
+      {
+        "rank": 6,
+        "recipe_name": "Ragda",
+        "chunk_type": "",
+        "creator": "Kiran Sharma",
+        "score": 0.7148
+      },
+      {
+        "rank": 7,
+        "recipe_name": "Tikkis, Cutlets, Falafel, Dumplings — Whole Food Plant-Based",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7109
+      },
+      {
+        "rank": 8,
+        "recipe_name": "Potato Dapati / Hashbrowns (WFPB)",
+        "chunk_type": "",
+        "creator": "Prathima WFPB",
+        "score": 0.6992
+      },
+      {
+        "rank": 9,
+        "recipe_name": "Dried Peas Curry",
+        "chunk_type": "component",
+        "creator": "Leena Menon",
+        "score": 0.6914
+      },
+      {
+        "rank": 10,
+        "recipe_name": "Ragi Porridge with Cucumber",
+        "chunk_type": "",
+        "creator": "Gurmeet",
+        "score": 0.6719
+      }
+    ],
+    "judge": {
+      "signal_pct": 30,
+      "usefulness": 3,
+      "reasoning": "Multiple relevant chunks were retrieved, but their previews only show ingredients, missing the essential method for 'how to make' Ragda."
+    }
+  },
+  "winner": "week3",
+  "winner_reasoning": "System B retrieved a higher percentage of relevant chunks, specifically providing more dedicated component recipes for Ragda, increasing the likelihood of finding a complete answer if the full content were available.",
+  "timestamp": "2026-03-07T22:42:14.570147"
+}

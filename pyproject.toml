@@ -35,6 +35,9 @@ dependencies = [
     "streamlit>=1.53.1",
     "voyage-embedders-haystack>=1.8.0",
     "gitingest>=0.3.1",
+    "redis>=7.4.0",
+    "fastapi>=0.135.3",
+    "uvicorn>=0.43.0",
 ]
 
 [project.optional-dependencies]

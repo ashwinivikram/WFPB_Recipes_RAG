@@ -18,7 +18,7 @@
       "tomato",
       "cucumber",
       "red onion",
-      "pickled jalapeños"
+      "pickled jalape\u00f1os"
     ],
     "mushrooms": [
       "mushroom"
@@ -35,7 +35,7 @@
     "lime_lemon_vinegar": [],
     "sweeteners": []
   },
-  "all_ingredients_flat": "Hummus, avocado, tomato, cucumber, red onion, pickled jalapeños, mushroom, lettuce, tofu, Ezekiel 4:9 bread, various herbs & spices",
+  "all_ingredients_flat": "Hummus, avocado, tomato, cucumber, red onion, pickled jalape\u00f1os, mushroom, lettuce, tofu, Ezekiel 4:9 bread, various herbs & spices",
   "instructions": "",
   "cooking_methods": [
     "grill",
@@ -44,14 +44,14 @@
   ],
   "serving_suggestion": "",
   "notes": "",
-  "id": "Sandwiches & Pita Pockets — Whole Food Plant-Based_page_024",
-  "source_pdf": "Sandwiches & Pita Pockets — Whole Food Plant-Based.pdf",
+  "id": "Sandwiches & Pita Pockets \u2014 Whole Food Plant-Based_page_024",
+  "source_pdf": "Sandwiches & Pita Pockets \u2014 Whole Food Plant-Based.pdf",
   "page_number": 24,
   "source_url": "https://thankful2plants.com",
   "attribution": "Thankful2Plants.com by Gurmeet Manku (CC BY-NC-ND 4.0)",
-  "extraction_date": "2026-02-20",
-  "image_path": "/Users/ashwinivikram/AshwiniVikramWeek1/data/raw/images/Sandwiches & Pita Pockets — Whole Food Plant-Based/page_024.png",
-  "text": "Recipe: Grilled Tofu Hummus Sandwich\nCreator: Dr Sirisha Potluri\nCategory: Sandwich\nIngredients: Hummus, avocado, tomato, cucumber, red onion, pickled jalapeños, mushroom, lettuce, tofu, Ezekiel 4:9 bread, various herbs & spices\nCooking methods: grill, air-fry, no-cook",
+  "extraction_date": "WFPB member",
+  "image_path": "/Users/ashwinivikram/AshwiniVikramWeek1/data/raw/images/Sandwiches & Pita Pockets \u2014 Whole Food Plant-Based/page_024.png",
+  "text": "Recipe: Grilled Tofu Hummus Sandwich\nCreator: Dr Sirisha Potluri\nCategory: Sandwich\nIngredients: Hummus, avocado, tomato, cucumber, red onion, pickled jalape\u00f1os, mushroom, lettuce, tofu, Ezekiel 4:9 bread, various herbs & spices\nCooking methods: grill, air-fry, no-cook",
   "embedding": [
     -0.021952547132968903,
     -0.017345499247312546,

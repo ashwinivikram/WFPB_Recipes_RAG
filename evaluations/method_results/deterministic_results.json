@@ -1,0 +1,279 @@
+{
+  "method": "deterministic_semantic",
+  "system": "wfpb_recipes_week3_hybrid (cached)",
+  "top_k": 10,
+  "n_questions": 15,
+  "summary": {
+    "avg_context_hit_at_1": 1.0,
+    "avg_context_relevance": 0.8399,
+    "avg_answer_rouge1_f1": 0.261
+  },
+  "results": [
+    {
+      "id": "q01",
+      "question": "How do I make walnut mushroom pate?",
+      "type": "sub-recipe-factoid",
+      "context_hit_at_1": 1,
+      "context_relevance": 0.9172,
+      "answer_rouge1_f1": 0.3022,
+      "top_chunk_name": "Walnut Mushroom Pate",
+      "reference_chunk_names": [
+        "WFPB Mushroom Sandwich with Aioli",
+        "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "Healthy Sandwich",
+        "Homemade WFPB Pesto",
+        "Walnut Mushroom Pate"
+      ],
+      "generated_answer": "The provided context identifies \"Walnut Mushroom Pate by Kumar Natarajan\" as a WFPB recipe, and also mentions its use in an \"Ezekiel Sandwich with Walnut Mushroom Pate.\" However, the context does not include instructions or ingredients for how to make the walnut mushroom pate itself.",
+      "timestamp": "2026-03-30T23:24:40.820571"
+    },
+    {
+      "id": "q02",
+      "question": "What is the recipe for sweet potato paratha?",
+      "type": "sub-recipe-factoid",
+      "context_hit_at_1": 1,
+      "context_relevance": 0.8857,
+      "answer_rouge1_f1": 0.2192,
+      "top_chunk_name": "Sweet Potato Paratha",
+      "reference_chunk_names": [
+        "Air-fried Sweet Potato Tikki",
+        "Amaranth Thalipeeth",
+        "Sweet Potato Paratha",
+        "Kathi Rolls"
+      ],
+      "generated_answer": "The retrieved context indicates that \"Sweet Potato Paratha by Sharmila Vedam\" and \"Sweet Potato Paratha by Ashwini Vikram\" are WFPB recipes. However, the actual recipe steps and ingredients for sweet potato paratha are not provided in the given context.",
+      "timestamp": "2026-03-30T23:24:42.796282"
+    },
+    {
+      "id": "q03",
+      "question": "How do I make a zucchini chutney?",
+      "type": "sub-recipe-factoid",
+      "context_hit_at_1": 1,
+      "context_relevance": 0.9019,
+      "answer_rouge1_f1": 0.2548,
+      "top_chunk_name": "Zucchini Chutney",
+      "reference_chunk_names": [
+        "Simple Veggie Pickle/Chutney",
+        "Baked Zucchini Handvo/Pancake",
+        "Kanji (Fermented Drink)",
+        "Zucchini Chutney",
+        "Moong Dosa Wrap"
+      ],
+      "generated_answer": "A zucchini chutney recipe, specifically \"Zucchini Chutney by Usha Gandhasri,\" is available and is a WFPB (Whole Food Plant-Based) recipe. However, the retrieved context does not provide the ingredients or steps on how to make it.",
+      "timestamp": "2026-03-30T23:24:45.088182"
+    },
+    {
+      "id": "q04",
+      "question": "Give me a homemade hummus recipe",
+      "type": "sub-recipe-factoid",
+      "context_hit_at_1": 1,
+      "context_relevance": 0.8858,
+      "answer_rouge1_f1": 0.1986,
+      "top_chunk_name": "Hummus",
+      "reference_chunk_names": [
+        "Mutabal (Eggplant Dip)",
+        "Ezekiel Wrap & Salad",
+        "Peanut Sauce for Noodles",
+        "Hummus",
+        "Root Vegetable Salad with Tahini Dressing"
+      ],
+      "generated_answer": "Based on the provided context, there is a WFPB recipe for Hummus by Meghna Natraj. However, the specific ingredients and instructions for this recipe are not detailed in the context. Therefore, I cannot provide the homemade hummus recipe.",
+      "timestamp": "2026-03-30T23:24:46.804361"
+    },
+    {
+      "id": "q05",
+      "question": "How do I make Kathi Rolls?",
+      "type": "main-recipe-factoid",
+      "context_hit_at_1": 1,
+      "context_relevance": 0.8994,
+      "answer_rouge1_f1": 0.1754,
+      "top_chunk_name": "Kathi Rolls",
+      "reference_chunk_names": [
+        "Ezekiel Kathi Roll",
+        "Sweet Potato Paratha",
+        "Lavash Hummus Pinwheels",
+        "SANDWICH",
+        "Kathi Rolls"
+      ],
+      "generated_answer": "Based on the provided context, WFPB Kathi Roll recipes exist by Sharmila Vedam and Kumar Natarajan. However, the context only mentions the existence of these recipes and does not provide instructions on how to make them.",
+      "timestamp": "2026-03-30T23:24:49.622464"
+    },
+    {
+      "id": "q06",
+      "question": "What is in the Ezekiel Sandwich with Walnut Mushroom Pate?",
+      "type": "main-recipe-factoid",
+      "context_hit_at_1": 1,
+      "context_relevance": 0.8895,
+      "answer_rouge1_f1": 0.2992,
+      "top_chunk_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+      "reference_chunk_names": [
+        "Healthy Sandwich",
+        "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "Ezekiel Sandwich",
+        "Walnut Mushroom Pate"
+      ],
+      "generated_answer": "The provided context identifies \"Ezekiel Sandwich with Walnut Mushroom Pate by Kumar Natarajan\" as a WFPB recipe. However, the context does not list the specific ingredients for this sandwich. It only mentions the \"Walnut Mushroom Pate by Kumar Natarajan\" as a component.",
+      "timestamp": "2026-03-30T23:24:52.288064"
+    },
+    {
+      "id": "q07",
+      "question": "What recipes use sweet potato?",
+      "type": "ingredient-query",
+      "context_hit_at_1": 1,
+      "context_relevance": 0.8013,
+      "answer_rouge1_f1": 0.3103,
+      "top_chunk_name": "Sweet Potato Brownie",
+      "reference_chunk_names": [
+        "Tikki",
+        "Fudgy Sweet Potato Brownies (WFPB)",
+        "Sweet Potato Brownie",
+        "Sweet Potato Paratha",
+        "Kathi Rolls"
+      ],
+      "generated_answer": "Based on the context, the following WFPB recipes use sweet potato:\n\n*   **Sweet Potato Brownie** by WFPB member\n*   **Sweet Potato Paratha** by Sharmila Vedam\n*   **Fudgy Sweet Potato Brownies (WFPB)** by Shruti Mirashi Joshi",
+      "timestamp": "2026-03-30T23:24:54.660759"
+    },
+    {
+      "id": "q08",
+      "question": "Give me a quick no-cook sandwich recipe",
+      "type": "strategy-query",
+      "context_hit_at_1": 1,
+      "context_relevance": 0.7843,
+      "answer_rouge1_f1": 0.1679,
+      "top_chunk_name": "Vietnamese Banh Mi",
+      "reference_chunk_names": [
+        "Ezekiel Sandwich",
+        "Sandwich Head",
+        "Airport Sandwich",
+        "Vietnamese Banh Mi",
+        "Ezekiel Salad Sandwich"
+      ],
+      "generated_answer": "Based on the provided context, I cannot determine which of these WFPB sandwich recipes is a quick no-cook option, as the context only lists titles and authors without recipe details or cooking instructions.",
+      "timestamp": "2026-03-30T23:24:57.817468"
+    },
+    {
+      "id": "q09",
+      "question": "What recipes did Kumar Natarajan create?",
+      "type": "creator-query",
+      "context_hit_at_1": 1,
+      "context_relevance": 0.6578,
+      "answer_rouge1_f1": 0.5333,
+      "top_chunk_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+      "reference_chunk_names": [
+        "Ezekiel Kathi Roll",
+        "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "Walnut Mushroom Pate",
+        "Crumbled Tofu",
+        "Ezekiel Cranberry Relish"
+      ],
+      "generated_answer": "Kumar Natarajan created the following WFPB recipes:\n*   Ezekiel Sandwich with Walnut Mushroom Pate\n*   Ezekiel Cranberry Relish\n*   Walnut Mushroom Pate\n*   Crumbled Tofu\n*   Ezekiel Kathi Roll",
+      "timestamp": "2026-03-30T23:24:59.460671"
+    },
+    {
+      "id": "q10",
+      "question": "How do I make Aloo Tikki for chaat?",
+      "type": "sub-recipe-factoid",
+      "context_hit_at_1": 1,
+      "context_relevance": 0.8968,
+      "answer_rouge1_f1": 0.3432,
+      "top_chunk_name": "Aloo Tikki Chaat",
+      "reference_chunk_names": [
+        "Tikki",
+        "Aloo Tikki Chaat",
+        "Aloo Tikki",
+        "Air-fried Sweet Potato Tikki"
+      ],
+      "generated_answer": "WFPB recipes for Aloo Tikki suitable for chaat are available. You can refer to \"Aloo Tikki Chaat by Shalini Priyadarshini\" or \"Aloo Tikki Chaat by Padma Subramanian\" for specific instructions. A general WFPB \"Aloo Tikki by Shalini Priyadarshini\" is also listed, which provides the base tikki recipe that can be used for building your chaat.",
+      "timestamp": "2026-03-30T23:25:04.623790"
+    },
+    {
+      "id": "q11",
+      "question": "What are some Indian street food recipes I can make at home?",
+      "type": "thematic-analytical",
+      "context_hit_at_1": 1,
+      "context_relevance": 0.7473,
+      "answer_rouge1_f1": 0.2651,
+      "top_chunk_name": "Air-fried Sweet Potato Tikki",
+      "reference_chunk_names": [
+        "Air-fried Purple Baby Potatoes and Spiced Chana Chaat",
+        "Aloo Tikki Chaat",
+        "Air-fried Sweet Potato Tikki",
+        "Aloo Tikki",
+        "Matra Chaat"
+      ],
+      "generated_answer": "You can make several WFPB Indian street food recipes at home, according to the provided context. These include:\n\n*   Air-fried Sweet Potato Tikki\n*   Air-fried Purple Baby Potatoes and Spiced Chana Chaat\n*   Aloo Tikki\n*   Aloo Tikki Chaat\n*   Matra Chaat",
+      "timestamp": "2026-03-30T23:25:08.967604"
+    },
+    {
+      "id": "q12",
+      "question": "How do I make Ragda for Ragda Patties?",
+      "type": "sub-recipe-factoid",
+      "context_hit_at_1": 1,
+      "context_relevance": 0.8881,
+      "answer_rouge1_f1": 0.2396,
+      "top_chunk_name": "Ragda",
+      "reference_chunk_names": [
+        "Ragda Patties",
+        "Air Fried Ragda Pattice",
+        "Ragda",
+        "Pattice",
+        "Ragda Pattice"
+      ],
+      "generated_answer": "Based on the provided context, WFPB recipes for Ragda exist, such as \"[Ragda by Sharmila Vedam]\". However, the context only lists the titles of the recipes and does not provide the ingredients or instructions on how to make Ragda. Therefore, I cannot tell you how to make Ragda for Ragda Patties based solely on the given information.",
+      "timestamp": "2026-03-30T23:25:11.914528"
+    },
+    {
+      "id": "q13",
+      "question": "Give me a recipe for mushroom sauce",
+      "type": "sub-recipe-factoid",
+      "context_hit_at_1": 1,
+      "context_relevance": 0.9105,
+      "answer_rouge1_f1": 0.1722,
+      "top_chunk_name": "Mushroom Sauce",
+      "reference_chunk_names": [
+        "WFPB Mushroom Sandwich with Aioli",
+        "Pea Pasta with Veggies",
+        "Mushroom Sauce",
+        "Chinese Gnocchi in Mushroom Sauce",
+        "Korean Pancake"
+      ],
+      "generated_answer": "Based on the context, there is a WFPB recipe for \"Mushroom Sauce by Frank Lee.\" However, the specific details, ingredients, and instructions for this recipe are not provided in the retrieved context.",
+      "timestamp": "2026-03-30T23:25:14.304477"
+    },
+    {
+      "id": "q14",
+      "question": "What savory waffles or pancakes can I make for breakfast?",
+      "type": "thematic-analytical",
+      "context_hit_at_1": 1,
+      "context_relevance": 0.8125,
+      "answer_rouge1_f1": 0.3766,
+      "top_chunk_name": "Savory Pancakes & Waffles \u2014 Whole Food Plant-Based",
+      "reference_chunk_names": [
+        "Besan Chilla with Grated Vegetables",
+        "Korean Veggie Pancakes \u2014 Yachaejeon",
+        "Thankful2Plants WFPB Recipe Collection",
+        "Savory Pancakes & Waffles \u2014 Whole Food Plant-Based",
+        "Moong Dal Savory Pancakes (Dosa)"
+      ],
+      "generated_answer": "You can make several savory waffles or pancakes for breakfast. Options include:\n\n*   **Korean Veggie Pancakes (Yachaejeon)** by Frank Lee.\n*   **Besan Chilla with Grated Vegetables** (a WFPB member recipe).\n*   **Moong Dal Savory Pancakes (Dosa)** by Ashwini Vikram.\n\nAdditionally, Gurmeet Manku has a collection of \"Savory Pancakes & Waffles\" recipes that are Whole Food Plant-Based.",
+      "timestamp": "2026-03-30T23:25:17.621596"
+    },
+    {
+      "id": "q15",
+      "question": "What recipes can I make with chickpeas and spinach together?",
+      "type": "multi-ingredient-query",
+      "context_hit_at_1": 1,
+      "context_relevance": 0.72,
+      "answer_rouge1_f1": 0.0576,
+      "top_chunk_name": "Chana Masala",
+      "reference_chunk_names": [
+        "Palak Chana",
+        "Chana Masala",
+        "Chickpea Spinach Wrap"
+      ],
+      "generated_answer": "You can make:\n\n*   Chana Masala\n*   Palak Chana\n*   Chickpea Spinach Wrap",
+      "timestamp": "2026-03-30T23:25:19.214582"
+    }
+  ],
+  "timestamp": "2026-03-30T23:25:19.719767"
+}

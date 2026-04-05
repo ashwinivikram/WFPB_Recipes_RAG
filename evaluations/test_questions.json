@@ -1,0 +1,100 @@
+[
+  {
+    "id": "q01",
+    "question": "How do I make walnut mushroom pate?",
+    "type": "sub-recipe-factoid",
+    "expected_source": "component chunk split from Ezekiel Sandwich with Walnut Mushroom Pate",
+    "hypothesis": "Week 2 should score higher — dedicated component chunk with focused vector vs diluted sandwich+pate embedding in Week 1"
+  },
+  {
+    "id": "q02",
+    "question": "What is the recipe for sweet potato paratha?",
+    "type": "sub-recipe-factoid",
+    "expected_source": "component chunk split from Kathi Rolls",
+    "hypothesis": "Week 2 should score higher — dedicated paratha chunk vs buried inside Kathi Rolls chunk in Week 1"
+  },
+  {
+    "id": "q03",
+    "question": "How do I make a zucchini chutney?",
+    "type": "sub-recipe-factoid",
+    "expected_source": "component chunk split from Moong Dosa Wrap",
+    "hypothesis": "Week 2 should score higher — dedicated chutney chunk vs buried inside Moong Dosa Wrap in Week 1"
+  },
+  {
+    "id": "q04",
+    "question": "Give me a homemade hummus recipe",
+    "type": "sub-recipe-factoid",
+    "expected_source": "component chunk split from Arugula Hummus Sandwich",
+    "hypothesis": "Week 2 should score higher — dedicated hummus chunk with focused hummus embedding"
+  },
+  {
+    "id": "q05",
+    "question": "How do I make Kathi Rolls?",
+    "type": "main-recipe-factoid",
+    "expected_source": "Kathi Rolls recipe card (assembly chunk in Week 2)",
+    "hypothesis": "Both should score similarly — Week 2 assembly chunk still contains full Kathi Roll instructions"
+  },
+  {
+    "id": "q06",
+    "question": "What is in the Ezekiel Sandwich with Walnut Mushroom Pate?",
+    "type": "main-recipe-factoid",
+    "expected_source": "Ezekiel Sandwich with Walnut Mushroom Pate recipe",
+    "hypothesis": "Both should retrieve the correct recipe; Week 2 assembly chunk is a bit shorter (sub-recipe split out)"
+  },
+  {
+    "id": "q07",
+    "question": "What recipes use sweet potato?",
+    "type": "ingredient-query",
+    "expected_source": "multiple recipes mentioning sweet potato",
+    "hypothesis": "Week 2 may retrieve more distinct sweet potato recipes including the Sweet Potato Paratha component chunk"
+  },
+  {
+    "id": "q08",
+    "question": "Give me a quick no-cook sandwich recipe",
+    "type": "strategy-query",
+    "expected_source": "assembly-only sandwich recipes from Sandwiches category",
+    "hypothesis": "Similar performance — no-cook recipes are in both indexes; this tests embedding quality for strategy queries"
+  },
+  {
+    "id": "q09",
+    "question": "What recipes did Kumar Natarajan create?",
+    "type": "creator-query",
+    "expected_source": "Kumar Natarajan recipes (Walnut Mushroom Pate creator)",
+    "hypothesis": "Week 2 returns more Kumar Natarajan results if component chunk correctly preserves creator metadata"
+  },
+  {
+    "id": "q10",
+    "question": "How do I make Aloo Tikki for chaat?",
+    "type": "sub-recipe-factoid",
+    "expected_source": "component chunk split from Aloo Tikki Chaat",
+    "hypothesis": "Week 2 should score higher — dedicated Aloo Tikki chunk with focused tikki preparation vector"
+  },
+  {
+    "id": "q11",
+    "question": "What are some Indian street food recipes I can make at home?",
+    "type": "thematic-analytical",
+    "expected_source": "multiple Indian street food recipes across categories",
+    "hypothesis": "Both should retrieve similar results; Week 2 may surface more distinct sub-components (pattice, vada, tikki)"
+  },
+  {
+    "id": "q12",
+    "question": "How do I make Ragda for Ragda Patties?",
+    "type": "sub-recipe-factoid",
+    "expected_source": "component chunk split from Ragda Patties",
+    "hypothesis": "Week 2 should score higher — dedicated Ragda component chunk vs buried in full Ragda Patties recipe"
+  },
+  {
+    "id": "q13",
+    "question": "Give me a recipe for mushroom sauce",
+    "type": "sub-recipe-factoid",
+    "expected_source": "component chunk split from Chinese Gnocchi in Mushroom Sauce",
+    "hypothesis": "Week 2 should score higher — dedicated mushroom sauce chunk"
+  },
+  {
+    "id": "q14",
+    "question": "What savory waffles or pancakes can I make for breakfast?",
+    "type": "thematic-analytical",
+    "expected_source": "Savory Pancakes & Waffles category recipes",
+    "hypothesis": "Similar performance; tests if chunking strategy affected this category (fewer splits)"
+  }
+]

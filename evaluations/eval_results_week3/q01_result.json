@@ -1,0 +1,132 @@
+{
+  "id": "q01",
+  "question": "How do I make walnut mushroom pate?",
+  "type": "sub-recipe-factoid",
+  "hypothesis": "Week 2 should score higher — dedicated component chunk with focused vector vs diluted sandwich+pate embedding in Week 1",
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Walnut Mushroom Pate",
+        "chunk_type": "component",
+        "creator": "Kumar Natarajan",
+        "score": 0.8828
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "chunk_type": "assembly",
+        "creator": "Kumar Natarajan",
+        "score": 0.7794
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Mushroom Sauce",
+        "chunk_type": "component",
+        "creator": "Frank Lee",
+        "score": 0.7094
+      },
+      {
+        "rank": 4,
+        "recipe_name": "WFPB Mushroom Sandwich with Aioli",
+        "chunk_type": "",
+        "creator": "Leena Menon WFPB",
+        "score": 0.7057
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Ragi Banana Cake",
+        "chunk_type": "",
+        "creator": "Shalini Other Lady WFPB",
+        "score": 0.7032
+      }
+    ],
+    "judge": {
+      "signal_pct": 40,
+      "usefulness": 5,
+      "reasoning": "Chunk 1 directly provides the 'Recipe: Walnut Mushroom Pate', which fully answers how to make it."
+    }
+  },
+  "week3": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Walnut Mushroom Pate",
+        "chunk_type": "component",
+        "creator": "Kumar Natarajan",
+        "score": 0.918
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "chunk_type": "assembly",
+        "creator": "Kumar Natarajan",
+        "score": 0.8086
+      },
+      {
+        "rank": 3,
+        "recipe_name": "WFPB Mushroom Sandwich with Aioli",
+        "chunk_type": "",
+        "creator": "Leena Menon WFPB",
+        "score": 0.3867
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Homemade WFPB Pesto",
+        "chunk_type": "",
+        "creator": "Ashwini Vikram",
+        "score": 0.377
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Healthy Sandwich",
+        "chunk_type": "",
+        "creator": "Koushik Reddy, MD",
+        "score": 0.3633
+      },
+      {
+        "rank": 6,
+        "recipe_name": "Yum Cha",
+        "chunk_type": "",
+        "creator": "Frank Lee",
+        "score": 0.3633
+      },
+      {
+        "rank": 7,
+        "recipe_name": "Shor Nakhod",
+        "chunk_type": "",
+        "creator": "Kiran Sharma",
+        "score": 0.3535
+      },
+      {
+        "rank": 8,
+        "recipe_name": "Incorporating Mushrooms with Mushroom Mix Tea",
+        "chunk_type": "",
+        "creator": "Gurmeet Singh Manku",
+        "score": 0.3457
+      },
+      {
+        "rank": 9,
+        "recipe_name": "Enoki Mushroom Preparation & Aroma Reduction Tip",
+        "chunk_type": "",
+        "creator": "Ankit Dangi WFPB",
+        "score": 0.334
+      },
+      {
+        "rank": 10,
+        "recipe_name": "Hummus",
+        "chunk_type": "component",
+        "creator": "Meghna Natraj",
+        "score": 0.3301
+      }
+    ],
+    "judge": {
+      "signal_pct": 20,
+      "usefulness": 5,
+      "reasoning": "Chunk 1 directly provides the 'Recipe: Walnut Mushroom Pate', which fully answers how to make it."
+    }
+  },
+  "winner": "week2",
+  "winner_reasoning": "Both systems retrieved the correct recipe, but System A had a higher signal percentage with fewer irrelevant chunks in its top results.",
+  "timestamp": "2026-03-07T22:40:01.223906"
+}

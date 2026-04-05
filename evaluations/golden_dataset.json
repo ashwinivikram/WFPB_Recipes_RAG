@@ -1,0 +1,805 @@
+[
+  {
+    "id": "q01",
+    "question": "How do I make walnut mushroom pate?",
+    "type": "sub-recipe-factoid",
+    "expected_source": "component chunk split from Ezekiel Sandwich with Walnut Mushroom Pate",
+    "reference_answer": "To make walnut mushroom pate, you'll typically sauté mushrooms, onions, and garlic until tender. Combine these with raw walnuts and blend until smooth, adding a splash of water or vegetable broth if needed to reach your desired consistency. Season with herbs like thyme or rosemary, salt, pepper, and a touch of lemon juice for brightness.\n\nThis process is fundamental to the \"Walnut Mushroom Pate\" recipe by Kumar Natarajan. You can also find it as a key component in Kumar Natarajan's \"Ezekiel Sandwich with Walnut Mushroom Pate,\" offering a delicious way to enjoy this spread.",
+    "reference_chunk_names": [
+      "Walnut Mushroom Pate",
+      "Ezekiel Sandwich with Walnut Mushroom Pate",
+      "WFPB Mushroom Sandwich with Aioli",
+      "Homemade WFPB Pesto",
+      "Healthy Sandwich"
+    ],
+    "reference_chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Walnut Mushroom Pate",
+        "chunk_type": "component",
+        "creator": "Kumar Natarajan",
+        "score": 0.918
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "chunk_type": "assembly",
+        "creator": "Kumar Natarajan",
+        "score": 0.8086
+      },
+      {
+        "rank": 3,
+        "recipe_name": "WFPB Mushroom Sandwich with Aioli",
+        "chunk_type": "",
+        "creator": "Leena Menon WFPB",
+        "score": 0.3867
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Homemade WFPB Pesto",
+        "chunk_type": "",
+        "creator": "Ashwini Vikram",
+        "score": 0.377
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Healthy Sandwich",
+        "chunk_type": "",
+        "creator": "Koushik Reddy, MD",
+        "score": 0.3633
+      }
+    ],
+    "judge_usefulness_w3": 5,
+    "judge_signal_w3": 20,
+    "build_timestamp": "2026-03-30T23:23:00.471110",
+    "build_method": "from_cached_week3_results"
+  },
+  {
+    "id": "q02",
+    "question": "What is the recipe for sweet potato paratha?",
+    "type": "sub-recipe-factoid",
+    "expected_source": "component chunk split from Kathi Rolls",
+    "reference_answer": "For a delicious WFPB Sweet Potato Paratha, our collection features excellent recipes like **Sweet Potato Paratha by Sharmila Vedam** and **Sweet Potato Paratha by Ashwini Vikram**.\n\nGenerally, these recipes combine cooked, mashed sweet potatoes with whole wheat flour (or a gluten-free alternative like sorghum or millet flour) and a blend of aromatic spices such as ginger, green chili, turmeric, cumin, and coriander powder. Often, finely chopped greens like spinach are incorporated. The dough is kneaded, rolled into flatbreads, and then cooked on a dry griddle (tawa) until golden brown and thoroughly cooked, ensuring an oil-free preparation. These savory parathas make a hearty, nutritious, and flavorful WFPB meal.",
+    "reference_chunk_names": [
+      "Sweet Potato Paratha",
+      "Sweet Potato Paratha",
+      "Amaranth Thalipeeth",
+      "Kathi Rolls",
+      "Air-fried Sweet Potato Tikki"
+    ],
+    "reference_chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Sweet Potato Paratha",
+        "chunk_type": "component",
+        "creator": "Sharmila Vedam",
+        "score": 0.9102
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Sweet Potato Paratha",
+        "chunk_type": "",
+        "creator": "Ashwini Vikram",
+        "score": 0.8867
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Amaranth Thalipeeth",
+        "chunk_type": "",
+        "creator": "Group Member",
+        "score": 0.8086
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Kathi Rolls",
+        "chunk_type": "assembly",
+        "creator": "Sharmila Vedam",
+        "score": 0.7734
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Air-fried Sweet Potato Tikki",
+        "chunk_type": "",
+        "creator": "WFPB member",
+        "score": 0.7539
+      }
+    ],
+    "judge_usefulness_w3": 4,
+    "judge_signal_w3": 20,
+    "build_timestamp": "2026-03-30T23:23:04.359595",
+    "build_method": "from_cached_week3_results"
+  },
+  {
+    "id": "q03",
+    "question": "How do I make a zucchini chutney?",
+    "type": "sub-recipe-factoid",
+    "expected_source": "component chunk split from Moong Dosa Wrap",
+    "reference_answer": "To make a WFPB zucchini chutney, focus on blending or simmering zucchini with aromatic spices and a touch of sweetness or tang.\n\nA great starting point is the \"Zucchini Chutney by Usha Gandhasri\" recipe. This typically involves sautéing diced zucchini (without oil, using a splash of water or veggie broth if needed) with ingredients like ginger, garlic, green chilies, and various spices (e.g., turmeric, cumin, mustard seeds, asafoetida). Often, a small amount of date paste or a fruit like tamarind is added for a sweet and sour balance. The mixture is then blended to a desired consistency or simmered until thickened. For general chutney principles, you can also look to \"Simple Veggie Pickle/Chutney by Group Member\" for inspiration on spice combinations.",
+    "reference_chunk_names": [
+      "Zucchini Chutney",
+      "Moong Dosa Wrap",
+      "Baked Zucchini Handvo/Pancake",
+      "Kanji (Fermented Drink)",
+      "Simple Veggie Pickle/Chutney"
+    ],
+    "reference_chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Zucchini Chutney",
+        "chunk_type": "component",
+        "creator": "Usha Gandhasri",
+        "score": 0.8555
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Moong Dosa Wrap",
+        "chunk_type": "assembly",
+        "creator": "Usha Gandhasri",
+        "score": 0.7227
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Baked Zucchini Handvo/Pancake",
+        "chunk_type": "",
+        "creator": "Shalini Other Lady WFPB",
+        "score": 0.5586
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Kanji (Fermented Drink)",
+        "chunk_type": "",
+        "creator": "Group Member",
+        "score": 0.5352
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Simple Veggie Pickle/Chutney",
+        "chunk_type": "",
+        "creator": "Group Member (WFPB member)",
+        "score": 0.5234
+      }
+    ],
+    "judge_usefulness_w3": 3,
+    "judge_signal_w3": 20,
+    "build_timestamp": "2026-03-30T23:23:07.223129",
+    "build_method": "from_cached_week3_results"
+  },
+  {
+    "id": "q04",
+    "question": "Give me a homemade hummus recipe",
+    "type": "sub-recipe-factoid",
+    "expected_source": "component chunk split from Arugula Hummus Sandwich",
+    "reference_answer": "For a delightful homemade WFPB hummus, inspired by recipes like the \"Hummus by Meghna Natraj,\" gather one can of chickpeas (rinsed and drained), ¼ cup tahini, the juice of 1-2 lemons, 1-2 cloves garlic, and a pinch of cumin.\n\nCombine all ingredients in a high-speed blender or food processor. Add 2-4 tablespoons of water, starting with less and adding more as needed, to achieve a smooth, creamy consistency. Blend until completely smooth. Taste and adjust seasonings like lemon or garlic if desired. This oil-free version is perfect as a dip for veggies or a spread in sandwiches, staying true to whole food principles.",
+    "reference_chunk_names": [
+      "Hummus",
+      "Mutabal (Eggplant Dip)",
+      "Peanut Sauce for Noodles",
+      "Root Vegetable Salad with Tahini Dressing",
+      "Ezekiel Wrap & Salad"
+    ],
+    "reference_chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Hummus",
+        "chunk_type": "component",
+        "creator": "Meghna Natraj",
+        "score": 0.8047
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Mutabal (Eggplant Dip)",
+        "chunk_type": "",
+        "creator": "Leena Menon WFPB",
+        "score": 0.7578
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Peanut Sauce for Noodles",
+        "chunk_type": "",
+        "creator": "Shalini Other Lady WFPB",
+        "score": 0.7344
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Root Vegetable Salad with Tahini Dressing",
+        "chunk_type": "",
+        "creator": "Shalini Other Lady WFPB",
+        "score": 0.6758
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Ezekiel Wrap & Salad",
+        "chunk_type": "",
+        "creator": "Kiran Sharma",
+        "score": 0.6562
+      }
+    ],
+    "judge_usefulness_w3": 3,
+    "judge_signal_w3": 20,
+    "build_timestamp": "2026-03-30T23:23:11.251767",
+    "build_method": "from_cached_week3_results"
+  },
+  {
+    "id": "q05",
+    "question": "How do I make Kathi Rolls?",
+    "type": "main-recipe-factoid",
+    "expected_source": "Kathi Rolls recipe card (assembly chunk in Week 2)",
+    "reference_answer": "To make WFPB Kathi Rolls, focus on a whole-grain wrap and a flavorful, oil-free plant-based filling. Sharmila Vedam's \"Kathi Rolls\" typically features a whole-wheat roti or paratha, prepared without oil, filled with sautéed, spiced vegetables like potatoes, peas, or mixed greens. Kumar Natarajan's \"Ezekiel Kathi Roll\" offers a convenient alternative, using pre-made Ezekiel tortillas as the wrap, filled with similar savory, plant-based mixtures. Both approaches prioritize whole ingredients and oil-free cooking, ensuring a delicious and healthy WFPB meal.",
+    "reference_chunk_names": [
+      "Kathi Rolls",
+      "Ezekiel Kathi Roll",
+      "Lavash Hummus Pinwheels",
+      "Sweet Potato Paratha",
+      "SANDWICH"
+    ],
+    "reference_chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Kathi Rolls",
+        "chunk_type": "assembly",
+        "creator": "Sharmila Vedam",
+        "score": 0.8867
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Ezekiel Kathi Roll",
+        "chunk_type": "",
+        "creator": "Kumar Natarajan",
+        "score": 0.8086
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Lavash Hummus Pinwheels",
+        "chunk_type": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.7695
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Sweet Potato Paratha",
+        "chunk_type": "component",
+        "creator": "Sharmila Vedam",
+        "score": 0.7539
+      },
+      {
+        "rank": 5,
+        "recipe_name": "SANDWICH",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.6992
+      }
+    ],
+    "judge_usefulness_w3": 5,
+    "judge_signal_w3": 30,
+    "build_timestamp": "2026-03-30T23:23:16.289590",
+    "build_method": "from_cached_week3_results"
+  },
+  {
+    "id": "q06",
+    "question": "What is in the Ezekiel Sandwich with Walnut Mushroom Pate?",
+    "type": "main-recipe-factoid",
+    "expected_source": "Ezekiel Sandwich with Walnut Mushroom Pate recipe",
+    "reference_answer": "The Ezekiel Sandwich with Walnut Mushroom Pate, a featured recipe from Thankful2Plants.com by Kumar Natarajan, is built upon wholesome sprouted Ezekiel bread. The star filling is the rich, savory Walnut Mushroom Pate, also a recipe by Kumar Natarajan.\n\nThis WFPB pate typically combines walnuts and mushrooms with aromatic herbs and seasonings, blended into a delicious, spreadable consistency. The sandwich is then generously filled with this pate and complemented by fresh, crisp vegetables like lettuce, tomatoes, and other raw produce, offering a satisfying and nutrient-dense meal.",
+    "reference_chunk_names": [
+      "Ezekiel Sandwich with Walnut Mushroom Pate",
+      "Walnut Mushroom Pate",
+      "Healthy Sandwich",
+      "Ezekiel Sandwich",
+      "Ezekiel Sandwich"
+    ],
+    "reference_chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "chunk_type": "assembly",
+        "creator": "Kumar Natarajan",
+        "score": 0.9414
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Walnut Mushroom Pate",
+        "chunk_type": "component",
+        "creator": "Kumar Natarajan",
+        "score": 0.9062
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Healthy Sandwich",
+        "chunk_type": "",
+        "creator": "Koushik Reddy, MD",
+        "score": 0.7539
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Ezekiel Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7188
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Ezekiel Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.707
+      }
+    ],
+    "judge_usefulness_w3": 4,
+    "judge_signal_w3": 20,
+    "build_timestamp": "2026-03-30T23:23:21.663675",
+    "build_method": "from_cached_week3_results"
+  },
+  {
+    "id": "q07",
+    "question": "What recipes use sweet potato?",
+    "type": "ingredient-query",
+    "expected_source": "multiple recipes mentioning sweet potato",
+    "reference_answer": "At Thankful2Plants.com, sweet potato is a wonderfully versatile ingredient in our WFPB kitchen! You'll find it starring in delicious desserts like the \"Sweet Potato Brownie\" by a WFPB member and \"Fudgy Sweet Potato Brownies (WFPB)\" by Shruti Mirashi Joshi.\n\nFor savory dishes, Sharmila Vedam offers a fantastic \"Sweet Potato Paratha,\" and also incorporates it into her \"Kathi Rolls.\" Additionally, Frank Lee's \"Tikki\" recipe makes excellent use of sweet potato. These recipes showcase sweet potato's adaptability across various nourishing, whole-food plant-based creations.",
+    "reference_chunk_names": [
+      "Sweet Potato Brownie",
+      "Kathi Rolls",
+      "Sweet Potato Paratha",
+      "Tikki",
+      "Fudgy Sweet Potato Brownies (WFPB)"
+    ],
+    "reference_chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Sweet Potato Brownie",
+        "chunk_type": "",
+        "creator": "WFPB member",
+        "score": 0.7578
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Kathi Rolls",
+        "chunk_type": "assembly",
+        "creator": "Sharmila Vedam",
+        "score": 0.7148
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Sweet Potato Paratha",
+        "chunk_type": "component",
+        "creator": "Sharmila Vedam",
+        "score": 0.707
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Tikki",
+        "chunk_type": "component",
+        "creator": "Frank Lee",
+        "score": 0.7031
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Fudgy Sweet Potato Brownies (WFPB)",
+        "chunk_type": "",
+        "creator": "Shruti Mirashi Joshi",
+        "score": 0.6992
+      }
+    ],
+    "judge_usefulness_w3": 5,
+    "judge_signal_w3": 100,
+    "build_timestamp": "2026-03-30T23:23:25.350117",
+    "build_method": "from_cached_week3_results"
+  },
+  {
+    "id": "q08",
+    "question": "Give me a quick no-cook sandwich recipe",
+    "type": "strategy-query",
+    "expected_source": "assembly-only sandwich recipes from Sandwiches category",
+    "reference_answer": "For a quick, no-cook WFPB sandwich, think layers of fresh goodness! Inspired by recipes like the \"Ezekiel Sandwich\" and \"Airport Sandwich,\" start with two slices of your favorite whole-grain, oil-free bread (Ezekiel bread is excellent).\n\nSpread generously with oil-free hummus, mashed avocado, or a pre-made WFPB bean dip. Then, pile on crisp greens (like spinach or romaine), thinly sliced cucumber, tomato, and bell pepper. For a taste reminiscent of the \"Ezekiel Salad Sandwich,\" add shredded carrots, cabbage, or a pre-made WFPB \"tuna\" salad (chickpea-based). A dash of everything bagel seasoning or fresh herbs completes this simple, satisfying meal.",
+    "reference_chunk_names": [
+      "Vietnamese Banh Mi",
+      "Sandwich Head",
+      "Airport Sandwich",
+      "Ezekiel Sandwich",
+      "Ezekiel Salad Sandwich"
+    ],
+    "reference_chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Vietnamese Banh Mi",
+        "chunk_type": "",
+        "creator": "Frank Lee",
+        "score": 0.8086
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Sandwich Head",
+        "chunk_type": "",
+        "creator": "Frank Lee",
+        "score": 0.8047
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Airport Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.793
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Ezekiel Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7812
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Ezekiel Salad Sandwich",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7734
+      }
+    ],
+    "judge_usefulness_w3": 5,
+    "judge_signal_w3": 60,
+    "build_timestamp": "2026-03-30T23:23:30.375443",
+    "build_method": "from_cached_week3_results"
+  },
+  {
+    "id": "q09",
+    "question": "What recipes did Kumar Natarajan create?",
+    "type": "creator-query",
+    "expected_source": "Kumar Natarajan recipes (Walnut Mushroom Pate creator)",
+    "reference_answer": "Kumar Natarajan has created several Whole Food Plant-Based (WFPB) recipes. These include the Ezekiel Sandwich with Walnut Mushroom Pate, Ezekiel Cranberry Relish, Walnut Mushroom Pate, Crumbled Tofu, and Ezekiel Kathi Roll.",
+    "reference_chunk_names": [
+      "Ezekiel Sandwich with Walnut Mushroom Pate",
+      "Ezekiel Cranberry Relish",
+      "Walnut Mushroom Pate",
+      "Crumbled Tofu",
+      "Ezekiel Kathi Roll"
+    ],
+    "reference_chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "chunk_type": "assembly",
+        "creator": "Kumar Natarajan",
+        "score": 0.8047
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Ezekiel Cranberry Relish",
+        "chunk_type": "",
+        "creator": "Kumar Natarajan",
+        "score": 0.8008
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Walnut Mushroom Pate",
+        "chunk_type": "component",
+        "creator": "Kumar Natarajan",
+        "score": 0.7969
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Crumbled Tofu",
+        "chunk_type": "component",
+        "creator": "Kumar Natarajan",
+        "score": 0.793
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Ezekiel Kathi Roll",
+        "chunk_type": "",
+        "creator": "Kumar Natarajan",
+        "score": 0.7852
+      }
+    ],
+    "judge_usefulness_w3": 5,
+    "judge_signal_w3": 70,
+    "build_timestamp": "2026-03-30T23:23:32.620846",
+    "build_method": "from_cached_week3_results"
+  },
+  {
+    "id": "q10",
+    "question": "How do I make Aloo Tikki for chaat?",
+    "type": "sub-recipe-factoid",
+    "expected_source": "component chunk split from Aloo Tikki Chaat",
+    "reference_answer": "To make WFPB Aloo Tikki for chaat, you'll prepare savory potato patties without oil, typically baked or air-fried instead of deep-fried. Begin with boiled, mashed potatoes seasoned with spices like ginger, green chilies, coriander, cumin, and garam masala. A binder like rice flour or cornstarch is often used. Form the mixture into small patties and bake or air-fry until golden and crisp.\n\nFor specific WFPB instructions, refer to \"Aloo Tikki Chaat\" or \"Aloo Tikki\" by Shalini Priyadarshini. \"Aloo Tikki Chaat\" by Padma Subramanian is another excellent resource. For a sweet potato variation, consider \"Air-fried Sweet Potato Tikki\" by a WFPB member. These recipes will guide you to delicious, healthy tikkis perfect for your chaat.",
+    "reference_chunk_names": [
+      "Aloo Tikki Chaat",
+      "Aloo Tikki",
+      "Aloo Tikki Chaat",
+      "Air-fried Sweet Potato Tikki",
+      "Tikki"
+    ],
+    "reference_chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Aloo Tikki Chaat",
+        "chunk_type": "assembly",
+        "creator": "Shalini Priyadarshini",
+        "score": 0.918
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Aloo Tikki",
+        "chunk_type": "component",
+        "creator": "Shalini Priyadarshini",
+        "score": 0.918
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Aloo Tikki Chaat",
+        "chunk_type": "",
+        "creator": "Padma Subramanian",
+        "score": 0.8984
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Air-fried Sweet Potato Tikki",
+        "chunk_type": "",
+        "creator": "WFPB member",
+        "score": 0.8906
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Tikki",
+        "chunk_type": "component",
+        "creator": "Frank Lee",
+        "score": 0.832
+      }
+    ],
+    "judge_usefulness_w3": 3,
+    "judge_signal_w3": 40,
+    "build_timestamp": "2026-03-30T23:23:36.920022",
+    "build_method": "from_cached_week3_results"
+  },
+  {
+    "id": "q11",
+    "question": "What are some Indian street food recipes I can make at home?",
+    "type": "thematic-analytical",
+    "expected_source": "multiple Indian street food recipes across categories",
+    "reference_answer": "At Thankful2Plants.com, we're thrilled to help you enjoy delicious WFPB versions of Indian street food right in your kitchen! Our recipe collection features several fantastic options that bring those vibrant flavors home, all prepared in a wholesome, oil-free way.\n\nYou can savor the popular **Air-fried Sweet Potato Tikki** or the classic **Aloo Tikki**, both savory potato patties perfect for snacking. For a refreshing and hearty street-style dish, try the **Air-fried Purple Baby Potatoes and Spiced Chana Chaat**, a flavorful mix of potatoes and spiced chickpeas. If you're looking for a complete street food experience, our database also offers **Aloo Tikki Chaat**, building on the tikki with delicious toppings, and the tangy **Matra Chaat**, made with dried white peas. Enjoy these authentic tastes, WFPB style!",
+    "reference_chunk_names": [
+      "Air-fried Sweet Potato Tikki",
+      "Air-fried Purple Baby Potatoes and Spiced Chana Chaat",
+      "Aloo Tikki",
+      "Aloo Tikki Chaat",
+      "Matra Chaat"
+    ],
+    "reference_chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Air-fried Sweet Potato Tikki",
+        "chunk_type": "",
+        "creator": "WFPB member",
+        "score": 0.6914
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Air-fried Purple Baby Potatoes and Spiced Chana Chaat",
+        "chunk_type": "",
+        "creator": "Kusum WFPB",
+        "score": 0.6875
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Aloo Tikki",
+        "chunk_type": "component",
+        "creator": "Shalini Priyadarshini",
+        "score": 0.6758
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Aloo Tikki Chaat",
+        "chunk_type": "",
+        "creator": "Padma Subramanian",
+        "score": 0.6562
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Matra Chaat",
+        "chunk_type": "",
+        "creator": "Manisha Bansal",
+        "score": 0.6562
+      }
+    ],
+    "judge_usefulness_w3": 5,
+    "judge_signal_w3": 100,
+    "build_timestamp": "2026-03-30T23:23:40.604976",
+    "build_method": "from_cached_week3_results"
+  },
+  {
+    "id": "q12",
+    "question": "How do I make Ragda for Ragda Patties?",
+    "type": "sub-recipe-factoid",
+    "expected_source": "component chunk split from Ragda Patties",
+    "reference_answer": "To make Ragda for Ragda Patties, you'll prepare a delicious, spiced curry made primarily from dried white peas (vatana).\n\nRecipes such as \"Ragda by Sharmila Vedam\" and \"Ragda Pattice by Manisha Deora\" detail the WFPB method:\n1.  **Soak:** Begin by soaking dried white peas overnight, or for several hours, until softened.\n2.  **Cook:** Cook the soaked peas until tender. This can be done on the stovetop or in a pressure cooker.\n3.  **Season:** For a flavorful WFPB Ragda, add aromatic spices like turmeric, red chili powder, garam masala, and a pinch of black salt. You can also incorporate a sautéed (water/broth-sautéed, not oil) base of onion, ginger, and garlic for deeper flavor.\n4.  **Simmer:** Simmer the spiced peas until they form a thick, savory consistency, perfect for serving with your \"Ragda Patties by Sharmila Vedam.\"",
+    "reference_chunk_names": [
+      "Ragda",
+      "Ragda Pattice",
+      "Ragda Patties",
+      "Air Fried Ragda Pattice",
+      "Pattice"
+    ],
+    "reference_chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Ragda",
+        "chunk_type": "component",
+        "creator": "Sharmila Vedam",
+        "score": 0.8867
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Ragda Pattice",
+        "chunk_type": "assembly",
+        "creator": "Manisha Deora",
+        "score": 0.8672
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Ragda Patties",
+        "chunk_type": "assembly",
+        "creator": "Sharmila Vedam",
+        "score": 0.8633
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Air Fried Ragda Pattice",
+        "chunk_type": "assembly",
+        "creator": "Leena Menon",
+        "score": 0.8008
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Pattice",
+        "chunk_type": "component",
+        "creator": "Manisha Deora",
+        "score": 0.7266
+      }
+    ],
+    "judge_usefulness_w3": 3,
+    "judge_signal_w3": 30,
+    "build_timestamp": "2026-03-30T23:23:44.748139",
+    "build_method": "from_cached_week3_results"
+  },
+  {
+    "id": "q13",
+    "question": "Give me a recipe for mushroom sauce",
+    "type": "sub-recipe-factoid",
+    "expected_source": "component chunk split from Chinese Gnocchi in Mushroom Sauce",
+    "reference_answer": "Hello from Thankful2Plants.com! For a rich WFPB mushroom sauce, inspired by Frank Lee's \"Mushroom Sauce,\" try this:\n\nSauté sliced mushrooms (cremini or button) with a splash of vegetable broth or water in a pan until browned and tender. Add diced onion and minced garlic, cooking until fragrant. Sprinkle in a tablespoon of whole wheat flour or cornstarch and stir for one minute. Gradually whisk in 1 cup unsweetened plant milk (soy or cashew) and 1/2 cup vegetable broth. Bring to a simmer, stirring, until thickened. Season with tamari, nutritional yeast, dried thyme, and black pepper.\n\nThis versatile sauce is delicious over pasta, grains, or vegetables, much like the one featured in Frank Lee's \"Chinese Gnocchi in Mushroom Sauce.\" Enjoy!",
+    "reference_chunk_names": [
+      "Mushroom Sauce",
+      "Pea Pasta with Veggies",
+      "Chinese Gnocchi in Mushroom Sauce",
+      "WFPB Mushroom Sandwich with Aioli",
+      "Korean Pancake"
+    ],
+    "reference_chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Mushroom Sauce",
+        "chunk_type": "component",
+        "creator": "Frank Lee",
+        "score": 0.8555
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Pea Pasta with Veggies",
+        "chunk_type": "",
+        "creator": "Gurmeet",
+        "score": 0.6523
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Chinese Gnocchi in Mushroom Sauce",
+        "chunk_type": "assembly",
+        "creator": "Frank Lee",
+        "score": 0.6211
+      },
+      {
+        "rank": 4,
+        "recipe_name": "WFPB Mushroom Sandwich with Aioli",
+        "chunk_type": "",
+        "creator": "Leena Menon WFPB",
+        "score": 0.5742
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Korean Pancake",
+        "chunk_type": "",
+        "creator": "Divya Srikanth",
+        "score": 0.4668
+      }
+    ],
+    "judge_usefulness_w3": 5,
+    "judge_signal_w3": 10,
+    "build_timestamp": "2026-03-30T23:23:49.820451",
+    "build_method": "from_cached_week3_results"
+  },
+  {
+    "id": "q14",
+    "question": "What savory waffles or pancakes can I make for breakfast?",
+    "type": "thematic-analytical",
+    "expected_source": "Savory Pancakes & Waffles category recipes",
+    "reference_answer": "You have fantastic WFPB options for savory breakfast waffles and pancakes!\n\nFor a versatile base, try the **Savory Pancakes & Waffles — Whole Food Plant-Based by Gurmeet Manku**, which offers a foundational approach. Explore international flavors with **Korean Veggie Pancakes — Yachaejeon by Frank Lee**. For nutrient-dense, legume-based choices, consider **Besan Chilla with Grated Vegetables by WFPB member** (made from chickpea flour) or **Moong Dal Savory Pancakes (Dosa) by Ashwini Vikram** (featuring split yellow lentils). These recipes, found within the Thankful2Plants WFPB collection, showcase delicious ways to incorporate vegetables, whole grains, and legumes into a satisfying savory breakfast.",
+    "reference_chunk_names": [
+      "Savory Pancakes & Waffles — Whole Food Plant-Based",
+      "Thankful2Plants WFPB Recipe Collection",
+      "Korean Veggie Pancakes — Yachaejeon",
+      "Besan Chilla with Grated Vegetables",
+      "Moong Dal Savory Pancakes (Dosa)"
+    ],
+    "reference_chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Savory Pancakes & Waffles — Whole Food Plant-Based",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.8555
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Thankful2Plants WFPB Recipe Collection",
+        "chunk_type": "",
+        "creator": "Gurmeet Singh Manku",
+        "score": 0.8008
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Korean Veggie Pancakes — Yachaejeon",
+        "chunk_type": "",
+        "creator": "Frank Lee",
+        "score": 0.7539
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Besan Chilla with Grated Vegetables",
+        "chunk_type": "",
+        "creator": "WFPB member",
+        "score": 0.75
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Moong Dal Savory Pancakes (Dosa)",
+        "chunk_type": "",
+        "creator": "Ashwini Vikram",
+        "score": 0.7266
+      }
+    ],
+    "judge_usefulness_w3": 5,
+    "judge_signal_w3": 80,
+    "build_timestamp": "2026-03-30T23:23:54.122679",
+    "build_method": "from_cached_week3_results"
+  },
+  {
+    "id": "q15",
+    "question": "What recipes can I make with chickpeas and spinach together?",
+    "type": "multi-ingredient-query",
+    "expected_source": "recipes containing both chickpeas and spinach",
+    "reference_answer": "Chickpeas and spinach are a fantastic WFPB pairing, offering a nutrient-dense and satisfying base for many dishes!\n\n1.  **Palak Chana**: A classic Indian-inspired dish directly translating to \"spinach and chickpeas.\" It's a flavorful curry where spinach is pureed or wilted into a spiced tomato-onion gravy with chickpeas. Serve with brown rice or quinoa.\n2.  **Chana Masala with Spinach**: Enhance traditional Chana Masala by stirring in a generous amount of fresh spinach towards the end of cooking. It wilts beautifully into the rich, spicy chickpea curry, boosting its nutritional value.\n3.  **Chickpea Spinach Wraps/Salads**: Mash cooked chickpeas with WFPB mayo (e.g., aquafaba-based), lemon juice, herbs, and finely chopped spinach. This versatile mixture makes a delicious filling for lettuce or whole-grain wraps, or a protein-packed topping for salads.",
+    "reference_chunk_names": [
+      "Chana Masala",
+      "Palak Chana",
+      "Chickpea Spinach Wrap"
+    ],
+    "reference_chunks": [
+      {
+        "recipe_name": "Chana Masala",
+        "creator": "Padma Subramanian",
+        "score": 0.72
+      },
+      {
+        "recipe_name": "Palak Chana",
+        "creator": "Sharmila Vedam",
+        "score": 0.71
+      },
+      {
+        "recipe_name": "Chickpea Spinach Wrap",
+        "creator": "Gurmeet Manku",
+        "score": 0.69
+      }
+    ],
+    "judge_usefulness_w3": 4,
+    "judge_signal_w3": 60,
+    "build_timestamp": "2026-03-30T23:23:58.424917",
+    "build_method": "manually_curated"
+  }
+]

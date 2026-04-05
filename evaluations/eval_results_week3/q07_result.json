@@ -1,0 +1,132 @@
+{
+  "id": "q07",
+  "question": "What recipes use sweet potato?",
+  "type": "ingredient-query",
+  "hypothesis": "Week 2 may retrieve more distinct sweet potato recipes including the Sweet Potato Paratha component chunk",
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Sweet Potato Brownie",
+        "chunk_type": "",
+        "creator": "WFPB member",
+        "score": 0.7646
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Sweet Potato Chaat",
+        "chunk_type": "",
+        "creator": "Sharmila Vedam",
+        "score": 0.7625
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Simple Shakarkandi",
+        "chunk_type": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7563
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Sweet Potato Sandwich",
+        "chunk_type": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.745
+      },
+      {
+        "rank": 5,
+        "recipe_name": "WFPB Dessert Recommendations (Chocolate Silk Pie, Sweet Potato Brownie)",
+        "chunk_type": "",
+        "creator": "Shruti Mirashi Joshi",
+        "score": 0.7281
+      }
+    ],
+    "judge": {
+      "signal_pct": 100,
+      "usefulness": 5,
+      "reasoning": "The system retrieves five chunks, all of which directly name or reference distinct recipes that use sweet potato."
+    }
+  },
+  "week3": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Sweet Potato Brownie",
+        "chunk_type": "",
+        "creator": "WFPB member",
+        "score": 0.7578
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Kathi Rolls",
+        "chunk_type": "assembly",
+        "creator": "Sharmila Vedam",
+        "score": 0.7148
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Sweet Potato Paratha",
+        "chunk_type": "component",
+        "creator": "Sharmila Vedam",
+        "score": 0.707
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Tikki",
+        "chunk_type": "component",
+        "creator": "Frank Lee",
+        "score": 0.7031
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Fudgy Sweet Potato Brownies (WFPB)",
+        "chunk_type": "",
+        "creator": "Shruti Mirashi Joshi",
+        "score": 0.6992
+      },
+      {
+        "rank": 6,
+        "recipe_name": "Sweet Potato Flat Bun",
+        "chunk_type": "",
+        "creator": "Frank Lee",
+        "score": 0.6992
+      },
+      {
+        "rank": 7,
+        "recipe_name": "Chocolate Cake (Sweet Potato & Ragi) with Frosting",
+        "chunk_type": "",
+        "creator": "Gunjan Sahni WFPB",
+        "score": 0.6992
+      },
+      {
+        "rank": 8,
+        "recipe_name": "Sweet Potato Tikki with Green Chutney",
+        "chunk_type": "assembly",
+        "creator": "Frank Lee",
+        "score": 0.6953
+      },
+      {
+        "rank": 9,
+        "recipe_name": "Sweet Potato Sandwich",
+        "chunk_type": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.6914
+      },
+      {
+        "rank": 10,
+        "recipe_name": "Pattice",
+        "chunk_type": "component",
+        "creator": "Manisha Deora",
+        "score": 0.6875
+      }
+    ],
+    "judge": {
+      "signal_pct": 100,
+      "usefulness": 5,
+      "reasoning": "The system retrieves ten chunks, all of which directly name distinct recipes or components that use sweet potato, offering a comprehensive list."
+    }
+  },
+  "winner": "week3",
+  "winner_reasoning": "System B provides a more extensive and diverse list of distinct recipes using sweet potato compared to System A.",
+  "timestamp": "2026-03-07T22:41:13.246391"
+}

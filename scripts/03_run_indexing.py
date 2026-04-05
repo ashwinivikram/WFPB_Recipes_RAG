@@ -66,9 +66,10 @@ DATA_PROCESSED = PROJECT_ROOT / "data" / "processed"
 # ── Week 1 test PDFs ──────────────────────────────────────────────────────────
 # These 3 PDFs are used for --test mode (Week 1 baseline)
 TEST_PDFS = [
-    "Sandwiches___Pita_Pockets___Whole_Food_Plant-Based.pdf",
-    "Salads___Whole_Food_Plant-Based.pdf",
-    "Sweet_Porridge__Beyond_Oatmeal____Whole_Food_Plant-Based.pdf",
+    "Sandwiches & Pita Pockets — Whole Food Plant-Based.pdf",
+    "Savory Pancakes & Waffles — Whole Food Plant-Based.pdf",
+    "Savory Snacks — Whole Food Plant-Based.pdf",
+    "Tikkis, Cutlets, Falafel, Dumplings — Whole Food Plant-Based.pdf",
 ]
 
 

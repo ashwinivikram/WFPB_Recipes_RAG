@@ -34,6 +34,7 @@ from google import genai            # Gemini Vision
 from google.genai import types as genai_types
 from fastembed import TextEmbedding # BAAI/bge-large-en-v1.5
 from dotenv import load_dotenv
+from utils import sanitize_text
 
 # ── Load environment variables ────────────────────────────────────────────────
 load_dotenv()
@@ -186,6 +187,11 @@ def extract_recipe_from_image(
     recipe_data["attribution"]    = "Thankful2Plants.com by Gurmeet Manku (CC BY-NC-ND 4.0)"
     recipe_data["extraction_date"] = datetime.now().strftime("%Y-%m-%d")
     recipe_data["image_path"]     = str(image_path)
+
+    # ── Sanitize PII (Privacy Check) ──────────────────────────────────────────
+    for field in ["recipe_name", "creator", "instructions", "notes", "all_ingredients_flat"]:
+        if field in recipe_data:
+            recipe_data[field] = sanitize_text(recipe_data[field])
 
     # ── Build the text field used for embedding ───────────────────────────────
     # This is what gets embedded — combine recipe name, creator,

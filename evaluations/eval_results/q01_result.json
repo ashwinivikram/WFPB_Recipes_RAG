@@ -1,0 +1,108 @@
+{
+  "id": "q01",
+  "question": "How do I make walnut mushroom pate?",
+  "type": "sub-recipe-factoid",
+  "hypothesis": "Week 2 should score higher — dedicated component chunk with focused vector vs diluted sandwich+pate embedding in Week 1",
+  "top_k": 5,
+  "week1": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Kumar Natarajan",
+        "score": 0.8061
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Chinese Gnocchi in Mushroom Sauce",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Frank Lee",
+        "score": 0.7027
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Banana Walnut Bread (WFPB)",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Group Member",
+        "score": 0.6914
+      },
+      {
+        "rank": 4,
+        "recipe_name": "WFPB Mushroom Sandwich with Aioli",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Leena Menon WFPB",
+        "score": 0.6825
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Stuffed Paratha Pockets",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.6758
+      }
+    ],
+    "judge": {
+      "signal_pct": 20,
+      "usefulness": 3,
+      "reasoning": "Only one chunk is relevant, but it contains the walnut mushroom pate recipe embedded within a larger sandwich recipe, making it less direct for the specific question."
+    }
+  },
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Walnut Mushroom Pate",
+        "chunk_type": "component",
+        "parent": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "creator": "Kumar Natarajan",
+        "score": 0.8828
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "chunk_type": "assembly",
+        "parent": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "creator": "Kumar Natarajan",
+        "score": 0.7794
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Mushroom Sauce",
+        "chunk_type": "component",
+        "parent": "Chinese Gnocchi in Mushroom Sauce",
+        "creator": "Frank Lee",
+        "score": 0.7094
+      },
+      {
+        "rank": 4,
+        "recipe_name": "WFPB Mushroom Sandwich with Aioli",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Leena Menon WFPB",
+        "score": 0.7057
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Ragi Banana Cake",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Shalini Other Lady WFPB",
+        "score": 0.7032
+      }
+    ],
+    "judge": {
+      "signal_pct": 20,
+      "usefulness": 5,
+      "reasoning": "The first chunk directly and completely answers how to make walnut mushroom pate, even explicitly labeled as a component."
+    }
+  },
+  "winner": "week2",
+  "winner_reasoning": "System B provided a chunk specifically for the walnut mushroom pate component, directly and completely answering the user's question, unlike System A which embedded it within a larger recipe.",
+  "timestamp": "2026-02-28T14:55:42.888352"
+}

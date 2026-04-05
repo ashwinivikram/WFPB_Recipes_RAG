@@ -1,0 +1,132 @@
+{
+  "id": "q11",
+  "question": "What are some Indian street food recipes I can make at home?",
+  "type": "thematic-analytical",
+  "hypothesis": "Both should retrieve similar results; Week 2 may surface more distinct sub-components (pattice, vada, tikki)",
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Potato Pumpkin Bhakri",
+        "chunk_type": "",
+        "creator": "Kiran Sharma",
+        "score": 0.6782
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Grilled Pizza Sandwich",
+        "chunk_type": "",
+        "creator": "Padma Subramanian",
+        "score": 0.6688
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Aloo Tikki Chaat",
+        "chunk_type": "assembly",
+        "creator": "Shalini Priyadarshini",
+        "score": 0.6672
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Air Fried Ragi Pakodas",
+        "chunk_type": "",
+        "creator": "Mrs N K Manku",
+        "score": 0.6659
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Chutney Sandwich with Lentil Wrap",
+        "chunk_type": "",
+        "creator": "Kusum Dhairyawan",
+        "score": 0.6649
+      }
+    ],
+    "judge": {
+      "signal_pct": 40,
+      "usefulness": 3,
+      "reasoning": "Only two out of five chunks are clearly relevant to Indian street food, making the information retrieved partial and diluted."
+    }
+  },
+  "week3": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Air-fried Sweet Potato Tikki",
+        "chunk_type": "",
+        "creator": "WFPB member",
+        "score": 0.6914
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Air-fried Purple Baby Potatoes and Spiced Chana Chaat",
+        "chunk_type": "",
+        "creator": "Kusum WFPB",
+        "score": 0.6875
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Aloo Tikki",
+        "chunk_type": "component",
+        "creator": "Shalini Priyadarshini",
+        "score": 0.6758
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Aloo Tikki Chaat",
+        "chunk_type": "",
+        "creator": "Padma Subramanian",
+        "score": 0.6562
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Matra Chaat",
+        "chunk_type": "",
+        "creator": "Manisha Bansal",
+        "score": 0.6562
+      },
+      {
+        "rank": 6,
+        "recipe_name": "Vada Pav",
+        "chunk_type": "assembly",
+        "creator": "Padma Subramanian",
+        "score": 0.6445
+      },
+      {
+        "rank": 7,
+        "recipe_name": "Bonda",
+        "chunk_type": "assembly",
+        "creator": "Meera Arun",
+        "score": 0.6406
+      },
+      {
+        "rank": 8,
+        "recipe_name": "Tikki",
+        "chunk_type": "component",
+        "creator": "Frank Lee",
+        "score": 0.6406
+      },
+      {
+        "rank": 9,
+        "recipe_name": "Uttapam",
+        "chunk_type": "component",
+        "creator": "Sharmila Vedam",
+        "score": 0.6328
+      },
+      {
+        "rank": 10,
+        "recipe_name": "Air Fried Masala Vada",
+        "chunk_type": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.6328
+      }
+    ],
+    "judge": {
+      "signal_pct": 100,
+      "usefulness": 5,
+      "reasoning": "All ten retrieved chunks are relevant to Indian street food recipes, providing a comprehensive and direct answer to the user's question."
+    }
+  },
+  "winner": "week3",
+  "winner_reasoning": "Week 3 retrieved a significantly higher number of directly relevant Indian street food recipes, offering a much broader and more complete answer to the user's question.",
+  "timestamp": "2026-03-07T22:42:00.250518"
+}
