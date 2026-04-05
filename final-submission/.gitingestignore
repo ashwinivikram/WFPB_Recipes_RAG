@@ -1,0 +1,14 @@
+# final-submission/.gitingestignore
+archive/
+rag_results/
+data/raw/
+data/processed/
+data_preparation/outputs/
+*.parquet
+*.csv
+*.npy
+*.bin
+__pycache__/
+.env
+prequalify.py
+final_submission_guidelines.md

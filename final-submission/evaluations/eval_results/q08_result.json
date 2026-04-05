@@ -1,0 +1,108 @@
+{
+  "id": "q08",
+  "question": "Give me a quick no-cook sandwich recipe",
+  "type": "strategy-query",
+  "hypothesis": "Similar performance — no-cook recipes are in both indexes; this tests embedding quality for strategy queries",
+  "top_k": 5,
+  "week1": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Grilled Sandwich without Cheese (Tips)",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Group Member",
+        "score": 0.6913
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Sweet Potato Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.6794
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Ezekiel Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.6782
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Tempeh Ezekiel Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.677
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Ezekiel Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.6749
+      }
+    ],
+    "judge": {
+      "signal_pct": 40,
+      "usefulness": 4,
+      "reasoning": "Two relevant no-cook sandwich recipes with ingredients were retrieved, offering sufficient information to answer the question, though detailed assembly instructions are not provided."
+    }
+  },
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Grilled Sandwich without Cheese (Tips)",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Group Member",
+        "score": 0.686
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Sweet Potato Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.6794
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Ezekiel Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.6782
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Tempeh Ezekiel Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.677
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Ezekiel Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.6749
+      }
+    ],
+    "judge": {
+      "signal_pct": 40,
+      "usefulness": 4,
+      "reasoning": "Two relevant no-cook sandwich recipes with ingredients were retrieved, offering sufficient information to answer the question, though detailed assembly instructions are not provided."
+    }
+  },
+  "winner": "tie",
+  "winner_reasoning": "Both systems retrieved identical chunks, resulting in the same signal percentage and usefulness score for this query.",
+  "timestamp": "2026-02-28T14:57:11.260869"
+}

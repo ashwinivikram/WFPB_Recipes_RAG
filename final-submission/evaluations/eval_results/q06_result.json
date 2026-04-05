@@ -1,0 +1,108 @@
+{
+  "id": "q06",
+  "question": "What is in the Ezekiel Sandwich with Walnut Mushroom Pate?",
+  "type": "main-recipe-factoid",
+  "hypothesis": "Both should retrieve the correct recipe; Week 2 assembly chunk is a bit shorter (sub-recipe split out)",
+  "top_k": 5,
+  "week1": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Kumar Natarajan",
+        "score": 0.9123
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Ezekiel Salad Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7574
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Ezekiel Tofu Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7551
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Ezekiel Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7538
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Ezekiel Tofu Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7528
+      }
+    ],
+    "judge": {
+      "signal_pct": 20,
+      "usefulness": 3,
+      "reasoning": "Only one relevant chunk was retrieved, and while it contains the full ingredient list for the sandwich, the specific components of the 'Walnut Mushroom Pate' are not distinctly separated within that list."
+    }
+  },
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "chunk_type": "assembly",
+        "parent": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "creator": "Kumar Natarajan",
+        "score": 0.9158
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Walnut Mushroom Pate",
+        "chunk_type": "component",
+        "parent": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "creator": "Kumar Natarajan",
+        "score": 0.7579
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Ezekiel Salad Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7574
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Ezekiel Tofu Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7551
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Ezekiel Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Gurmeet Manku",
+        "score": 0.7538
+      }
+    ],
+    "judge": {
+      "signal_pct": 40,
+      "usefulness": 5,
+      "reasoning": "Two highly relevant chunks were retrieved, with one chunk explicitly detailing the ingredients of the 'Walnut Mushroom Pate' component and the other providing the overall sandwich ingredients."
+    }
+  },
+  "winner": "week2",
+  "winner_reasoning": "Week 2 is superior because it retrieved two relevant chunks, one providing the overall sandwich ingredients and another explicitly detailing the ingredients for the 'Walnut Mushroom Pate' component, offering a more complete and structured answer.",
+  "timestamp": "2026-02-28T14:56:52.463446"
+}

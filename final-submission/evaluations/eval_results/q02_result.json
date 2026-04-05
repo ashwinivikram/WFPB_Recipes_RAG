@@ -1,0 +1,108 @@
+{
+  "id": "q02",
+  "question": "What is the recipe for sweet potato paratha?",
+  "type": "sub-recipe-factoid",
+  "hypothesis": "Week 2 should score higher — dedicated paratha chunk vs buried inside Kathi Rolls chunk in Week 1",
+  "top_k": 5,
+  "week1": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Sweet Potato Paratha",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Ashwini Vikram",
+        "score": 0.8789
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Kathi Rolls",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Sharmila Vedam",
+        "score": 0.798
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Sweet Potato Chaat",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Kiran Sharma",
+        "score": 0.798
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Sweet Potato Chaat",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Sharmila Vedam",
+        "score": 0.7978
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Amaranth Thalipeeth",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Group Member",
+        "score": 0.7752
+      }
+    ],
+    "judge": {
+      "signal_pct": 20,
+      "usefulness": 5,
+      "reasoning": "The first chunk directly provides the complete recipe for sweet potato paratha, fully answering the user's question, though the other chunks are irrelevant."
+    }
+  },
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Sweet Potato Paratha",
+        "chunk_type": "component",
+        "parent": "Kathi Rolls",
+        "creator": "Sharmila Vedam",
+        "score": 0.8823
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Sweet Potato Paratha",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Ashwini Vikram",
+        "score": 0.853
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Sweet Potato Chaat",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Kiran Sharma",
+        "score": 0.798
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Sweet Potato Chaat",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Sharmila Vedam",
+        "score": 0.7978
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Amaranth Thalipeeth",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Group Member",
+        "score": 0.7935
+      }
+    ],
+    "judge": {
+      "signal_pct": 20,
+      "usefulness": 4,
+      "reasoning": "The full sweet potato paratha recipe is available in the second chunk, but the top chunk is a sub-recipe component that does not fully answer the question."
+    }
+  },
+  "winner": "week1",
+  "winner_reasoning": "System A is better because its top retrieved chunk immediately provides the complete recipe, whereas System B's top chunk is a less direct component recipe.",
+  "timestamp": "2026-02-28T14:55:56.406025"
+}

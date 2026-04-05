@@ -1,0 +1,108 @@
+{
+  "id": "q04",
+  "question": "Give me a homemade hummus recipe",
+  "type": "sub-recipe-factoid",
+  "hypothesis": "Week 2 should score higher — dedicated hummus chunk with focused hummus embedding",
+  "top_k": 5,
+  "week1": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Arugula Hummus Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Meghna Natraj",
+        "score": 0.7633
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Grilled Tofu Hummus Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.7551
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Lavash Hummus Pinwheels",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.7417
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Lavash Hummus Wraps",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.74
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Hummus Mushroom Tofu Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.7332
+      }
+    ],
+    "judge": {
+      "signal_pct": 0,
+      "usefulness": 1,
+      "reasoning": "No chunk provides a standalone homemade hummus recipe; all chunks either use hummus as an ingredient or list general sandwich ingredients."
+    }
+  },
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Hummus",
+        "chunk_type": "component",
+        "parent": "Arugula Hummus Sandwich",
+        "creator": "Meghna Natraj",
+        "score": 0.8005
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Grilled Tofu Hummus Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.7551
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Arugula Hummus Sandwich",
+        "chunk_type": "assembly",
+        "parent": "Arugula Hummus Sandwich",
+        "creator": "Meghna Natraj",
+        "score": 0.7537
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Lavash Hummus Pinwheels",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.7417
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Lavash Hummus Wraps",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.74
+      }
+    ],
+    "judge": {
+      "signal_pct": 20,
+      "usefulness": 5,
+      "reasoning": "One chunk explicitly provides a standalone homemade hummus recipe, directly fulfilling the user's request."
+    }
+  },
+  "winner": "week2",
+  "winner_reasoning": "System B successfully extracted a dedicated 'Hummus' sub-recipe that directly answers the user's question, while System A failed to provide any direct hummus recipe.",
+  "timestamp": "2026-02-28T14:56:24.064403"
+}

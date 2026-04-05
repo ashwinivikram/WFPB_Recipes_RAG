@@ -1,0 +1,108 @@
+{
+  "id": "q03",
+  "question": "How do I make a zucchini chutney?",
+  "type": "sub-recipe-factoid",
+  "hypothesis": "Week 2 should score higher — dedicated chutney chunk vs buried inside Moong Dosa Wrap in Week 1",
+  "top_k": 5,
+  "week1": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Moong Dosa Wrap",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Usha Gandhasri",
+        "score": 0.7679
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Baked Zucchini Handvo/Pancake",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Shalini Other Lady WFPB",
+        "score": 0.7528
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Zucchini Potato Cutlets",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.7353
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Nuchinunde",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Sharmila Vedam",
+        "score": 0.7343
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Uthapam & Almond Chutney",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Meera Arun",
+        "score": 0.7309
+      }
+    ],
+    "judge": {
+      "signal_pct": 0,
+      "usefulness": 1,
+      "reasoning": "None of the retrieved chunks provide a recipe or instructions for making a zucchini chutney; they are about other zucchini dishes or general chutneys."
+    }
+  },
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Zucchini Chutney",
+        "chunk_type": "component",
+        "parent": "Moong Dosa Wrap",
+        "creator": "Usha Gandhasri",
+        "score": 0.8557
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Baked Zucchini Handvo/Pancake",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Shalini Other Lady WFPB",
+        "score": 0.8037
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Amaranth Thalipeeth",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Group Member",
+        "score": 0.7623
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Cilantro-Mint Chutney (Customizable)",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Ankit Dangi WFPB",
+        "score": 0.753
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Simple Veggie Pickle/Chutney",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Group Member (WFPB member)",
+        "score": 0.7404
+      }
+    ],
+    "judge": {
+      "signal_pct": 20,
+      "usefulness": 3,
+      "reasoning": "One chunk explicitly mentions a 'Zucchini Chutney' recipe, which is highly relevant, but the preview only shows ingredients and lacks the method for preparation."
+    }
+  },
+  "winner": "week2",
+  "winner_reasoning": "System B is the clear winner because it successfully retrieved a chunk for 'Zucchini Chutney,' directly addressing the user's specific query, while System A failed to retrieve any relevant chunks.",
+  "timestamp": "2026-02-28T14:56:07.154448"
+}

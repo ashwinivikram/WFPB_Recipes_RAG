@@ -1,0 +1,108 @@
+{
+  "id": "q13",
+  "question": "Give me a recipe for mushroom sauce",
+  "type": "sub-recipe-factoid",
+  "hypothesis": "Week 2 should score higher — dedicated mushroom sauce chunk",
+  "top_k": 5,
+  "week1": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Chinese Gnocchi in Mushroom Sauce",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Frank Lee",
+        "score": 0.765
+      },
+      {
+        "rank": 2,
+        "recipe_name": "WFPB Mushroom Sandwich with Aioli",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Leena Menon WFPB",
+        "score": 0.7141
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Kumar Natarajan",
+        "score": 0.7013
+      },
+      {
+        "rank": 4,
+        "recipe_name": "Yum Cha",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Frank Lee",
+        "score": 0.6857
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Hummus Mushroom Tofu Sandwich",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Dr Sirisha Potluri",
+        "score": 0.6683
+      }
+    ],
+    "judge": {
+      "signal_pct": 0,
+      "usefulness": 1,
+      "reasoning": "None of the retrieved chunks provide a standalone recipe for mushroom sauce; the closest mention is embedded within a larger gnocchi recipe."
+    }
+  },
+  "week2": {
+    "chunks": [
+      {
+        "rank": 1,
+        "recipe_name": "Mushroom Sauce",
+        "chunk_type": "component",
+        "parent": "Chinese Gnocchi in Mushroom Sauce",
+        "creator": "Frank Lee",
+        "score": 0.7993
+      },
+      {
+        "rank": 2,
+        "recipe_name": "Chinese Gnocchi in Mushroom Sauce",
+        "chunk_type": "assembly",
+        "parent": "Chinese Gnocchi in Mushroom Sauce",
+        "creator": "Frank Lee",
+        "score": 0.7506
+      },
+      {
+        "rank": 3,
+        "recipe_name": "Walnut Mushroom Pate",
+        "chunk_type": "component",
+        "parent": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "creator": "Kumar Natarajan",
+        "score": 0.725
+      },
+      {
+        "rank": 4,
+        "recipe_name": "WFPB Mushroom Sandwich with Aioli",
+        "chunk_type": "",
+        "parent": "",
+        "creator": "Leena Menon WFPB",
+        "score": 0.7155
+      },
+      {
+        "rank": 5,
+        "recipe_name": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "chunk_type": "assembly",
+        "parent": "Ezekiel Sandwich with Walnut Mushroom Pate",
+        "creator": "Kumar Natarajan",
+        "score": 0.6935
+      }
+    ],
+    "judge": {
+      "signal_pct": 40,
+      "usefulness": 5,
+      "reasoning": "Chunk 1 directly provides a standalone recipe for mushroom sauce, allowing the user to fully answer their question."
+    }
+  },
+  "winner": "week2",
+  "winner_reasoning": "System B clearly wins because its top chunk specifically retrieves a standalone mushroom sauce recipe, which directly answers the user's question, unlike System A which offered no direct recipes.",
+  "timestamp": "2026-02-28T14:58:01.273747"
+}
