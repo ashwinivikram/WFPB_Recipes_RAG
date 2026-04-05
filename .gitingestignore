@@ -1,6 +1,7 @@
 # .gitingestignore — WFPB Recipe RAG Week 4
 # Excludes large files, raw data, and processed artifacts to keep submission small
-
+archive/
+rag_results/
 # Ignore data folders to save massive space
 data/raw/
 data/processed/

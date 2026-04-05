@@ -23,7 +23,7 @@
 
 ---
 
-## 3. Measurement Decisions
+## Evaluation Methods
 
 To avoid the pitfalls of single-score LLM grading seen in Week 3, I implemented a Triangulation approach using two distinct methods:
 

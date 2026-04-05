@@ -1,124 +1,70 @@
-## Student Name
+# Week 4 Capstone Submission
+
+## Student Name(s)
 Ashwini Vikram
 
 ## Project Title
-WFPB Recipe RAG System — Week 3: Retrieval Optimization (Hybrid + Rerank)
+WFPB Recipe RAG System
 
 ## Progress Recap
+- **Week 1:** Built naive RAG pipeline with BGE dense embeddings. Identified that sub-recipes inside massive recipe cards diluted the embedding signal.
+- **Week 2:** Added regex-based chunking strategy to explicitly break out sub-recipe component chunks from assembly instructions.
+- **Week 3:** Upgraded search mechanism to a Hybrid dense+sparse pipeline with Voyage Reranking, massively improving creator/thematic discovery.
+- **Key question going into Week 4:** Does the hybrid search actually improve user answers in complex sub-recipe interactions, or just fetch the keyword better?
 
-**Week 1:** Built a naive RAG pipeline — one recipe card = one chunk. 666 chunks indexed into Qdrant using BGE-large-en-v1.5 embeddings. Identified core problem: sub-recipes embedded inside parent recipe cards caused signal dilution.
+## Golden Dataset Summary
+- **Size:** 15 Q&A pairs
+- **Source pipeline:** `wfpb_recipes_week3_hybrid` (Voyage-3-large + BM25) bootstrapped the answers.
+- **Selection methodology:** Manually edited Gemini's generated output to be 100% strictly factual to the text. We selected chunks that possessed the direct methodology.
+- **Coverage:** Tested 6 query types: sub-recipe factoids, main recipe instructions, multi-ingredient analytical, creator lookups, and wide thematic searches.
 
-**Week 2:** Implemented sub-recipe boundary detection via ALL-CAPS header regex. Split 30 recipe cards into focused component + assembly chunk pairs. 692 chunks total. Week 2 won 10/14 evaluation questions vs Week 1 baseline. Creator queries and keyword queries remained broken.
+## Evaluation Methods
+- **Method 1:** Deterministic Semantic Metrics (Voyage cosine similarity) -- Measures retrieval hit precision and exact-chunk matching. Cost: ~$0/run.
+- **Method 2:** Decomposed LLM Judge (Gemini) -- Measures holistic text quality across Faithfulness, Relevance, and Precision. Cost: ~$0.005/run.
 
-**Week 3:** Upgraded the retrieval pipeline — same 692 chunks, new search strategy. Added hybrid search (dense + sparse BM25) and Voyage reranking. Created a new Qdrant collection `wfpb_recipes_week3_hybrid`. Evaluated against Week 2 as the new baseline.
+## Judge Design Summary
+- **Metrics measured:** Faithfulness (binary), Answer Relevance (1-5), Context Precision (1-5).
+- **Judge iterations:** 2 versions. v1 used holistic 1-10 scoring. v2 decomposed the score into isolated traits.
+- **Key design decision:** Decomposing the evaluation logic from "how good is this?" to "does it answer the question completely?" AND "does it invent things?" prevent grade inflation.
+- **Biggest judge failure you caught:** The v1 judge gave 9/10 to answers that only listed ingredients but completely excluded cooking instructions. Decomposed v2 penalized this heavily (down to a 1/5 Answer Relevance).
 
-## Retrieval Assessment Summary
+## Evaluation Results Summary
 
-**Constraint Assessment:**
-- Latency: Interactive (seconds OK) | Cost: Low (personal project) | Accuracy: High | Volume: Very low
+| Metric | Week 3 Best System | Other System(s) (Baseline) | Delta |
+|--------|-------------------|-----------------|-------|
+| Hit@1 (Determ) | 100% | 100% | 0 |
+| Faithfulness (Judge)| 5.0 | 5.0 | 0 |
+| Answer Relevance (Judge) | 3.0/5.0 | 3.5/5.0 | -0.5 |
 
-**Corpus Assessment:**
-- Single domain (WFPB recipes), clear structure, high-quality metadata, 692 chunks
-- Known Week 2 failures: creator queries (dense can't find by author name), no-cook keyword queries (absence of technique not captured in dense vectors)
+## Triangulation Findings
+- **Methods agree on:** Faithfulness (never hallucinated) and Thematic discovery (hybrid perfectly isolates broad topics).
+- **Methods disagree on:** The success of sub-recipe queries. Hit@1 claims perfect retrieval, Answer Relevance claims total failure.
+- **Most reliable method for your corpus:** LLM Judge (Decomposed). The string-matching deterministic method cannot recognize if instructional sentences were truncated during chunking.
+- **Key insight from combining methods:** Retrieval configuration is actually perfect. We just discovered a massive flaw in the Week 2 chunk extraction pipeline that split ingredients completely away from methodologies.
 
-**Narrowing Decision: Skipped.** Single-domain corpus with no heterogeneity — hybrid + rerank is sufficient. Two-stage routing would add cost and latency for no benefit. Creator queries addressed via Qdrant payload filtering (`--creator` flag in pipeline script).
-
-Full analysis in `docs/retrieval-analysis.md`.
-
-## Retrieval Configuration
-
-**Week 3 pipeline (`wfpb_recipes_week3_hybrid`):**
-- **Dense:** Voyage voyage-3-large (1024d cosine) — retrieval-optimized model
-- **Sparse:** Qdrant/bm25 via FastEmbed SparseTextEmbedding — exact keyword matching
-- **Fusion:** RRF (Reciprocal Rank Fusion) — rank-based, robust to score scale differences
-- **Stage 1:** Hybrid search, top 50 candidates
-- **Stage 2:** Voyage rerank-2 cross-encoder → top 10
-- **Generation:** Gemini 2.5 Flash (unchanged)
-
-**Scripts:** `scripts/08_index_hybrid.py` (indexing), `scripts/09_rag_with_rerank.py` (pipeline), `scripts/10_evaluate_week3.py` (evaluation)
-
-Full configuration in `docs/retrieval-strategy.md`.
-
-## Evaluation Approach
-
-Compared Week 2 (dense-only BGE, top-5) vs Week 3 (hybrid + rerank, top-10) on the same 14 test questions from `evaluations/test_questions.json`.
-
-For each question:
-1. Retrieved from `wfpb_recipes_week2` using FastEmbed + plain dense search
-2. Retrieved from `wfpb_recipes_week3_hybrid` using Voyage embed + BM25 + hybrid search → Voyage rerank
-3. LLM judge (Gemini 2.5 Flash) scored both: signal% (0-100), usefulness (1-5), declared winner
-4. Per-question results saved to `evaluations/eval_results_week3/`
-
-## Evaluation Summary
-
-| Metric | Week 2 (baseline) | Week 3 (hybrid+rerank) | Change |
-|---|---|---|---|
-| Avg signal % | 44.3% | 44.3% | 0 |
-| Avg usefulness | 3.64/5 | 4.29/5 | **+0.65** |
-| Win rate | 7/14 (50%) | 6/14 (43%) | — |
-| Ties | 1/14 | — | — |
-
-**Week 3 wins:** q07 (ingredient diversity), q08 (no-cook strategy), q09 (creator query), q11 (Indian street food thematic), q12 (Ragda sub-recipe), q14 (savory waffles thematic)
-
-**Week 2 wins:** Most sub-recipe factoid queries (q01, q02, q04, q05, q06, q10, q13) — chunking strategy from Week 2 already achieves ceiling performance on these
-
-Full results in `evaluations/week3_comparison.md`.
-
-## Judge Reliability
-
-The LLM judge (Gemini 2.5 Flash) was spot-checked on 5 questions:
-
-- **Winner declarations:** All 5 correct — judge correctly identifies which system retrieves better chunks
-- **Signal% scoring:** Reliable and consistent; Week 3 signal% is lower for factoid queries (1 relevant of 10 > 1 of 5) which is mathematically accurate but penalizes Week 3 unfairly
-- **Usefulness scoring:** Appropriate for thematic/strategy queries; slightly conservative for tied factoid queries where both systems return the same top chunk
-- **Key finding:** Week 3's win count (6/14) understates its improvement — the judge correctly scores usefulness higher (+0.65) but signal% dilution from larger top-k pool gives Week 2 more signal% wins
-
-Full analysis in `evaluations/week3_deep_analysis.md`.
+## Judge Design Evolution
+- **v1:** Holistic "rate 1-10" approach. Resulted in 9/10 average grade inflation even for terrible answers.
+- **v2:** Decomposed approach. Answer relevance dropped from 9/10 to 3.0/5 average.
+- **What this taught you:** LLMs are incredibly lazy evaluators if given broad grading rubrics. You must force them to grade singular dimensions to get mathematical value out of them.
 
 ## Key Observations
-
-**What hybrid + rerank improved:**
-- Thematic queries (q11, q14): BM25 surfaces diverse keyword matches that dense-only misses. Indian street food query improved 40%→100% signal, 3→5 usefulness.
-- Strategy queries (q08 no-cook): BM25 matched "no-cook" keyword explicitly; Week 2 returned grilled sandwich tips instead. Week 3: 3→5 usefulness.
-- Creator queries (q09): BM25 matched creator name as a keyword — the known Week 2 failure is partially resolved without any routing or special handling.
-
-**What hybrid + rerank did NOT improve:**
-- Sub-recipe factoid queries: Week 2's chunking strategy already places the correct chunk at rank 1 with very high similarity. Reranking with a top-10 pool doesn't improve these — the right answer is already #1. Signal% appears lower only because 1-of-10 < 1-of-5.
-
-**Where the system still struggles:**
-- Sub-recipe completeness: several queries retrieve ingredient lists but not preparation methods. This is a data representation gap (ingredient vs. method chunks not separated), not a retrieval problem.
-- Creator queries partially resolved via BM25 keyword match, but only when the creator's name appears verbatim in the chunk text.
-
-**CAL tradeoff:**
-- **Cost:** Week 2 = ~$0/query (local FastEmbed). Week 3 adds ~$0.003–0.005/query (2 Voyage API calls: embed + rerank) plus a one-time indexing cost (~$0.35 for 692 chunks). Acceptable for a personal project.
-- **Accuracy:** +0.65 avg usefulness. On thematic/strategy queries, improvement is +1.5 points. On sub-recipe factoids, identical. Net positive.
-- **Latency:** Week 2 ~100–200ms (local). Week 3 ~1–3s (Voyage API round-trips). Acceptable for interactive recipe lookup where accuracy matters more than speed.
-- **Verdict:** Worth it. The query types that were previously broken (creator, keyword, thematic) now work. The added cost and latency are acceptable given the use case constraints.
-
-**What would improve it next:** Precision@1 or NDCG as evaluation metrics (avoids signal% top-k bias). Payload-filtered search for creator queries at query time. Chunk-level method extraction to fix the ingredient-without-method gap.
-
-**Takeaway:** Hybrid + rerank and chunking strategy solve different problems. Week 2 fixed *what* to index. Week 3 fixed *how* to search. Both improvements compound.
+- **What did evaluation reveal about your system?** It finds exactly what you ask for, but gives answers that are half-empty due to structural index isolation.
+- **What's your system's biggest remaining weakness?** Method structural completeness (merging sub-recipe assemblies back to their components).
+- **What would you improve in the evaluation itself?** Adding an explicit instruction to the Judge to look for "actionable cooking steps, not just lists" for HOW_TO classification prompts.
+- **CAL tradeoff for evaluation:** The $0 deterministic checks are great for testing API latencies, but practically useless for telling us if the user is happy. The $0.005 LLM evaluation is essential to trust the pipeline.
 
 ## Iteration Summary
-
-| Iteration | Change | Result |
-|---|---|---|
-| 0 (Week 1) | Naive chunking, dense BGE | 666 chunks, creator/keyword queries fail |
-| 1-4 (Week 2) | Sub-recipe boundary detection | 692 chunks, 10/14 wins over Week 1 |
-| 5 (Week 3) | Hybrid indexing (Voyage + BM25) | 692 chunks re-indexed, new collection |
-| 6 (Week 3) | Evaluation vs Week 2 baseline | 6/14 wins, +0.65 avg usefulness |
-
-**Key bug fixed:** voyage-3-large returns 1024d vectors (not 2048d as documented). Collection dimension corrected before indexing.
-
-Full iteration log in `docs/iteration-log.md`.
+- **Total iterations:** 2
+- **Most impactful change:** Moving from holistic single-grading to multi-dimensional decomposed grading.
+- **Stopping rationale:** Score variance reduced to 0, providing a perfectly reliable mathematical baseline to use to test structural pipeline patches.
 
 ## Self-Assessment
 
 | Criteria | Score (1-5) | Notes |
-|---|---|---|
-| Retrieval analysis depth | 5 | Constraint + corpus assessment documented; narrowing decision with clear rationale; single-domain determination correct |
-| Hybrid implementation quality | 5 | Voyage dense + BM25 sparse with RRF fusion; correct collection config; dimension bug found and fixed |
-| Reranking integration | 5 | Voyage rerank-2 cross-encoder; top-50 → top-10 rerank; integrated into interactive pipeline and evaluation |
-| Evaluation thoroughness | 5 | Same 14 questions reused; W2 vs W3 pairwise comparison; per-question JSON saved; patterns identified across query types |
-| Judge reliability check | 4 | Spot-checked 5 questions; signal% bias identified and explained; 2/5 winner declarations corrected to ties; magnitude uncertainty flagged for q09 |
-| Documentation clarity | 5 | CAL tradeoff documented; impact analysis covers what hybrid/rerank each added; iteration log covers both W3 iterations |
+|----------|-------------|-------|
+| Golden dataset quality | 4 | Should have manipulated the golden chunks to explicitly include method assemblies. |
+| Metrics selection and justification | 5 | Deterministic + Decomposed combinations worked perfectly. |
+| Judge design and iteration | 5 | Caught the v1 inflation error immediately. |
+| Triangulation depth | 5 | Identified the exact conflict between text ID matching vs semantic fulfillment. |
+| Evaluation design critique | 5 | Highlighted exact questions (e.g., Q12) where failure modes clash. |
+| Documentation clarity | 4 | |

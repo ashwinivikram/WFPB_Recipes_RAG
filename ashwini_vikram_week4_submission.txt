@@ -3,11 +3,21 @@ Directory structure:
     ├── README.md
     ├── context.md
     ├── context_ascii.md
+    ├── docker-compose.yml
+    ├── Dockerfile
     ├── pyproject.toml
     ├── submission.md
     ├── .gitingestignore
     ├── analysis/
     │   └── data_quality_notes.md
+    ├── app/
+    │   ├── main.py
+    │   ├── prompts/
+    │   │   └── templates.py
+    │   └── services/
+    │       ├── conversation.py
+    │       ├── query_router.py
+    │       └── semantic_cache.py
     ├── data/
     │   └── README.md
     ├── docs/
@@ -17,6 +27,9 @@ Directory structure:
     │   ├── evaluation-scope.md
     │   ├── evaluation-strategy.md
     │   ├── iteration-log.md
+    │   ├── judge-design.md
+    │   ├── production-assessment.md
+    │   ├── production-decisions.md
     │   ├── retrieval-analysis.md
     │   ├── retrieval-strategy.md
     │   └── scoping.md
@@ -27,13 +40,13 @@ Directory structure:
     │   ├── week2_deep_analysis.md
     │   ├── week3_comparison.md
     │   ├── week3_deep_analysis.md
+    │   ├── week4_comparison.md
+    │   ├── week4_deep_analysis.md
     │   └── method_results/
     │       ├── decomposed_results.json
     │       └── deterministic_results.json
     ├── scripts/
-    │   ├── 12_build_golden_dataset.py
-    │   ├── 13_run_deterministic_eval.py
-    │   └── 14_run_judge_eval.py
+    │   └── 15_test_production.py
     └── traces/
         └── trace.md
 
@@ -487,6 +500,63 @@ User
 
 
 ================================================
+FILE: docker-compose.yml
+================================================
+version: "3.8"
+services:
+  redis:
+    # Need redis-stack for RediSearch/RedisJSON capabilities
+    image: redis/redis-stack-server:latest
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file: .env
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - PORT=8000
+    depends_on:
+      redis:
+        condition: service_healthy
+
+
+
+================================================
+FILE: Dockerfile
+================================================
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install uv for fast dependency resolution
+RUN pip install --no-cache-dir uv
+
+# Copy project files
+COPY pyproject.toml uv.lock ./
+
+# Install dependencies into system Python
+RUN uv sync --no-dev --system
+
+# Download the BM25 model at build time to avoid downloading on startup
+RUN python -c "from fastembed import SparseTextEmbedding; SparseTextEmbedding('Qdrant/bm25')"
+
+# Copy the rest of the application
+COPY . .
+
+# Run the application (shell form to expand PORT)
+CMD uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
+
+
+
+================================================
 FILE: pyproject.toml
 ================================================
 [project]
@@ -526,6 +596,9 @@ dependencies = [
     "streamlit>=1.53.1",
     "voyage-embedders-haystack>=1.8.0",
     "gitingest>=0.3.1",
+    "redis>=7.4.0",
+    "fastapi>=0.135.3",
+    "uvicorn>=0.43.0",
 ]
 
 [project.optional-dependencies]
@@ -540,130 +613,76 @@ dev = [
 ================================================
 FILE: submission.md
 ================================================
-## Student Name
+# Week 4 Capstone Submission
+
+## Student Name(s)
 Ashwini Vikram
 
 ## Project Title
-WFPB Recipe RAG System — Week 3: Retrieval Optimization (Hybrid + Rerank)
+WFPB Recipe RAG System
 
 ## Progress Recap
+- **Week 1:** Built naive RAG pipeline with BGE dense embeddings. Identified that sub-recipes inside massive recipe cards diluted the embedding signal.
+- **Week 2:** Added regex-based chunking strategy to explicitly break out sub-recipe component chunks from assembly instructions.
+- **Week 3:** Upgraded search mechanism to a Hybrid dense+sparse pipeline with Voyage Reranking, massively improving creator/thematic discovery.
+- **Key question going into Week 4:** Does the hybrid search actually improve user answers in complex sub-recipe interactions, or just fetch the keyword better?
 
-**Week 1:** Built a naive RAG pipeline — one recipe card = one chunk. 666 chunks indexed into Qdrant using BGE-large-en-v1.5 embeddings. Identified core problem: sub-recipes embedded inside parent recipe cards caused signal dilution.
+## Golden Dataset Summary
+- **Size:** 15 Q&A pairs
+- **Source pipeline:** `wfpb_recipes_week3_hybrid` (Voyage-3-large + BM25) bootstrapped the answers.
+- **Selection methodology:** Manually edited Gemini's generated output to be 100% strictly factual to the text. We selected chunks that possessed the direct methodology.
+- **Coverage:** Tested 6 query types: sub-recipe factoids, main recipe instructions, multi-ingredient analytical, creator lookups, and wide thematic searches.
 
-**Week 2:** Implemented sub-recipe boundary detection via ALL-CAPS header regex. Split 30 recipe cards into focused component + assembly chunk pairs. 692 chunks total. Week 2 won 10/14 evaluation questions vs Week 1 baseline. Creator queries and keyword queries remained broken.
+## Evaluation Methods
+- **Method 1:** Deterministic Semantic Metrics (Voyage cosine similarity) -- Measures retrieval hit precision and exact-chunk matching. Cost: ~$0/run.
+- **Method 2:** Decomposed LLM Judge (Gemini) -- Measures holistic text quality across Faithfulness, Relevance, and Precision. Cost: ~$0.005/run.
 
-**Week 3:** Upgraded the retrieval pipeline — same 692 chunks, new search strategy. Added hybrid search (dense + sparse BM25) and Voyage reranking. Created a new Qdrant collection `wfpb_recipes_week3_hybrid`. Evaluated against Week 2 as the new baseline.
+## Judge Design Summary
+- **Metrics measured:** Faithfulness (binary), Answer Relevance (1-5), Context Precision (1-5).
+- **Judge iterations:** 2 versions. v1 used holistic 1-10 scoring. v2 decomposed the score into isolated traits.
+- **Key design decision:** Decomposing the evaluation logic from "how good is this?" to "does it answer the question completely?" AND "does it invent things?" prevent grade inflation.
+- **Biggest judge failure you caught:** The v1 judge gave 9/10 to answers that only listed ingredients but completely excluded cooking instructions. Decomposed v2 penalized this heavily (down to a 1/5 Answer Relevance).
 
-## Retrieval Assessment Summary
+## Evaluation Results Summary
 
-**Constraint Assessment:**
-- Latency: Interactive (seconds OK) | Cost: Low (personal project) | Accuracy: High | Volume: Very low
+| Metric | Week 3 Best System | Other System(s) (Baseline) | Delta |
+|--------|-------------------|-----------------|-------|
+| Hit@1 (Determ) | 100% | 100% | 0 |
+| Faithfulness (Judge)| 5.0 | 5.0 | 0 |
+| Answer Relevance (Judge) | 3.0/5.0 | 3.5/5.0 | -0.5 |
 
-**Corpus Assessment:**
-- Single domain (WFPB recipes), clear structure, high-quality metadata, 692 chunks
-- Known Week 2 failures: creator queries (dense can't find by author name), no-cook keyword queries (absence of technique not captured in dense vectors)
+## Triangulation Findings
+- **Methods agree on:** Faithfulness (never hallucinated) and Thematic discovery (hybrid perfectly isolates broad topics).
+- **Methods disagree on:** The success of sub-recipe queries. Hit@1 claims perfect retrieval, Answer Relevance claims total failure.
+- **Most reliable method for your corpus:** LLM Judge (Decomposed). The string-matching deterministic method cannot recognize if instructional sentences were truncated during chunking.
+- **Key insight from combining methods:** Retrieval configuration is actually perfect. We just discovered a massive flaw in the Week 2 chunk extraction pipeline that split ingredients completely away from methodologies.
 
-**Narrowing Decision: Skipped.** Single-domain corpus with no heterogeneity — hybrid + rerank is sufficient. Two-stage routing would add cost and latency for no benefit. Creator queries addressed via Qdrant payload filtering (`--creator` flag in pipeline script).
-
-Full analysis in `docs/retrieval-analysis.md`.
-
-## Retrieval Configuration
-
-**Week 3 pipeline (`wfpb_recipes_week3_hybrid`):**
-- **Dense:** Voyage voyage-3-large (1024d cosine) — retrieval-optimized model
-- **Sparse:** Qdrant/bm25 via FastEmbed SparseTextEmbedding — exact keyword matching
-- **Fusion:** RRF (Reciprocal Rank Fusion) — rank-based, robust to score scale differences
-- **Stage 1:** Hybrid search, top 50 candidates
-- **Stage 2:** Voyage rerank-2 cross-encoder → top 10
-- **Generation:** Gemini 2.5 Flash (unchanged)
-
-**Scripts:** `scripts/08_index_hybrid.py` (indexing), `scripts/09_rag_with_rerank.py` (pipeline), `scripts/10_evaluate_week3.py` (evaluation)
-
-Full configuration in `docs/retrieval-strategy.md`.
-
-## Evaluation Approach
-
-Compared Week 2 (dense-only BGE, top-5) vs Week 3 (hybrid + rerank, top-10) on the same 14 test questions from `evaluations/test_questions.json`.
-
-For each question:
-1. Retrieved from `wfpb_recipes_week2` using FastEmbed + plain dense search
-2. Retrieved from `wfpb_recipes_week3_hybrid` using Voyage embed + BM25 + hybrid search → Voyage rerank
-3. LLM judge (Gemini 2.5 Flash) scored both: signal% (0-100), usefulness (1-5), declared winner
-4. Per-question results saved to `evaluations/eval_results_week3/`
-
-## Evaluation Summary
-
-| Metric | Week 2 (baseline) | Week 3 (hybrid+rerank) | Change |
-|---|---|---|---|
-| Avg signal % | 44.3% | 44.3% | 0 |
-| Avg usefulness | 3.64/5 | 4.29/5 | **+0.65** |
-| Win rate | 7/14 (50%) | 6/14 (43%) | — |
-| Ties | 1/14 | — | — |
-
-**Week 3 wins:** q07 (ingredient diversity), q08 (no-cook strategy), q09 (creator query), q11 (Indian street food thematic), q12 (Ragda sub-recipe), q14 (savory waffles thematic)
-
-**Week 2 wins:** Most sub-recipe factoid queries (q01, q02, q04, q05, q06, q10, q13) — chunking strategy from Week 2 already achieves ceiling performance on these
-
-Full results in `evaluations/week3_comparison.md`.
-
-## Judge Reliability
-
-The LLM judge (Gemini 2.5 Flash) was spot-checked on 5 questions:
-
-- **Winner declarations:** All 5 correct — judge correctly identifies which system retrieves better chunks
-- **Signal% scoring:** Reliable and consistent; Week 3 signal% is lower for factoid queries (1 relevant of 10 > 1 of 5) which is mathematically accurate but penalizes Week 3 unfairly
-- **Usefulness scoring:** Appropriate for thematic/strategy queries; slightly conservative for tied factoid queries where both systems return the same top chunk
-- **Key finding:** Week 3's win count (6/14) understates its improvement — the judge correctly scores usefulness higher (+0.65) but signal% dilution from larger top-k pool gives Week 2 more signal% wins
-
-Full analysis in `evaluations/week3_deep_analysis.md`.
+## Judge Design Evolution
+- **v1:** Holistic "rate 1-10" approach. Resulted in 9/10 average grade inflation even for terrible answers.
+- **v2:** Decomposed approach. Answer relevance dropped from 9/10 to 3.0/5 average.
+- **What this taught you:** LLMs are incredibly lazy evaluators if given broad grading rubrics. You must force them to grade singular dimensions to get mathematical value out of them.
 
 ## Key Observations
-
-**What hybrid + rerank improved:**
-- Thematic queries (q11, q14): BM25 surfaces diverse keyword matches that dense-only misses. Indian street food query improved 40%→100% signal, 3→5 usefulness.
-- Strategy queries (q08 no-cook): BM25 matched "no-cook" keyword explicitly; Week 2 returned grilled sandwich tips instead. Week 3: 3→5 usefulness.
-- Creator queries (q09): BM25 matched creator name as a keyword — the known Week 2 failure is partially resolved without any routing or special handling.
-
-**What hybrid + rerank did NOT improve:**
-- Sub-recipe factoid queries: Week 2's chunking strategy already places the correct chunk at rank 1 with very high similarity. Reranking with a top-10 pool doesn't improve these — the right answer is already #1. Signal% appears lower only because 1-of-10 < 1-of-5.
-
-**Where the system still struggles:**
-- Sub-recipe completeness: several queries retrieve ingredient lists but not preparation methods. This is a data representation gap (ingredient vs. method chunks not separated), not a retrieval problem.
-- Creator queries partially resolved via BM25 keyword match, but only when the creator's name appears verbatim in the chunk text.
-
-**CAL tradeoff:**
-- **Cost:** Week 2 = ~$0/query (local FastEmbed). Week 3 adds ~$0.003–0.005/query (2 Voyage API calls: embed + rerank) plus a one-time indexing cost (~$0.35 for 692 chunks). Acceptable for a personal project.
-- **Accuracy:** +0.65 avg usefulness. On thematic/strategy queries, improvement is +1.5 points. On sub-recipe factoids, identical. Net positive.
-- **Latency:** Week 2 ~100–200ms (local). Week 3 ~1–3s (Voyage API round-trips). Acceptable for interactive recipe lookup where accuracy matters more than speed.
-- **Verdict:** Worth it. The query types that were previously broken (creator, keyword, thematic) now work. The added cost and latency are acceptable given the use case constraints.
-
-**What would improve it next:** Precision@1 or NDCG as evaluation metrics (avoids signal% top-k bias). Payload-filtered search for creator queries at query time. Chunk-level method extraction to fix the ingredient-without-method gap.
-
-**Takeaway:** Hybrid + rerank and chunking strategy solve different problems. Week 2 fixed *what* to index. Week 3 fixed *how* to search. Both improvements compound.
+- **What did evaluation reveal about your system?** It finds exactly what you ask for, but gives answers that are half-empty due to structural index isolation.
+- **What's your system's biggest remaining weakness?** Method structural completeness (merging sub-recipe assemblies back to their components).
+- **What would you improve in the evaluation itself?** Adding an explicit instruction to the Judge to look for "actionable cooking steps, not just lists" for HOW_TO classification prompts.
+- **CAL tradeoff for evaluation:** The $0 deterministic checks are great for testing API latencies, but practically useless for telling us if the user is happy. The $0.005 LLM evaluation is essential to trust the pipeline.
 
 ## Iteration Summary
-
-| Iteration | Change | Result |
-|---|---|---|
-| 0 (Week 1) | Naive chunking, dense BGE | 666 chunks, creator/keyword queries fail |
-| 1-4 (Week 2) | Sub-recipe boundary detection | 692 chunks, 10/14 wins over Week 1 |
-| 5 (Week 3) | Hybrid indexing (Voyage + BM25) | 692 chunks re-indexed, new collection |
-| 6 (Week 3) | Evaluation vs Week 2 baseline | 6/14 wins, +0.65 avg usefulness |
-
-**Key bug fixed:** voyage-3-large returns 1024d vectors (not 2048d as documented). Collection dimension corrected before indexing.
-
-Full iteration log in `docs/iteration-log.md`.
+- **Total iterations:** 2
+- **Most impactful change:** Moving from holistic single-grading to multi-dimensional decomposed grading.
+- **Stopping rationale:** Score variance reduced to 0, providing a perfectly reliable mathematical baseline to use to test structural pipeline patches.
 
 ## Self-Assessment
 
 | Criteria | Score (1-5) | Notes |
-|---|---|---|
-| Retrieval analysis depth | 5 | Constraint + corpus assessment documented; narrowing decision with clear rationale; single-domain determination correct |
-| Hybrid implementation quality | 5 | Voyage dense + BM25 sparse with RRF fusion; correct collection config; dimension bug found and fixed |
-| Reranking integration | 5 | Voyage rerank-2 cross-encoder; top-50 → top-10 rerank; integrated into interactive pipeline and evaluation |
-| Evaluation thoroughness | 5 | Same 14 questions reused; W2 vs W3 pairwise comparison; per-question JSON saved; patterns identified across query types |
-| Judge reliability check | 4 | Spot-checked 5 questions; signal% bias identified and explained; 2/5 winner declarations corrected to ties; magnitude uncertainty flagged for q09 |
-| Documentation clarity | 5 | CAL tradeoff documented; impact analysis covers what hybrid/rerank each added; iteration log covers both W3 iterations |
+|----------|-------------|-------|
+| Golden dataset quality | 4 | Should have manipulated the golden chunks to explicitly include method assemblies. |
+| Metrics selection and justification | 5 | Deterministic + Decomposed combinations worked perfectly. |
+| Judge design and iteration | 5 | Caught the v1 inflation error immediately. |
+| Triangulation depth | 5 | Identified the exact conflict between text ID matching vs semantic fulfillment. |
+| Evaluation design critique | 5 | Highlighted exact questions (e.g., Q12) where failure modes clash. |
+| Documentation clarity | 4 | |
 
 
 
@@ -672,7 +691,8 @@ FILE: .gitingestignore
 ================================================
 # .gitingestignore — WFPB Recipe RAG Week 4
 # Excludes large files, raw data, and processed artifacts to keep submission small
-
+archive/
+rag_results/
 # Ignore data folders to save massive space
 data/raw/
 data/processed/
@@ -699,6 +719,10 @@ scripts/07*.py
 scripts/08*.py
 scripts/09*.py
 scripts/10*.py
+scripts/11*.py
+scripts/12*.py
+scripts/13*.py
+scripts/14*.py
 scripts/99*.py
 scripts/create*.py
 scripts/utils.py
@@ -995,6 +1019,351 @@ All recipe cards use a consistent ingredient category system. This is valuable m
 
 *This document is a living record. Update it as you run experiments in Weeks 2-6.*  
 *Data source: Thankful2Plants.com by Gurmeet Manku (CC BY-NC-ND 4.0)*
+
+
+
+================================================
+FILE: app/main.py
+================================================
+import os
+import uvicorn
+from fastapi import FastAPI
+from pydantic import BaseModel
+from dotenv import load_dotenv
+
+from google import genai
+import voyageai
+from fastembed import SparseTextEmbedding
+from qdrant_client import QdrantClient
+
+# Load env variables (e.g. API keys)
+load_dotenv()
+
+# We can reuse the retrieval pipeline from week 3
+from scripts.09_rag_with_rerank import retrieve_and_rerank, build_context
+
+# Import our new production services
+from app.services.conversation import ConversationMemory
+from app.services.semantic_cache import SemanticCache
+from app.services.query_router import QueryRouter
+
+app = FastAPI(title="WFPB Recipe Production RAG")
+
+# 1. Initialize Clients
+gemini = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
+vo = voyageai.Client(api_key=os.getenv("VOYAGE_API_KEY"))
+qdrant = QdrantClient(url=os.getenv("QDRANT_URL"), api_key=os.getenv("QDRANT_API_KEY"))
+sparse_model = SparseTextEmbedding("Qdrant/bm25")
+
+# 2. Initialize Services
+redis_url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+memory = ConversationMemory(redis_url=redis_url, gemini_client=gemini)
+cache = SemanticCache(redis_url=redis_url, voyage_client=vo)
+router = QueryRouter(gemini_client=gemini)
+
+class QueryRequest(BaseModel):
+    query: str
+    session_id: str = "default_session"
+    creator_filter: str | None = None
+
+@app.post("/query")
+def query_rag(request: QueryRequest):
+    # Step 1: Conversation Memory (Rewrite)
+    rewritten_query = memory.rewrite_if_needed(request.session_id, request.query)
+    
+    # Step 2: Semantic Cache
+    cached_answer = cache.check(rewritten_query)
+    if cached_answer:
+        # Save this interaction to memory and return cache hit
+        memory.add_turn(request.session_id, request.query, cached_answer)
+        return {
+            "answer": cached_answer, 
+            "source": "cache", 
+            "rewritten_query": rewritten_query
+        }
+    
+    # Step 3: Query Routing
+    q_type = router.route(rewritten_query)
+    
+    # Step 4: Retrieval and Reranking (Using our best pipeline from week 3)
+    chunks = retrieve_and_rerank(
+        query=rewritten_query,
+        qdrant=qdrant,
+        vo=vo,
+        sparse_model=sparse_model,
+        creator_filter=request.creator_filter
+    )
+    context = build_context(chunks)
+    
+    # Step 5: Generation using the routed template
+    final_prompt = router.build_prompt(q_type, context, rewritten_query)
+    try:
+        resp = gemini.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=final_prompt
+        )
+        answer = resp.text
+    except Exception as e:
+        answer = f"Error generating answer: {e}"
+        q_type = "ERROR"
+
+    # Save to Cache and Memory
+    if answer and q_type != "ERROR":
+        cache.store(rewritten_query, answer)
+        memory.add_turn(request.session_id, request.query, answer)
+    
+    return {
+        "answer": answer,
+        "source": "generation",
+        "query_type": q_type,
+        "rewritten_query": rewritten_query
+    }
+
+@app.get("/health")
+def health():
+    return {"status": "healthy"}
+
+
+
+================================================
+FILE: app/prompts/templates.py
+================================================
+import json
+
+# 1. Classification Prompt
+CLASSIFICATION_PROMPT = """Classify the user's query into exactly ONE category.
+
+Categories:
+- FACTUAL: The user is looking for recipes based on ingredients, creators, or themes.
+  Examples: "What recipes use avocado and tofu?", "Show me all recipes by Kumar Natarajan", "Which recipes use fermented ingredients?"
+- HOW_TO: The user is asking for the cooking strategy or procedure for a specific recipe.
+  Examples: "What is the cooking technique behind Walnut Mushroom Pate?", "How do I make the Kathi Roll?", "What are the steps for the Ezekiel Sandwich?"
+- COMPARISON: The user wants to compare two or more recipes, creators, or styles.
+  Examples: "How do Gurmeet Manku and Dr Sirisha Potluri differ in their sandwich style?", "What is the difference between the lentil soup and the sambar?"
+- PLAN: The user is asking for meal planning or recommendations over time.
+  Examples: "Plan me a week of quick weekday lunches", "I need dinner ideas for the next three days."
+
+Respond with ONLY valid JSON: {"category": "<CATEGORY>", "confidence": <0.0-1.0>}
+"""
+
+# 2. Rewrite System Prompt
+REWRITE_SYSTEM_PROMPT = """You are an expert at rewriting conversational follow-up questions into standalone queries.
+Given a conversation history and a follow-up question, rewrite the follow-up question to be a standalone query that captures the full context.
+
+Rules:
+1. Return ONLY the rewritten query text.
+2. Do NOT include phrases like "Here is the rewritten query:".
+3. Preserve specific identifiers exactly (e.g., creator names, recipe names, ingredients).
+4. If the follow-up is already standalone, return it as-is.
+"""
+
+# 3. Generation Templates
+# Base grounding rules shared across types
+BASE_GROUNDING = """GROUNDING RULES:
+- If the context contains the full answer, use it and cite the recipe name.
+- If the context contains a partial answer, provide what you know and explicitly state what is missing.
+- If the context does not contain the answer, say "I cannot answer this based on the provided recipe documents." Do NOT invent recipes or ingredients."""
+
+TEMPLATES = {
+    "FACTUAL": f"""You are a knowledgeable Whole Food Plant-Based (WFPB) cooking assistant.
+
+FORMAT INSTRUCTIONS:
+- List the matching recipes with clear bullet points.
+- Include the creator and main ingredients for each.
+- Be concise and direct.
+
+{BASE_GROUNDING}""",
+
+    "HOW_TO": f"""You are a knowledgeable Whole Food Plant-Based (WFPB) cooking assistant explaining procedures.
+
+FORMAT INSTRUCTIONS:
+- Provide numbered steps for the cooking procedure.
+- List required ingredients and quantities first.
+- Maintain a clear, instructional tone.
+
+{BASE_GROUNDING}""",
+
+    "COMPARISON": f"""You are a knowledgeable Whole Food Plant-Based (WFPB) cooking assistant comparing recipes.
+
+FORMAT INSTRUCTIONS:
+- Use bullet points or a markdown table to highlight the differences and similarities.
+- Clearly attribute specific methods or ingredients to the correct recipe/creator.
+
+{BASE_GROUNDING}""",
+
+    "PLAN": f"""You are a knowledgeable Whole Food Plant-Based (WFPB) cooking assistant helping with meal planning.
+
+FORMAT INSTRUCTIONS:
+- Organize the answer by days or meals (e.g., Day 1, Day 2).
+- Provide a brief description of why each recipe fits the plan.
+- Ensure all meal recommendations are drawn exclusively from the context.
+
+{BASE_GROUNDING}"""
+}
+
+# Fallback type if classification fails
+DEFAULT_QUERY_TYPE = "FACTUAL"
+
+
+
+================================================
+FILE: app/services/conversation.py
+================================================
+import json
+import redis
+from google import genai
+from app.prompts.templates import REWRITE_SYSTEM_PROMPT
+
+class ConversationMemory:
+    def __init__(self, redis_url: str, gemini_client: genai.Client, namespace: str = "conv", window_size: int = 10):
+        self.redis = redis.from_url(redis_url)
+        self.gemini = gemini_client
+        self.namespace = namespace
+        self.window_size = window_size
+        self.rewrite_model = "gemini-2.5-flash"
+
+    def get_history(self, session_id: str) -> list:
+        key = f"{self.namespace}:{session_id}"
+        lines = self.redis.lrange(key, 0, -1)
+        return [json.loads(line) for line in lines]
+
+    def add_turn(self, session_id: str, query: str, answer: str):
+        key = f"{self.namespace}:{session_id}"
+        turn = json.dumps({"query": query, "answer": answer})
+        self.redis.rpush(key, turn)
+        # trim to window size
+        self.redis.ltrim(key, -self.window_size, -1)
+
+    def rewrite_if_needed(self, session_id: str, current_query: str) -> str:
+        history = self.get_history(session_id)
+        if not history:
+            return current_query
+
+        # Build conversation string
+        conv_str = ""
+        for h in history:
+            conv_str += f"User: {h['query']}\nAssistant: {h['answer']}\n"
+        
+        prompt = f"Conversation History:\n{conv_str}\n\nFollow-up question: {current_query}"
+        
+        resp = self.gemini.models.generate_content(
+            model=self.rewrite_model,
+            contents=prompt,
+            config=genai.types.GenerateContentConfig(
+                system_instruction=REWRITE_SYSTEM_PROMPT,
+                temperature=0.0
+            )
+        )
+        return resp.text.strip()
+
+
+
+================================================
+FILE: app/services/query_router.py
+================================================
+import json
+from google import genai
+from app.prompts.templates import CLASSIFICATION_PROMPT, TEMPLATES
+
+class QueryRouter:
+    def __init__(self, gemini_client: genai.Client):
+        self.gemini = gemini_client
+        self.model = "gemini-2.5-flash"
+
+    def route(self, query: str) -> str:
+        try:
+            resp = self.gemini.models.generate_content(
+                model=self.model,
+                contents=query,
+                config=genai.types.GenerateContentConfig(
+                    system_instruction=CLASSIFICATION_PROMPT,
+                    temperature=0.0,
+                    response_mime_type="application/json"
+                )
+            )
+            parsed = json.loads(resp.text)
+            category = parsed.get("category", "FACTUAL")
+            if category not in TEMPLATES:
+                return "FACTUAL"
+            return category
+        except Exception as e:
+            print(f"Routing error: {e}")
+            return "FACTUAL"
+
+    def build_prompt(self, query_type: str, context: str, query: str) -> str:
+        sys_prompt = TEMPLATES.get(query_type, TEMPLATES["FACTUAL"])
+        return f"{sys_prompt}\n\nContext:\n{context}\n\nQuestion: {query}"
+
+
+
+================================================
+FILE: app/services/semantic_cache.py
+================================================
+import redis
+import voyageai
+import numpy as np
+from redis.commands.search.field import VectorField, TextField
+from redis.commands.search.query import Query
+from redis.commands.search.indexDefinition import IndexDefinition, IndexType
+from redis.exceptions import ResponseError
+
+class SemanticCache:
+    def __init__(self, redis_url: str, voyage_client: voyageai.Client, namespace: str = "cache", distance_threshold: float = 0.60, ttl: int = 86400):
+        # We use a threshold around 0.60 to 0.70 for cosine distance depending on the embeddings. 0.08 might be too tight. We can adjust later.
+        self.redis = redis.from_url(redis_url)
+        self.voyage = voyage_client
+        self.namespace = namespace
+        self.distance_threshold = distance_threshold
+        self.ttl = ttl
+        self.embed_model = "voyage-3-large"
+        self.dim = 1024 # Voyage-3-large dimension
+        self.index_name = f"{self.namespace}_idx"
+        self._setup_index()
+
+    def _setup_index(self):
+        try:
+            self.redis.ft(self.index_name).info()
+        except ResponseError:
+            # Create index for HNSW vector search
+            schema = (
+                TextField("answer"),
+                VectorField("embedding", "HNSW", {"TYPE": "FLOAT32", "DIM": self.dim, "DISTANCE_METRIC": "COSINE"})
+            )
+            definition = IndexDefinition(prefix=[self.namespace + ":"], index_type=IndexType.HASH)
+            try:
+                self.redis.ft(self.index_name).create_index(fields=schema, definition=definition)
+            except Exception as e:
+                print(f"Warning: Failed to create Redis index. RediSearch might not be available: {e}")
+
+    def check(self, query: str) -> str | None:
+        try:
+            # Embed query
+            emb = self.voyage.embed([query], model=self.embed_model, input_type="query").embeddings[0]
+            emb_bytes = np.array(emb, dtype=np.float32).tobytes()
+
+            # Search Redis
+            q = Query(f"*=>[KNN 1 @embedding $vec AS distance]").return_fields("answer", "distance").sort_by("distance").dialect(2)
+            res = self.redis.ft(self.index_name).search(q, {"vec": emb_bytes})
+            
+            if res.docs:
+                dist = float(res.docs[0].distance)
+                if dist < self.distance_threshold:
+                    return res.docs[0].answer
+            return None
+        except Exception as e:
+            print(f"Cache check error: {e}")
+            return None
+
+    def store(self, query: str, answer: str):
+        try:
+            emb = self.voyage.embed([query], model=self.embed_model, input_type="query").embeddings[0]
+            emb_bytes = np.array(emb, dtype=np.float32).tobytes()
+            
+            key = f"{self.namespace}:{hash(query)}"
+            self.redis.hset(key, mapping={"answer": answer, "embedding": emb_bytes})
+            self.redis.expire(key, self.ttl)
+        except Exception as e:
+            print(f"Cache store error: {e}")
 
 
 
@@ -1783,7 +2152,7 @@ FILE: docs/evaluation-strategy.md
 
 ---
 
-## 3. Measurement Decisions
+## Evaluation Methods
 
 To avoid the pitfalls of single-score LLM grading seen in Week 3, I implemented a Triangulation approach using two distinct methods:
 
@@ -2040,6 +2409,133 @@ Ran 14 test questions comparing Week 2 (dense-only, BGE, top-5) vs Week 3 (hybri
 
 **Next Step:**
 *   Fix the data extraction and chunking pipeline (likely Week 5/production prep) to ensure sub-recipe ingredient lists are bundled with their respective method/instruction steps.
+
+
+
+================================================
+FILE: docs/judge-design.md
+================================================
+# Judge Design Document
+
+## Metrics Selection
+We evaluate using two primary dimensions:
+1. **Answer Quality (LLM Judge):** 
+   - *Faithfulness*: Does the LLM output invent ingredients? (Critical for dietary constraints).
+   - *Answer Relevance*: Does it successfully provide a methodology, or does it stop abruptly?
+2. **Retrieval Quality (Deterministic):**
+   - *Contextual Precision*: Did the Hybrid pipeline put the objectively correct recipe vector in the #1 position?
+
+## Judge Rubric / Criteria
+The decomposed LLM Judge is given the following rubric:
+- **Faithfulness (Pass/Fail):** If the answer recommends an ingredient NOT in the context chunk, fail.
+- **Answer Relevance (1-5):** 1 is an unhelpful list format when asked for a method. 5 is a step-by-step resolution.
+- **Context Precision (1-5):** How much noise is present alongside the answer.
+
+## Judge Prompt Evolution
+
+## Judge v1: Holistic Prompt
+- Result: 9/10 average score.
+- Problem: Grade inflation. The system simply matched keywords between the question and the output without analyzing structure.
+
+## Judge v2: Decomposed Traits
+- Result: 3.0/5 average score.
+- Delta: Massive penalization on questions 03, 04, 12, and 13.
+- Reason: The LLM could finally isolate "Relevance" (method instructions) from "Precision" (vocabulary overlap). We proved that our system actually struggles with ingredient-method separation.
+
+
+
+================================================
+FILE: docs/production-assessment.md
+================================================
+# Production Needs Assessment: WFPB Recipe RAG
+
+## Feature Assessment
+
+| Feature | What It Does | Critical for Your Project? | Why / Why Not |
+|---|---|---|---|
+| **Conversation memory** | Resolves follow-up references across turns | **Critical** | Users often ask follow-up questions about cooking steps or alternatives (e.g., "What if I don't have X?"). |
+| **Semantic caching** | Sub-50ms responses for repeated/similar queries | **Recommended** | High-volume popular recipes (e.g., "whole wheat sandwich") can save cost and latency. |
+| **Query routing** | Type-specific prompt templates (factual, how-to, troubleshooting, code) | **Critical** | Procedural cooking instructions need numbered steps; search results need a concise list of names and links. |
+| **Observability** | Tracing every pipeline step, monitoring quality over time | **Recommended** | To identify failures in extraction/retrieval before the user sees them. |
+| **Feedback collection** | Users rate answers, ratings feed back into improvement | **Optional** | This is a personal blog assistant, so large-scale feedback is a low priority vs. accuracy. |
+
+## Constraint Checklist
+
+Check all that apply to your project:
+
+- [x] **Multi-turn use case**: Users will ask follow-up questions that reference previous answers (e.g., "Add that to my meal plan").
+- [x] **Repeated query patterns**: Users frequently ask for the same or similar staple recipes (Idli, Dal, etc.).
+- [x] **Multiple query types**: Your corpus serves factual lookups (ingredients), procedures (how-to), and troubleshooting (what-if).
+- [x] **Latency budget matters**: Users expect fast responses; repeated queries should be near-instant.
+- [ ] **Quality monitoring needed**: You need to track answer quality over time, not just at evaluation time.
+- [x] **User-facing application**: The system will be used by people other than you (Gurmeet's blog readers).
+- [x] **Deployment required**: The system needs to run on a server (Railway/Render) reachable via the blog.
+
+## Decision Guide Rationale
+
+- **Implement conversation memory**: My follow-up query tests (from Week 4) showed that many questions rely on context (e.g., "Give me the recipe for that").
+- **Implement semantic caching**: To handle the Pareto distribution of recipe requests and keep costs low.
+- **Implement query routing**: A one-size-fits-all prompt doesn't distinguish between "Plan a week of lunches" and "How much salt in the dal?".
+- **Containerize with Docker**: For reproducible deployment matching the course standards.
+
+
+
+================================================
+FILE: docs/production-decisions.md
+================================================
+# Production Decisions Document
+
+## 1. Production Assessment Summary
+
+For this Capstone project, I prioritized features that address the specific behaviors of personal blog readers interacting with Gurmeet Manku's Thankful2Plants recipe collection:
+
+- **Conversation Memory (Critical)**: Week 4's follow-up evaluations showed significant degradation when users didn't explicitly name the recipe they were asking about in secondary turns. Implementing cross-turn memory was paramount.
+- **Query Routing (Critical)**: Different requests require distinctly different system prompts. "How-to" requests require ordered steps, whereas thematic searches ("recipes with avocado") require short lists.
+- **Semantic Caching (Recommended)**: Personal blogs often experience duplicate traffic paths for their "hero" content (e.g., Ezekiel Sandwich). Reducing redundant LLM calls and API latency directly improves the user experience.
+- **Observability (Optional)**: While tracing (e.g., Opik) would be nice, the priority was building a robust service backbone. I skipped Opik integration to focus on dockerizing the pipeline in a reproducible manner.
+
+## 2. Prompt Template Design
+
+I identified four specific query types suited to this corpus:
+
+- `FACTUAL`: Standard RAG retrieval searching for themes, ingredients, or creators. Format requires concise bullet points.
+- `HOW_TO`: Procedural requests. Format relies on numbered steps and clear instructional tone.
+- `COMPARISON`: Contrasting different recipes or cooking styles. Format relies on markdown tables or comparative lists.
+- `PLAN`: Meal planning requests. Format requires organizing suggestions by days or events.
+
+The **Classification Prompt** categorizes queries using few-shot learning directly mapped to these actual queries from our Week 4 golden dataset. I explicitly tailored the "Role" string from the generic course system prompt to: *"You are a knowledgeable Whole Food Plant-Based (WFPB) cooking assistant."*
+
+## 3. Services Implemented
+
+| Service | Implemented? | Configuration | Why This Configuration |
+|---|---|---|---|
+| Conversation Memory | Yes | Redis List, `gemini-2.5-flash` for rewriting | Flash is fast and cheap enough for rewriting. Redis persists sessions efficiently even if the backend container restarts. |
+| Semantic Cache | Yes | Redis HNSW `voyage-3-large` threshold `0.60` | We use cosine distance. Setting the threshold at a medium conservativeness (0.60) catches syntactic rephrases without returning false positives on different ingredient questions. |
+| Query Routing | Yes | 4 custom types, `FACTUAL` fallback | Resolves conflicting format requests. Fallback to FACTUAL ensures standard keyword searches still format correctly. |
+| Observability | No | N/A | Skipped to focus on containerization and foundational deployment architecture. |
+
+## 4. Services Skipped
+
+**Observability (Opik)**: 
+I decided NOT to implement observability via third-party telemetry tools at this stage. 
+*Why:* For a single-user proof-of-concept focused on core RAG integration, local application logging is sufficient. The current failure modes are more likely to be architectural (e.g., Redis disconnects) than obscure prompt regressions.
+*When to add later:* As the service goes live to Gurmeet's public, setting up Opik will be necessary to track which recipes get searched the most and where the LLM hallucinates, enabling better prompt refinements down the line.
+
+## 5. Deployment Architecture
+
+- **Containerization**: We use a `docker-compose.yml` multi-service orchestration bridging:
+  1. A `redis/redis-stack-server:latest` context wrapper for HNSW and Conversation structures.
+  2. A `python:3.11-slim` image using `uv` for lightning-fast dependency management running a Uvicorn ASGI server.
+- **Managed Services**: The system depends on Qdrant Cloud for persistent vector storage and Voyage/Google AI via their respective APIs.
+- **Why local Compose initially**: To iron out network bridging between the newly formed semantic caching systems and the REST endpoints before a public release on generic PaaS (like Railway).
+
+## 6. What You Would Change at Scale
+
+If the system expanded from 1 test user to 1000 daily blog visitors:
+
+1. **Configurations to change**: The Redis Semantic Cache TTL would be dropped from 24 hours to something shorter (e.g., 2 hours) or cache invalidation schemes would be required whenever Gurmeet uploads new recipe PDFs, to ensure users aren't served stale meal plans.
+2. **Critical Services**: Observability transitions from optional to critical. We'd absolutely need Opik active to map User Session failure rates. Feedback collection (thumbs up/down) in the hypothetical UI would directly pipe to our prompt refinements.
+3. **First Monitoring Target**: The cache hit rate. If the semantic distance threshold (0.60) is poorly calibrated, we could either be missing 90% of cache opportunities (costing tokens) or serving wildly inaccurate overlaps (destroying trust). Monitoring the `distance_threshold` vs. `cache_hit_rate` would be the highest priority.
 
 
 
@@ -4290,6 +4786,93 @@ The +0.65 average usefulness improvement is more reliable than the win count, si
 
 
 ================================================
+FILE: evaluations/week4_comparison.md
+================================================
+# Week 4 Cross-Method Comparison
+
+## Methods Used
+- **Method 1: Deterministic Semantic Metrics (Voyage)** — Measures exactly how well our retrieval engine matched the known ground truth chunk (Hit@1) and the semantic relevance of the top retrieved context. Cost: Fast, nearly zero cost beyond embedding inference.
+- **Method 2: Decomposed LLM Judge (Gemini 2.5 Flash)** — Measures holistic quality (Faithfulness, Answer Relevance, Context Precision). Splits into three scores preventing the "single score blur". Cost: ~$0.005/run, high latency.
+
+## Per-Question Results
+
+| # | Question | Method 1 Winner | Method 2 Winner | Agreement? |
+|---|----------|-----------------|-----------------|------------|
+| 1 | How to make walnut mushroom pate? | W3 Hybrid | W3 Hybrid | Y |
+| 3 | Zucchini chutney | W3 Hybrid | W2 Dense | N |
+| 4 | Homemade hummus | W3 Hybrid | W2 Dense | N |
+| 7 | Sweet potato recipes | W3 Hybrid | W3 Hybrid | Y |
+| 8 | Quick no-cook sandwich | W3 Hybrid | W3 Hybrid | Y |
+| 11 | Indian street food | W3 Hybrid | W3 Hybrid | Y |
+| 12 | Ragda pattice | W3 Hybrid | W2 Dense | N |
+| 13 | Mushroom sauce | W3 Hybrid | W2 Dense | N |
+| 14 | Savory pancakes | W3 Hybrid | W3 Hybrid | Y |
+
+## Agreement Analysis
+- **Questions where ALL methods agree:** Thematic queries (q07, q11, q14). Both methods show these are extremely well handled by the Hybrid search (Signal/Precision and Hit@1 are near perfect).
+- **Questions where methods DISAGREE:** Sub-recipe method questions (q03, q04, q12, q13). They diverge because Deterministic only measures chunk title similarity, but the LLM Judge measures if the answer text actually answers the human.
+- **Systematic patterns:** The LLM judge favors thorough methodology over just finding the right ingredients list. The deterministic method favors strict textual embedding similarity.
+
+## Method Reliability Assessment
+- **Which method is most reliable for YOUR corpus?:** The Decomposed LLM Judge is more reliable. It uncovers data representation flaws that mathematical similarity metrics are blind to.
+- **Which method has the most obvious blind spots?:** Deterministic semantic metric. Hit@1 is 100% simply because it retrieved the chunk with the exact name of the dish, totally blinding us to the fact the chunk didn't contain cooking instructions.
+- **If you could only keep one method, which and why?:** The LLM Judge because it simulates actual user satisfaction (Answer Relevance).
+
+## CAL Tradeoff (Evaluation Cost)
+- **Method 1:** ~$0/run, 1s latency. Valuable for rapid regression checks after index tweaks.
+- **Method 2:** ~$0.005/run, 10s latency. Valuable for final validation.
+- **Decision:** The LLM Judge is expensive but absolutely worth it, because caching and deploying based on a blind deterministic metric would mean delivering broken recipe instructions to users.
+
+## Triangulation Insight
+- **What does combining methods reveal that no single method shows?:** Combining them revealed our chunking logic bug. If we only had the LLM judge, we might think retrieval failed. If we only had deterministic, we'd think the system was perfect. Together, they prove retrieval works perfectly (Hit@1=100%) but the chunks themselves are bad (Answer Relevance=1/5).
+- **Where is your system genuinely strong?:** Faithfulness/Grounding. Both methods confirm it never hallucinates.
+- **Where is your system genuinely weak?:** Returning the complete structural method of complex recipes with sub-components.
+
+
+
+================================================
+FILE: evaluations/week4_deep_analysis.md
+================================================
+# Week 4 Deep Analysis -- Evaluation Design Critique
+
+## Judge Design Evolution
+- **v1 (Initial Approach):** Holistic score (1-10) using a basic "rate this answer" prompt. 
+- **What v1 got wrong:** Massive grade inflation. The LLM would give 9/10 as long as the recipe mentioned the name of the dish, completely failing to notice if the actual steps were hallucinated or missing.
+- **Judge v2 changes:** Decomposed into Faithfulness (binary), Answer Relevance (1-5), and Context Precision (1-5).
+- **Delta from v1 to v2:** Answer relevance dropped from 9/10 average to 3.00/5 average. A much more accurate reflection of the truncation issues (like the Zucchini Chutney missing its cooking instructions).
+
+## Spot-Check: Cross-Method Disagreements
+
+### Q[03]: Zucchini chutney
+- **Method 1 (Deterministic) said:** 1.0 (Hit@1). The top chunk retrieved exactly matched the golden file chunk ID.
+- **Method 2 (Decomposed Judge) said:** Answer Relevance: 1/5. "The answer fails to tell the user how to make the chutney."
+- **My manual read:** The retrieved chunk contains only the ingredients for Zucchini Chutney. The cooking steps are stranded in the primary assembly chunk instead of the component chunk.
+- **Which method was right?** Method 2 (LLM Judge). Just hitting the component chunk isn't enough if the chunk is semantically incomplete.
+- **Why did the other method get it wrong?** Deterministic retrieval cannot measure "semantic completeness". It only confirms if the vector matching fetched the highest correlating text.
+
+### Q[12]: Ragda pattice
+- **Method 1 (Deterministic) said:** 1.0 (Hit@1). 
+- **Method 2 (Decomposed Judge) said:** Answer Relevance: 1/5.
+- **My manual read:** Exact same issue. Ragda pattice ingredient chunk was retrieved, but the cooking steps chunk was missing from the generated context.
+- **Which method was right?** Method 2.
+- **Why did the other method get it wrong?** Blind ID-matching structural limitation.
+
+## Systematic Biases Found
+- **Method 1 biases:** Extreme leniency toward textual overlap based on recipe titles, regardless of the chunk's utility. 
+- **Method 2 biases:** Occasional grade deflation when a recipe genuinely doesn't have "cooking steps" (e.g., a "no-cook" strategy recipe where the whole point is throwing things in a bowl). It expected 1-2-3 ordered steps.
+
+## Golden Dataset Quality Assessment
+- **Did any golden dataset entries cause problems?** Yes. q08 (Quick no-cook sandwich) reference answer was heavily manipulated by me to be a "step-by-step", forcing the Judge to look for steps that hybrid retrieved chunks didn't possess organically.
+- **How would you improve the golden dataset for the next iteration?** Add explicit "Type" labels to the JSON so the Judge dynamically alters its expectations based on if the query asks for ingredients vs method vs analytical strategy.
+
+## Structural Limitations
+- **What can this evaluation NOT measure about your system?** Speed to the end user and presentation formatting (like bolding/bullet points).
+- **What would a user experience that your evaluation misses?** A user would find the 1/5 answers extremely frustrating because it stops halfway through the recipe.
+- **If your evaluation says the system is "good," would you trust it in production?** Not completely. The retrieval mechanism is rock solid (100% Hit@1) but the text extraction boundary is flawed. We must fix the chunk generation script before production.
+
+
+
+================================================
 FILE: evaluations/method_results/decomposed_results.json
 ================================================
 {
@@ -4790,896 +5373,70 @@ FILE: evaluations/method_results/deterministic_results.json
 
 
 ================================================
-FILE: scripts/12_build_golden_dataset.py
+FILE: scripts/15_test_production.py
 ================================================
-"""
-12_build_golden_dataset.py
---------------------------
-Build a golden dataset for Week 4 evaluation.
-
-For each question in evaluations/test_questions.json:
-  1. Query the Week 3 hybrid+rerank system to get top chunks
-  2. Use Gemini to generate a reference answer grounded in the retrieved context
-  3. Record the top chunks as reference contexts
-
-Saves the result to evaluations/golden_dataset.json.
-
-Usage:
-    python scripts/12_build_golden_dataset.py
-    python scripts/12_build_golden_dataset.py --dry-run   # skip API calls
-    python scripts/12_build_golden_dataset.py --rebuild   # overwrite existing
-
-Author: Ashwini Vikram
-Project: WFPB Recipe RAG System — Week 4
-"""
-
-import os
-import sys
-import json
 import time
+import requests
 import argparse
-from pathlib import Path
-from datetime import datetime
 
-import voyageai
-from dotenv import load_dotenv
-from fastembed import SparseTextEmbedding
-from qdrant_client import QdrantClient
-from qdrant_client.models import SparseVector, Prefetch, FusionQuery, Fusion
-from google import genai
-
-load_dotenv()
-
-QDRANT_URL      = os.getenv("QDRANT_URL")
-QDRANT_API_KEY  = os.getenv("QDRANT_API_KEY")
-VOYAGE_API_KEY  = os.getenv("VOYAGE_API_KEY")
-GOOGLE_API_KEY  = os.getenv("GOOGLE_API_KEY")
-
-COLLECTION_W3       = "wfpb_recipes_week3_hybrid"
-VOYAGE_EMBED_MODEL  = "voyage-3-large"
-VOYAGE_RERANK_MODEL = "rerank-2"
-SPARSE_MODEL        = "Qdrant/bm25"
-RETRIEVE_COUNT      = 50   # candidates before rerank
-RERANK_TOP_K        = 5    # reference contexts per question
-
-PROJECT_ROOT    = Path(__file__).parent.parent
-QUESTIONS_FILE  = PROJECT_ROOT / "evaluations" / "test_questions.json"
-OUTPUT_FILE     = PROJECT_ROOT / "evaluations" / "golden_dataset.json"
-
-# Additional question to reach 15 (covers a gap: multi-ingredient combination query)
-EXTRA_QUESTIONS = [
-    {
-        "id": "q15",
-        "question": "What recipes can I make with chickpeas and spinach together?",
-        "type": "multi-ingredient-query",
-        "expected_source": "recipes containing both chickpeas/chana and spinach/leafy greens",
-        "hypothesis": "Should retrieve recipes where both ingredients coexist; tests multi-ingredient intersection"
-    }
-]
-
-ANSWER_PROMPT = """You are an expert on Whole Food Plant-Based (WFPB) cooking.
-
-QUESTION: {question}
-
-RETRIEVED RECIPE INFORMATION:
-{context}
-
-Write a concise, helpful reference answer based ONLY on the information provided above.
-- If the context contains a specific recipe, include the key ingredients and main steps
-- If the context covers multiple recipes, summarize the options
-- If the context does not contain enough information to fully answer, say so clearly
-- Do not add information not present in the context
-- Keep the answer under 200 words
-
-Reference answer:"""
-
-
-def validate_env():
-    missing = []
-    if not QDRANT_URL:     missing.append("QDRANT_URL")
-    if not QDRANT_API_KEY: missing.append("QDRANT_API_KEY")
-    if not VOYAGE_API_KEY: missing.append("VOYAGE_API_KEY")
-    if not GOOGLE_API_KEY: missing.append("GOOGLE_API_KEY")
-    if missing:
-        print(f"[ERROR] Missing environment variables: {', '.join(missing)}")
-        sys.exit(1)
-
-
-def search_hybrid(query: str, qdrant: QdrantClient, vo: voyageai.Client,
-                  sparse_model: SparseTextEmbedding, top_k: int = RERANK_TOP_K) -> list:
-    """Hybrid search with Voyage reranking — same as Week 3 pipeline."""
-    # Dense embed
-    dense_result = vo.embed([query], model=VOYAGE_EMBED_MODEL, input_type="query")
-    q_dense = dense_result.embeddings[0]
-
-    # Sparse embed
-    q_sparse_raw = list(sparse_model.embed([query]))[0]
-    q_sparse = SparseVector(
-        indices=q_sparse_raw.indices.tolist(),
-        values=q_sparse_raw.values.tolist(),
-    )
-
-    # Hybrid RRF → 50 candidates
-    candidates = qdrant.query_points(
-        collection_name=COLLECTION_W3,
-        prefetch=[
-            Prefetch(query=q_sparse, using="sparse", limit=RETRIEVE_COUNT),
-            Prefetch(query=q_dense,  using="dense",  limit=RETRIEVE_COUNT),
-        ],
-        query=FusionQuery(fusion=Fusion.RRF),
-        limit=RETRIEVE_COUNT,
-        with_payload=True,
-        with_vectors=False,
-    ).points
-
-    if not candidates:
-        return []
-
-    # Rerank → top_k
-    documents = [r.payload.get("text", "") for r in candidates]
-    reranked   = vo.rerank(query, documents, model=VOYAGE_RERANK_MODEL, top_k=top_k)
-
-    results = []
-    for item in reranked.results:
-        candidate = candidates[item.index]
-        candidate.score = item.relevance_score
-        results.append(candidate)
-
-    return results
-
-
-def generate_reference_answer(question: str, chunks: list, gemini_client) -> str:
-    """Use Gemini to generate a reference answer from retrieved chunks."""
-    context_parts = []
-    for i, chunk in enumerate(chunks, 1):
-        p = chunk.payload
-        name    = p.get("recipe_name", "(no name)")
-        creator = p.get("creator", "")
-        text    = (p.get("text") or "")[:600]
-        context_parts.append(f"[Recipe {i}: {name} by {creator}]\n{text}")
-    context = "\n\n".join(context_parts)
-
-    prompt = ANSWER_PROMPT.format(question=question, context=context)
-    resp = gemini_client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=prompt,
-    )
-    return resp.text.strip()
-
-
-def build_golden_entry(q: dict, chunks: list, reference_answer: str) -> dict:
-    """Build a single golden dataset entry."""
-    return {
-        "id":               q["id"],
-        "question":         q["question"],
-        "type":             q["type"],
-        "expected_source":  q.get("expected_source", ""),
-        "reference_answer": reference_answer,
-        "reference_chunk_ids": [
-            r.payload.get("id", r.id) for r in chunks
-        ],
-        "reference_chunk_names": [
-            r.payload.get("recipe_name", "") for r in chunks
-        ],
-        "reference_chunks_text": [
-            {
-                "recipe_name": r.payload.get("recipe_name", ""),
-                "creator":     r.payload.get("creator", ""),
-                "score":       round(r.score, 4),
-                "text":        (r.payload.get("text") or "")[:500],
-            }
-            for r in chunks
-        ],
-        "build_timestamp": datetime.now().isoformat(),
-    }
-
-
-def run_build(dry_run: bool = False, rebuild: bool = False):
-    print("\n=== 12_build_golden_dataset.py — Week 4 Golden Dataset Builder ===\n")
-
-    # Load existing questions
-    with open(QUESTIONS_FILE) as f:
-        questions = json.load(f)
-
-    # Add the extra question
-    questions = questions + EXTRA_QUESTIONS
-    print(f"Loaded {len(questions)} questions ({len(questions) - len(EXTRA_QUESTIONS)} existing + {len(EXTRA_QUESTIONS)} new).\n")
-
-    if OUTPUT_FILE.exists() and not rebuild:
-        print(f"[INFO] {OUTPUT_FILE} already exists. Use --rebuild to overwrite.")
-        golden = json.loads(OUTPUT_FILE.read_text())
-        print(f"[INFO] Existing dataset has {len(golden)} entries.")
-        return
-
-    if dry_run:
-        for q in questions:
-            print(f"  [{q['id']}] ({q['type']}) {q['question']}")
-        print(f"\n[DRY RUN] Would build {len(questions)} golden entries.")
-        return
-
-    print("Initialising clients...")
-    validate_env()
-    qdrant       = QdrantClient(url=QDRANT_URL, api_key=QDRANT_API_KEY)
-    vo           = voyageai.Client(api_key=VOYAGE_API_KEY)
-    sparse_model = SparseTextEmbedding(SPARSE_MODEL)
-    gemini       = genai.Client(api_key=GOOGLE_API_KEY)
-    print("[OK] Clients ready.\n")
-
-    golden_dataset = []
-
-    for q in questions:
-        qid      = q["id"]
-        question = q["question"]
-        print(f"── [{qid}] {question}")
-
-        # Retrieve top-5 reference chunks
-        chunks = search_hybrid(question, qdrant, vo, sparse_model, top_k=RERANK_TOP_K)
-        chunk_names = [r.payload.get("recipe_name", "?") for r in chunks]
-        print(f"  Top chunks: {chunk_names}")
-
-        # Generate reference answer
-        print(f"  Generating reference answer...")
-        reference_answer = generate_reference_answer(question, chunks, gemini)
-        print(f"  Reference answer ({len(reference_answer)} chars): {reference_answer[:120]}...")
-
-        entry = build_golden_entry(q, chunks, reference_answer)
-        golden_dataset.append(entry)
-
-        time.sleep(1)  # Rate limit
-        print()
-
-    # Save
-    OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT_FILE.write_text(json.dumps(golden_dataset, indent=2, ensure_ascii=False))
-    print(f"[DONE] Golden dataset saved → {OUTPUT_FILE}")
-    print(f"       {len(golden_dataset)} entries, types: {set(e['type'] for e in golden_dataset)}")
-
-
-def main():
-    parser = argparse.ArgumentParser(description="Build golden dataset for Week 4 evaluation")
-    parser.add_argument("--dry-run", action="store_true", help="List questions only, no API calls")
-    parser.add_argument("--rebuild", action="store_true", help="Overwrite existing golden dataset")
-    args = parser.parse_args()
-
-    run_build(dry_run=args.dry_run, rebuild=args.rebuild)
-
-
-if __name__ == "__main__":
-    main()
-
-
-
-================================================
-FILE: scripts/13_run_deterministic_eval.py
-================================================
-"""
-13_run_deterministic_eval.py
-----------------------------
-Week 4 evaluation — Method 1: Deterministic semantic metrics.
-
-For each question in evaluations/golden_dataset.json:
-  1. Query the Week 3 hybrid+rerank system (top-5)
-  2. Compute:
-     • context_hit_at_1  — Is the top retrieved chunk in the reference chunk list?
-     • context_relevance — Cosine similarity between query embedding and top chunk embedding
-     • answer_rouge1_f1  — Token overlap (ROUGE-1 F1) between LLM answer and reference answer
-
-Saves results to evaluations/method_results/deterministic_results.json
-
-Usage:
-    python scripts/13_run_deterministic_eval.py
-    python scripts/13_run_deterministic_eval.py --dry-run
-    python scripts/13_run_deterministic_eval.py --top-k 5
-
-Author: Ashwini Vikram
-Project: WFPB Recipe RAG System — Week 4
-"""
-
-import os
-import sys
-import json
-import time
-import math
-import argparse
-from pathlib import Path
-from datetime import datetime
-from collections import Counter
-
-import voyageai
-from dotenv import load_dotenv
-from fastembed import SparseTextEmbedding
-from qdrant_client import QdrantClient
-from qdrant_client.models import SparseVector, Prefetch, FusionQuery, Fusion
-from google import genai
-
-load_dotenv()
-
-QDRANT_URL     = os.getenv("QDRANT_URL")
-QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
-VOYAGE_API_KEY = os.getenv("VOYAGE_API_KEY")
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-
-COLLECTION_W3       = "wfpb_recipes_week3_hybrid"
-VOYAGE_EMBED_MODEL  = "voyage-3-large"
-VOYAGE_RERANK_MODEL = "rerank-2"
-SPARSE_MODEL        = "Qdrant/bm25"
-RETRIEVE_COUNT      = 50
-
-PROJECT_ROOT    = Path(__file__).parent.parent
-GOLDEN_FILE     = PROJECT_ROOT / "evaluations" / "golden_dataset.json"
-RESULTS_DIR     = PROJECT_ROOT / "evaluations" / "method_results"
-OUTPUT_FILE     = RESULTS_DIR / "deterministic_results.json"
-
-
-# ── ROUGE-1 F1 (minimal, no dependencies) ────────────────────────────────────
-def tokenize(text: str) -> list[str]:
-    return text.lower().split()
-
-def rouge1_f1(hypothesis: str, reference: str) -> float:
-    hyp_tokens = tokenize(hypothesis)
-    ref_tokens = tokenize(reference)
-    if not hyp_tokens or not ref_tokens:
-        return 0.0
-    hyp_counts = Counter(hyp_tokens)
-    ref_counts = Counter(ref_tokens)
-    overlap = sum((hyp_counts & ref_counts).values())
-    precision = overlap / len(hyp_tokens)
-    recall    = overlap / len(ref_tokens)
-    if precision + recall == 0:
-        return 0.0
-    return 2 * precision * recall / (precision + recall)
-
-
-# ── Cosine similarity ─────────────────────────────────────────────────────────
-def cosine_sim(a: list[float], b: list[float]) -> float:
-    dot   = sum(x * y for x, y in zip(a, b))
-    mag_a = math.sqrt(sum(x * x for x in a))
-    mag_b = math.sqrt(sum(x * x for x in b))
-    if mag_a == 0 or mag_b == 0:
-        return 0.0
-    return dot / (mag_a * mag_b)
-
-
-# ── Hybrid search (same as Week 3 pipeline) ───────────────────────────────────
-def search_hybrid(query: str, qdrant: QdrantClient, vo: voyageai.Client,
-                  sparse_model: SparseTextEmbedding, top_k: int) -> tuple[list, list[float]]:
-    """Returns (top_results, query_dense_embedding)."""
-    dense_result = vo.embed([query], model=VOYAGE_EMBED_MODEL, input_type="query")
-    q_dense = dense_result.embeddings[0]
-
-    q_sparse_raw = list(sparse_model.embed([query]))[0]
-    q_sparse = SparseVector(
-        indices=q_sparse_raw.indices.tolist(),
-        values=q_sparse_raw.values.tolist(),
-    )
-
-    candidates = qdrant.query_points(
-        collection_name=COLLECTION_W3,
-        prefetch=[
-            Prefetch(query=q_sparse, using="sparse", limit=RETRIEVE_COUNT),
-            Prefetch(query=q_dense,  using="dense",  limit=RETRIEVE_COUNT),
-        ],
-        query=FusionQuery(fusion=Fusion.RRF),
-        limit=RETRIEVE_COUNT,
-        with_payload=True,
-        with_vectors=True,
-    ).points
-
-    if not candidates:
-        return [], q_dense
-
-    documents = [r.payload.get("text", "") for r in candidates]
-    reranked   = vo.rerank(query, documents, model=VOYAGE_RERANK_MODEL, top_k=top_k)
-
-    results = []
-    for item in reranked.results:
-        candidate = candidates[item.index]
-        candidate.score = item.relevance_score
-        results.append(candidate)
-
-    return results, q_dense
-
-
-# ── Get top-chunk embedding ───────────────────────────────────────────────────
-def get_chunk_embedding(chunk, vo: voyageai.Client) -> list[float]:
-    """Embed the top chunk text for cosine similarity computation."""
-    text = (chunk.payload.get("text") or "")[:1000]
-    result = vo.embed([text], model=VOYAGE_EMBED_MODEL, input_type="document")
-    return result.embeddings[0]
-
-
-# ── Generate answer from retrieved context ────────────────────────────────────
-ANSWER_PROMPT = """You are a helpful WFPB recipe assistant.
-
-QUESTION: {question}
-
-RETRIEVED CONTEXT:
-{context}
-
-Answer the question based only on the provided context. Be concise (under 150 words)."""
-
-def generate_answer(question: str, chunks: list, gemini_client) -> str:
-    context = "\n\n".join(
-        f"[{r.payload.get('recipe_name','?')}]: {(r.payload.get('text') or '')[:400]}"
-        for r in chunks
-    )
-    resp = gemini_client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=ANSWER_PROMPT.format(question=question, context=context),
-    )
-    return resp.text.strip()
-
-
-# ── Main evaluation ───────────────────────────────────────────────────────────
-def run_eval(top_k: int = 5, dry_run: bool = False):
-    print("\n=== 13_run_deterministic_eval.py — Week 4 Deterministic Metrics ===\n")
-
-    if not GOLDEN_FILE.exists():
-        print(f"[ERROR] Golden dataset not found: {GOLDEN_FILE}")
-        print("Run: python scripts/12_build_golden_dataset.py")
-        sys.exit(1)
-
-    with open(GOLDEN_FILE) as f:
-        golden = json.load(f)
-    print(f"Loaded {len(golden)} golden questions.\n")
-
-    if dry_run:
-        for g in golden:
-            print(f"  [{g['id']}] ({g['type']}) {g['question']}")
-        print(f"\n[DRY RUN] Would evaluate {len(golden)} questions.")
-        return
-
-    print("Initialising clients...")
-    qdrant       = QdrantClient(url=QDRANT_URL, api_key=QDRANT_API_KEY)
-    vo           = voyageai.Client(api_key=VOYAGE_API_KEY)
-    sparse_model = SparseTextEmbedding(SPARSE_MODEL)
-    gemini       = genai.Client(api_key=GOOGLE_API_KEY)
-    print("[OK] Clients ready.\n")
-
-    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-
-    results = []
-    for g in golden:
-        qid      = g["id"]
-        question = g["question"]
-        ref_names = set(g.get("reference_chunk_names", []))
-        ref_answer = g.get("reference_answer", "")
-        print(f"── [{qid}] {question}")
-
-        # Retrieve
-        chunks, q_embed = search_hybrid(question, qdrant, vo, sparse_model, top_k=top_k)
-
-        if not chunks:
-            print("  [WARN] No chunks returned.\n")
-            results.append({
-                "id": qid, "question": question, "type": g["type"],
-                "context_hit_at_1": 0, "context_relevance": 0.0, "answer_rouge1_f1": 0.0,
-                "top_chunk_name": None, "generated_answer": ""
-            })
-            continue
-
-        top_chunk = chunks[0]
-        top_chunk_name = top_chunk.payload.get("recipe_name", "?")
-
-        # Metric 1: context hit@1
-        hit_at_1 = 1 if top_chunk_name in ref_names else 0
-
-        # Metric 2: context relevance (cosine similarity query ↔ top chunk)
-        chunk_embed = get_chunk_embedding(top_chunk, vo)
-        ctx_relevance = round(cosine_sim(q_embed, chunk_embed), 4)
-
-        # Metric 3: answer ROUGE-1 F1
-        print(f"  Generating answer for ROUGE comparison...")
-        generated = generate_answer(question, chunks, gemini)
-        rouge = round(rouge1_f1(generated, ref_answer), 4)
-
-        print(f"  Top chunk: {top_chunk_name}  hit@1={hit_at_1}  ctx_rel={ctx_relevance:.4f}  rouge1={rouge:.4f}\n")
-
-        results.append({
-            "id":                qid,
-            "question":          question,
-            "type":              g["type"],
-            "context_hit_at_1":  hit_at_1,
-            "context_relevance": ctx_relevance,
-            "answer_rouge1_f1":  rouge,
-            "top_chunk_name":    top_chunk_name,
-            "reference_chunks":  list(ref_names),
-            "generated_answer":  generated,
-            "timestamp":         datetime.now().isoformat(),
-        })
-        time.sleep(1)
-
-    # Aggregate
-    n = len(results)
-    avg_hit    = sum(r["context_hit_at_1"] for r in results) / n
-    avg_rel    = sum(r["context_relevance"] for r in results) / n
-    avg_rouge  = sum(r["answer_rouge1_f1"] for r in results) / n
-
-    output = {
-        "method":     "deterministic_semantic",
-        "system":     COLLECTION_W3,
-        "top_k":      top_k,
-        "n_questions": n,
-        "summary": {
-            "avg_context_hit_at_1":  round(avg_hit, 4),
-            "avg_context_relevance": round(avg_rel, 4),
-            "avg_answer_rouge1_f1":  round(avg_rouge, 4),
-        },
-        "results":    results,
-        "timestamp":  datetime.now().isoformat(),
-    }
-
-    OUTPUT_FILE.write_text(json.dumps(output, indent=2, ensure_ascii=False))
-    print(f"\n[DONE] Results → {OUTPUT_FILE}")
-    print(f"\n┌─ Deterministic Summary ─────────────────────┐")
-    print(f"│  Avg Context Hit@1:       {avg_hit:.1%}")
-    print(f"│  Avg Context Relevance:   {avg_rel:.4f}")
-    print(f"│  Avg Answer ROUGE-1 F1:   {avg_rouge:.4f}")
-    print(f"└─────────────────────────────────────────────┘")
-
-    # Per-question table
-    print(f"\n{'ID':<5} {'Type':<25} {'Hit@1':<7} {'CtxRel':<8} {'ROUGE':<8} {'Top Chunk'}")
-    print("─" * 90)
-    for r in results:
-        print(f"{r['id']:<5} {r['type']:<25} {r['context_hit_at_1']:<7} "
-              f"{r['context_relevance']:<8.4f} {r['answer_rouge1_f1']:<8.4f} {r['top_chunk_name']}")
-
-
-def main():
-    parser = argparse.ArgumentParser(description="Run deterministic evaluation (Week 4 Method 1)")
-    parser.add_argument("--top-k",   type=int, default=5,  help="Number of chunks to retrieve")
-    parser.add_argument("--dry-run", action="store_true",  help="List questions only")
-    args = parser.parse_args()
-    run_eval(top_k=args.top_k, dry_run=args.dry_run)
-
-
-if __name__ == "__main__":
-    main()
-
-
-
-================================================
-FILE: scripts/14_run_judge_eval.py
-================================================
-"""
-14_run_judge_eval.py
---------------------
-Week 4 evaluation — Method 2: Decomposed LLM judge.
-
-For each question in evaluations/golden_dataset.json:
-  1. Query Week 3 hybrid+rerank system (top-5)
-  2. Generate an answer using Gemini
-  3. Ask Gemini to score three dimensions separately (decomposed judging):
-     • faithfulness       (1-5): Does the answer only use info from retrieved context?
-     • answer_relevance   (1-5): Does the answer address what was asked?
-     • context_precision  (1-5): Are the retrieved chunks actually relevant to the question?
-
-Saves results to evaluations/method_results/decomposed_results.json
-
-Usage:
-    python scripts/14_run_judge_eval.py
-    python scripts/14_run_judge_eval.py --dry-run
-
-Author: Ashwini Vikram
-Project: WFPB Recipe RAG System — Week 4
-"""
-
-import os
-import sys
-import json
-import time
-import argparse
-from pathlib import Path
-from datetime import datetime
-
-import voyageai
-from dotenv import load_dotenv
-from fastembed import SparseTextEmbedding
-from qdrant_client import QdrantClient
-from qdrant_client.models import SparseVector, Prefetch, FusionQuery, Fusion
-from google import genai
-
-load_dotenv()
-
-QDRANT_URL     = os.getenv("QDRANT_URL")
-QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
-VOYAGE_API_KEY = os.getenv("VOYAGE_API_KEY")
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-
-COLLECTION_W3       = "wfpb_recipes_week3_hybrid"
-VOYAGE_EMBED_MODEL  = "voyage-3-large"
-VOYAGE_RERANK_MODEL = "rerank-2"
-SPARSE_MODEL        = "Qdrant/bm25"
-RETRIEVE_COUNT      = 50
-
-PROJECT_ROOT  = Path(__file__).parent.parent
-GOLDEN_FILE   = PROJECT_ROOT / "evaluations" / "golden_dataset.json"
-RESULTS_DIR   = PROJECT_ROOT / "evaluations" / "method_results"
-OUTPUT_FILE   = RESULTS_DIR / "decomposed_results.json"
-
-
-# ── Prompts ───────────────────────────────────────────────────────────────────
-ANSWER_PROMPT = """You are a helpful WFPB recipe assistant.
-
-QUESTION: {question}
-
-RETRIEVED CONTEXT:
-{context}
-
-Answer the question based only on the provided context. Be concise (under 150 words)."""
-
-FAITHFULNESS_PROMPT = """TASK: Rate the faithfulness of an answer to the provided context.
-Faithfulness = the answer ONLY uses information from the context, no hallucinated facts.
-
-QUESTION: {question}
-
-RETRIEVED CONTEXT:
-{context}
-
-ANSWER:
-{answer}
-
-Rate faithfulness 1-5:
-5 = Every claim in the answer is directly supported by the context. No hallucinations.
-4 = Almost entirely grounded; one minor unsupported detail.
-3 = Mostly grounded but with some information added beyond the context.
-2 = Several unsupported claims or important hallucinations.
-1 = Answer is mostly or entirely fabricated / contradicts the context.
-
-Respond in JSON: {{"score": <1-5>, "reasoning": "<one sentence>"}}"""
-
-RELEVANCE_PROMPT = """TASK: Rate how well the answer addresses the question asked.
-
-QUESTION: {question}
-
-ANSWER:
-{answer}
-
-Rate answer relevance 1-5:
-5 = Directly and completely answers what was asked.
-4 = Answers the question with minor gaps or tangents.
-3 = Partially answers — addresses the question but misses important aspects.
-2 = Barely relevant — the answer exists but doesn't address the core question.
-1 = Off-topic — the answer does not address the question at all.
-
-Respond in JSON: {{"score": <1-5>, "reasoning": "<one sentence>"}}"""
-
-CONTEXT_PRECISION_PROMPT = """TASK: Rate how precise and relevant the retrieved chunks are to the question.
-Context Precision = What fraction of retrieved chunks are genuinely useful for answering this question?
-
-QUESTION: {question}
-
-RETRIEVED CHUNKS:
-{chunks_formatted}
-
-Rate context precision 1-5:
-5 = All retrieved chunks are highly relevant and useful for answering the question.
-4 = Most chunks (≥80%) are relevant; 1-2 minor distractors.
-3 = About half the chunks are relevant; noticeable noise.
-2 = Few chunks relevant; mostly noise retrieved.
-1 = No chunks retrieved are relevant to the question.
-
-Respond in JSON: {{"score": <1-5>, "reasoning": "<one sentence>"}}"""
-
-
-# ── Helpers ───────────────────────────────────────────────────────────────────
-def search_hybrid(query, qdrant, vo, sparse_model, top_k=5):
-    dense_result = vo.embed([query], model=VOYAGE_EMBED_MODEL, input_type="query")
-    q_dense = dense_result.embeddings[0]
-
-    q_sparse_raw = list(sparse_model.embed([query]))[0]
-    q_sparse = SparseVector(
-        indices=q_sparse_raw.indices.tolist(),
-        values=q_sparse_raw.values.tolist(),
-    )
-
-    candidates = qdrant.query_points(
-        collection_name=COLLECTION_W3,
-        prefetch=[
-            Prefetch(query=q_sparse, using="sparse", limit=RETRIEVE_COUNT),
-            Prefetch(query=q_dense,  using="dense",  limit=RETRIEVE_COUNT),
-        ],
-        query=FusionQuery(fusion=Fusion.RRF),
-        limit=RETRIEVE_COUNT,
-        with_payload=True,
-        with_vectors=False,
-    ).points
-
-    if not candidates:
-        return []
-
-    documents = [r.payload.get("text", "") for r in candidates]
-    reranked   = vo.rerank(query, documents, model=VOYAGE_RERANK_MODEL, top_k=top_k)
-
-    results = []
-    for item in reranked.results:
-        candidate = candidates[item.index]
-        candidate.score = item.relevance_score
-        results.append(candidate)
-    return results
-
-
-def format_context(chunks):
-    parts = []
-    for i, r in enumerate(chunks, 1):
-        name = r.payload.get("recipe_name", "?")
-        text = (r.payload.get("text") or "")[:400]
-        parts.append(f"[Chunk {i}: {name}]\n{text}")
-    return "\n\n".join(parts)
-
-
-def format_chunks_for_judge(chunks):
-    lines = []
-    for i, r in enumerate(chunks, 1):
-        name    = r.payload.get("recipe_name", "?")
-        creator = r.payload.get("creator", "")
-        score   = round(r.score, 4)
-        text    = (r.payload.get("text") or "")[:200]
-        lines.append(f"Chunk {i} (score={score}): {name} by {creator}\nPreview: {text}...")
-    return "\n\n".join(lines)
-
-
-def call_judge_dimension(gemini, prompt: str) -> dict:
-    resp = gemini.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=prompt,
-        config={"response_mime_type": "application/json"},
-    )
+def measure_request(url, query, session_id="test_session"):
+    print(f"\n--- Query: '{query}' ---")
+    start = time.time()
+    payload = {"query": query, "session_id": session_id}
     try:
-        return json.loads(resp.text)
-    except Exception:
-        import re
-        m = re.search(r"\{.*\}", resp.text, re.DOTALL)
-        if m:
-            return json.loads(m.group(0))
-        return {"score": 0, "reasoning": f"Parse error: {resp.text[:200]}"}
-
-
-# ── Main evaluation ───────────────────────────────────────────────────────────
-def run_eval(top_k: int = 5, dry_run: bool = False):
-    print("\n=== 14_run_judge_eval.py — Week 4 Decomposed Judge Evaluation ===\n")
-
-    if not GOLDEN_FILE.exists():
-        print(f"[ERROR] Golden dataset not found: {GOLDEN_FILE}")
-        print("Run: python scripts/12_build_golden_dataset.py")
-        sys.exit(1)
-
-    with open(GOLDEN_FILE) as f:
-        golden = json.load(f)
-    print(f"Loaded {len(golden)} golden questions.\n")
-
-    if dry_run:
-        for g in golden:
-            print(f"  [{g['id']}] ({g['type']}) {g['question']}")
-        print(f"\n[DRY RUN] Would evaluate {len(golden)} questions with 3 judge calls each.")
-        return
-
-    print("Initialising clients...")
-    qdrant       = QdrantClient(url=QDRANT_URL, api_key=QDRANT_API_KEY)
-    vo           = voyageai.Client(api_key=VOYAGE_API_KEY)
-    sparse_model = SparseTextEmbedding(SPARSE_MODEL)
-    gemini       = genai.Client(api_key=GOOGLE_API_KEY)
-    print("[OK] Clients ready.\n")
-
-    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-
-    results = []
-    for g in golden:
-        qid      = g["id"]
-        question = g["question"]
-        print(f"── [{qid}] {question}")
-
-        # Retrieve
-        chunks = search_hybrid(question, qdrant, vo, sparse_model, top_k=top_k)
-        if not chunks:
-            print("  [WARN] No chunks returned.\n")
-            results.append({
-                "id": qid, "question": question, "type": g["type"],
-                "faithfulness": 0, "answer_relevance": 0, "context_precision": 0,
-                "generated_answer": "", "top_chunks": []
-            })
-            continue
-
-        chunk_names = [r.payload.get("recipe_name", "?") for r in chunks]
-        print(f"  Top chunks: {chunk_names}")
-
-        # Generate answer
-        context = format_context(chunks)
-        answer_resp = gemini.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=ANSWER_PROMPT.format(question=question, context=context),
-        )
-        generated_answer = answer_resp.text.strip()
-        time.sleep(0.5)
-
-        # Score faithfulness
-        faith = call_judge_dimension(gemini, FAITHFULNESS_PROMPT.format(
-            question=question, context=context, answer=generated_answer))
-        time.sleep(0.5)
-
-        # Score answer relevance
-        relevance = call_judge_dimension(gemini, RELEVANCE_PROMPT.format(
-            question=question, answer=generated_answer))
-        time.sleep(0.5)
-
-        # Score context precision
-        ctx_prec = call_judge_dimension(gemini, CONTEXT_PRECISION_PROMPT.format(
-            question=question, chunks_formatted=format_chunks_for_judge(chunks)))
-        time.sleep(0.5)
-
-        f_score = faith.get("score", 0)
-        r_score = relevance.get("score", 0)
-        c_score = ctx_prec.get("score", 0)
-
-        print(f"  faithfulness={f_score}/5  relevance={r_score}/5  ctx_precision={c_score}/5\n")
-
-        results.append({
-            "id":                qid,
-            "question":          question,
-            "type":              g["type"],
-            "faithfulness":      f_score,
-            "faithfulness_reasoning": faith.get("reasoning", ""),
-            "answer_relevance":  r_score,
-            "answer_relevance_reasoning": relevance.get("reasoning", ""),
-            "context_precision": c_score,
-            "context_precision_reasoning": ctx_prec.get("reasoning", ""),
-            "avg_score":         round((f_score + r_score + c_score) / 3, 2),
-            "generated_answer":  generated_answer,
-            "top_chunks":        [
-                {"recipe_name": r.payload.get("recipe_name","?"),
-                 "creator": r.payload.get("creator",""),
-                 "score": round(r.score, 4)}
-                for r in chunks
-            ],
-            "timestamp":         datetime.now().isoformat(),
-        })
-
-    # Aggregate
-    n = len(results)
-    avg_faith = sum(r["faithfulness"]      for r in results) / n
-    avg_rel   = sum(r["answer_relevance"]  for r in results) / n
-    avg_ctx   = sum(r["context_precision"] for r in results) / n
-    avg_all   = (avg_faith + avg_rel + avg_ctx) / 3
-
-    output = {
-        "method":      "decomposed_llm_judge",
-        "system":      COLLECTION_W3,
-        "model":       "gemini-2.5-flash",
-        "top_k":       top_k,
-        "n_questions": n,
-        "summary": {
-            "avg_faithfulness":      round(avg_faith, 4),
-            "avg_answer_relevance":  round(avg_rel, 4),
-            "avg_context_precision": round(avg_ctx, 4),
-            "avg_overall":           round(avg_all, 4),
-        },
-        "results":    results,
-        "timestamp":  datetime.now().isoformat(),
-    }
-
-    OUTPUT_FILE.write_text(json.dumps(output, indent=2, ensure_ascii=False))
-    print(f"\n[DONE] Results → {OUTPUT_FILE}")
-    print(f"\n┌─ Decomposed Judge Summary ──────────────────┐")
-    print(f"│  Avg Faithfulness:        {avg_faith:.2f}/5")
-    print(f"│  Avg Answer Relevance:    {avg_rel:.2f}/5")
-    print(f"│  Avg Context Precision:   {avg_ctx:.2f}/5")
-    print(f"│  Avg Overall:             {avg_all:.2f}/5")
-    print(f"└─────────────────────────────────────────────┘")
-
-    print(f"\n{'ID':<5} {'Type':<25} {'Faith':<7} {'Rel':<5} {'CtxP':<6} {'Avg'}")
-    print("─" * 70)
-    for r in results:
-        print(f"{r['id']:<5} {r['type']:<25} {r['faithfulness']:<7} "
-              f"{r['answer_relevance']:<5} {r['context_precision']:<6} {r['avg_score']}")
-
+        resp = requests.post(f"{url}/query", json=payload)
+        resp.raise_for_status()
+        data = resp.json()
+        duration = time.time() - start
+        
+        print(f"Time: {duration:.3f}s")
+        print(f"Source: {data.get('source')}")
+        print(f"Type: {data.get('query_type')}")
+        print(f"Rewritten: {data.get('rewritten_query')}")
+        print(f"Answer snippet: {data.get('answer', '')[:100]}...\n")
+        return data
+    except requests.exceptions.RequestException as e:
+        print(f"Request failed: {e}")
+        return None
 
 def main():
-    parser = argparse.ArgumentParser(description="Run decomposed judge evaluation (Week 4 Method 2)")
-    parser.add_argument("--top-k",   type=int, default=5,  help="Chunks to retrieve")
-    parser.add_argument("--dry-run", action="store_true",  help="List questions only")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--url", default="http://localhost:8000", help="Base URL of the RAG application")
     args = parser.parse_args()
-    run_eval(top_k=args.top_k, dry_run=args.dry_run)
 
+    print(f"Testing against {args.url}")
+    print("Waiting for server to be healthy...")
+    
+    retries = 0
+    while retries < 15:
+        try:
+            r = requests.get(f"{args.url}/health")
+            if r.status_code == 200:
+                print("Server is healthy!\n")
+                break
+        except requests.exceptions.ConnectionError:
+            pass
+        time.sleep(2)
+        retries += 1
+    else:
+        print("Could not connect to server.")
+        return
+
+    # 1. Routing & Initial query
+    print("Test 1: Routing & Base Query (HOW_TO)")
+    measure_request(args.url, "How do I make the Ezekiel Sandwich?", session_id="session1")
+
+    # 2. Caching check
+    print("Test 2: Semantic Caching Hit")
+    measure_request(args.url, "How do I make the Ezekiel Sandwich?", session_id="session1")
+
+    # 3. Conversation memory check
+    print("Test 3: Conversation Memory (Follow-up)")
+    measure_request(args.url, "What about using gluten-free bread for it?", session_id="session1")
+
+    # 4. Another query type
+    print("Test 4: Routing (PLAN)")
+    measure_request(args.url, "Plan a 2-day lunch meal plan for me.", session_id="session2")
 
 if __name__ == "__main__":
     main()
