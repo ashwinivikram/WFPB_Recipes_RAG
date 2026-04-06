@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   redis:
     # Need redis-stack for RediSearch/RedisJSON capabilities

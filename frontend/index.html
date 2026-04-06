@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WFPB Recipe Assistant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --container-bg: rgba(30, 41, 59, 0.7);
+            --text-color: #f1f5f9;
+            --text-muted: #94a3b8;
+            --accent-color: #10b981;
+            --accent-hover: #059669;
+            --user-msg-bg: rgba(16, 185, 129, 0.2);
+            --bot-msg-bg: rgba(51, 65, 85, 0.6);
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.15) 0px, transparent 50%);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 900px;
+            height: 90vh;
+            background: var(--container-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-header {
+            padding: 20px 30px;
+            background: rgba(15, 23, 42, 0.4);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-title {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            scroll-behavior: smooth;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 15px 20px;
+            border-radius: 15px;
+            line-height: 1.6;
+            animation: messageSlide 0.3s ease-out;
+            word-wrap: break-word;
+        }
+
+        .message p {
+            margin: 0 0 10px 0;
+        }
+        .message p:last-child {
+            margin: 0;
+        }
+        .message ul, .message ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        @keyframes messageSlide {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .message-user {
+            align-self: flex-end;
+            background: var(--user-msg-bg);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-bot {
+            align-self: flex-start;
+            background: var(--bot-msg-bg);
+            border: 1px solid var(--border-color);
+            border-bottom-left-radius: 4px;
+        }
+
+        .message-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .meta-tag {
+            background: rgba(0,0,0,0.2);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .source-cache { color: #3b82f6; }
+        .source-gen { color: #8b5cf6; }
+
+        .chat-input-container {
+            padding: 20px 30px;
+            background: rgba(15, 23, 42, 0.4);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 15px;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .chat-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+        }
+
+        .chat-submit {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-submit:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .chat-submit:active {
+            transform: translateY(1px);
+        }
+
+        .typing-indicator {
+            display: none;
+            align-self: flex-start;
+            background: var(--bot-msg-bg);
+            padding: 15px 20px;
+            border-radius: 15px;
+            border-bottom-left-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--text-muted);
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1 class="header-title">
+                <div class="status-dot"></div>
+                WFPB Recipe Assistant
+            </h1>
+            <span style="color: var(--text-muted); font-size: 0.9rem;">Powered by Gemini & Qdrant</span>
+        </div>
+
+        <div class="chat-messages" id="messages">
+            <div class="message message-bot">
+                <p>Hello! I'm your semantic Whole Food Plant-Based recipe assistant. Ask me how to make any recipe, or request a meal plan!</p>
+            </div>
+            
+            <div class="typing-indicator" id="typing">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+
+        <div class="chat-input-container">
+            <input type="text" id="userInput" class="chat-input" placeholder="Ask for a recipe or meal plan..." autocomplete="off">
+            <button id="sendBtn" class="chat-submit">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "http://localhost:8000/query";
+        const SESSION_ID = "web-session-" + Math.floor(Math.random() * 100000);
+        
+        const messagesDiv = document.getElementById("messages");
+        const typingIndicator = document.getElementById("typing");
+        const userInput = document.getElementById("userInput");
+        const sendBtn = document.getElementById("sendBtn");
+
+        function scrollToBottom() {
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function addMessage(text, sender, meta = null) {
+            const msgDiv = document.createElement("div");
+            msgDiv.className = `message message-${sender}`;
+            
+            // Format text using Marked.js if it's the bot
+            const contentHTML = sender === "bot" ? marked.parse(text) : `<p>${text}</p>`;
+            msgDiv.innerHTML = contentHTML;
+
+            // Add metadata badges if available
+            if (meta) {
+                const metaDiv = document.createElement("div");
+                metaDiv.className = "message-meta";
+                
+                if (meta.source) {
+                    const sourceClass = meta.source === 'cache' ? 'source-cache' : 'source-gen';
+                    const sourceIcon = meta.source === 'cache' ? '⚡' : '🧠';
+                    metaDiv.innerHTML += `<span class="meta-tag ${sourceClass}">${sourceIcon} ${meta.source.toUpperCase()}</span>`;
+                }
+                if (meta.query_type && meta.query_type !== 'None') {
+                    metaDiv.innerHTML += `<span class="meta-tag">Rout: ${meta.query_type}</span>`;
+                }
+                
+                msgDiv.appendChild(metaDiv);
+            }
+
+            messagesDiv.insertBefore(msgDiv, typingIndicator);
+            scrollToBottom();
+        }
+
+        async function sendMessage() {
+            const text = userInput.value.trim();
+            if (!text) return;
+
+            addMessage(text, "user");
+            userInput.value = "";
+            userInput.disabled = true;
+            sendBtn.disabled = true;
+            
+            typingIndicator.style.display = "block";
+            scrollToBottom();
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        query: text,
+                        session_id: SESSION_ID
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error("Server responded with " + response.status);
+                }
+
+                const data = await response.json();
+                
+                typingIndicator.style.display = "none";
+                addMessage(data.answer, "bot", {
+                    source: data.source,
+                    query_type: data.query_type
+                });
+
+            } catch (err) {
+                typingIndicator.style.display = "none";
+                addMessage("Sorry, I encountered an error connecting to the backend. Please check if Docker is running.", "bot");
+                console.error(err);
+            } finally {
+                userInput.disabled = false;
+                sendBtn.disabled = false;
+                userInput.focus();
+            }
+        }
+
+        sendBtn.addEventListener("click", sendMessage);
+        userInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") sendMessage();
+        });
+        
+        userInput.focus();
+    </script>
+</body>
+</html>

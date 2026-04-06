@@ -3,11 +3,11 @@ import voyageai
 import numpy as np
 from redis.commands.search.field import VectorField, TextField
 from redis.commands.search.query import Query
-from redis.commands.search.indexDefinition import IndexDefinition, IndexType
+from redis.commands.search.index_definition import IndexDefinition, IndexType
 from redis.exceptions import ResponseError
 
 class SemanticCache:
-    def __init__(self, redis_url: str, voyage_client: voyageai.Client, namespace: str = "cache", distance_threshold: float = 0.60, ttl: int = 86400):
+    def __init__(self, redis_url: str, voyage_client: voyageai.Client, namespace: str = "cache", distance_threshold: float = 0.15, ttl: int = 86400):
         # We use a threshold around 0.60 to 0.70 for cosine distance depending on the embeddings. 0.08 might be too tight. We can adjust later.
         self.redis = redis.from_url(redis_url)
         self.voyage = voyage_client

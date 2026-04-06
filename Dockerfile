@@ -8,8 +8,11 @@ RUN pip install --no-cache-dir uv
 # Copy project files
 COPY pyproject.toml uv.lock ./
 
-# Install dependencies into system Python
-RUN uv sync --no-dev --system
+# Install dependencies into a virtual environment
+RUN uv sync --no-dev
+
+# Ensure the virtual environment is used
+ENV PATH="/app/.venv/bin:$PATH"
 
 # Download the BM25 model at build time to avoid downloading on startup
 RUN python -c "from fastembed import SparseTextEmbedding; SparseTextEmbedding('Qdrant/bm25')"

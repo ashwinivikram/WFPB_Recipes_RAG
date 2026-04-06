@@ -13,14 +13,28 @@ from qdrant_client import QdrantClient
 load_dotenv()
 
 # We can reuse the retrieval pipeline from week 3
-from scripts.09_rag_with_rerank import retrieve_and_rerank, build_context
+import importlib
+rag_rerank = importlib.import_module("scripts.09_rag_with_rerank")
+retrieve_and_rerank = rag_rerank.retrieve_and_rerank
+build_context = rag_rerank.build_context
 
 # Import our new production services
 from app.services.conversation import ConversationMemory
 from app.services.semantic_cache import SemanticCache
 from app.services.query_router import QueryRouter
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI(title="WFPB Recipe Production RAG")
+
+# Enable CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # 1. Initialize Clients
 gemini = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
